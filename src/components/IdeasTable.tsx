@@ -250,10 +250,10 @@ const IdeasTable: React.FC<IdeasTableProps> = ({ ideas, onRowClick }) => {
   return (
     <div className="bg-slate-800 border border-slate-700 rounded-lg overflow-hidden">
       <div className="overflow-x-auto">
-        <table className="w-full">
+        <table className="w-full min-w-[1200px]">
           <thead>
             <tr className="border-b border-slate-700/50">
-              <SortableHeader field="niche" className="text-left py-3 px-4 text-xs font-semibold text-slate-400 uppercase tracking-wider">
+              <SortableHeader field="niche" className="text-left py-3 px-4 text-xs font-semibold text-slate-400 uppercase tracking-wider w-80">
                 <Tooltip text="Product domain/market niche (e.g. SEO, HR, DevTools)">
                   <div className="flex items-center gap-1 cursor-help">
                     Niche
@@ -261,7 +261,7 @@ const IdeasTable: React.FC<IdeasTableProps> = ({ ideas, onRowClick }) => {
                   </div>
                 </Tooltip>
               </SortableHeader>
-              <SortableHeader field="mrr">
+              <SortableHeader field="mrr" className="text-center py-3 px-3 text-xs font-semibold text-slate-400 uppercase tracking-wider w-24">
                 <Tooltip text="Monthly Recurring Revenue in USD">
                   <div className="flex items-center gap-1 cursor-help justify-center">
                     MRR
@@ -269,7 +269,7 @@ const IdeasTable: React.FC<IdeasTableProps> = ({ ideas, onRowClick }) => {
                   </div>
                 </Tooltip>
               </SortableHeader>
-              <SortableHeader field="complexity">
+              <SortableHeader field="complexity" className="text-center py-3 px-3 text-xs font-semibold text-slate-400 uppercase tracking-wider w-20">
                 <Tooltip text="Build complexity (1 = trivial, 5 = hard R&D)">
                   <div className="flex items-center gap-1 cursor-help justify-center">
                     Complexity
@@ -277,7 +277,7 @@ const IdeasTable: React.FC<IdeasTableProps> = ({ ideas, onRowClick }) => {
                   </div>
                 </Tooltip>
               </SortableHeader>
-              <SortableHeader field="mvpWk">
+              <SortableHeader field="mvpWk" className="text-center py-3 px-3 text-xs font-semibold text-slate-400 uppercase tracking-wider w-20">
                 <Tooltip text="Days to build MVP (target ≤ 7)">
                   <div className="flex items-center gap-1 cursor-help justify-center">
                     MVP Days
@@ -285,7 +285,7 @@ const IdeasTable: React.FC<IdeasTableProps> = ({ ideas, onRowClick }) => {
                   </div>
                 </Tooltip>
               </SortableHeader>
-              <SortableHeader field="oneKMrrChance">
+              <SortableHeader field="oneKMrrChance" className="text-center py-3 px-3 text-xs font-semibold text-slate-400 uppercase tracking-wider w-20">
                 <Tooltip text="Likelihood to hit ≥ $1k MRR in 6-12 months (H/M/L)">
                   <div className="flex items-center gap-1 cursor-help justify-center">
                     1k MRR
@@ -293,7 +293,7 @@ const IdeasTable: React.FC<IdeasTableProps> = ({ ideas, onRowClick }) => {
                   </div>
                 </Tooltip>
               </SortableHeader>
-              <SortableHeader field="comp">
+              <SortableHeader field="comp" className="text-center py-3 px-3 text-xs font-semibold text-slate-400 uppercase tracking-wider w-24">
                 <Tooltip text="Competitive intensity in the market">
                   <div className="flex items-center gap-1 cursor-help justify-center">
                     Competition
@@ -301,7 +301,7 @@ const IdeasTable: React.FC<IdeasTableProps> = ({ ideas, onRowClick }) => {
                   </div>
                 </Tooltip>
               </SortableHeader>
-              <SortableHeader field="platDep">
+              <SortableHeader field="platDep" className="text-center py-3 px-3 text-xs font-semibold text-slate-400 uppercase tracking-wider w-24">
                 <Tooltip text="Platform-dependence risk (None/Low/Med/High)">
                   <div className="flex items-center gap-1 cursor-help justify-center">
                     Platform Risk
@@ -309,7 +309,7 @@ const IdeasTable: React.FC<IdeasTableProps> = ({ ideas, onRowClick }) => {
                   </div>
                 </Tooltip>
               </SortableHeader>
-              <SortableHeader field="revenuePotential">
+              <SortableHeader field="revenuePotential" className="text-center py-3 px-3 text-xs font-semibold text-slate-400 uppercase tracking-wider w-24">
                 <Tooltip text="Revenue potential assessment (H/M/L)">
                   <div className="flex items-center gap-1 cursor-help justify-center">
                     Revenue Pot.
@@ -317,7 +317,7 @@ const IdeasTable: React.FC<IdeasTableProps> = ({ ideas, onRowClick }) => {
                   </div>
                 </Tooltip>
               </SortableHeader>
-              <SortableHeader field="marketProof">
+              <SortableHeader field="marketProof" className="text-center py-3 px-3 text-xs font-semibold text-slate-400 uppercase tracking-wider w-24">
                 <Tooltip text="At least one indie hits ≥ 30k MRR in same niche">
                   <div className="flex items-center gap-1 cursor-help justify-center">
                     Market Proof
@@ -325,7 +325,7 @@ const IdeasTable: React.FC<IdeasTableProps> = ({ ideas, onRowClick }) => {
                   </div>
                 </Tooltip>
               </SortableHeader>
-              <SortableHeader field="passiveness">
+              <SortableHeader field="passiveness" className="text-center py-3 px-3 text-xs font-semibold text-slate-400 uppercase tracking-wider w-20">
                 <Tooltip text="Passiveness grade (A = highly passive, D = hands-on)">
                   <div className="flex items-center gap-1 cursor-help justify-center">
                     Passiveness
@@ -333,7 +333,7 @@ const IdeasTable: React.FC<IdeasTableProps> = ({ ideas, onRowClick }) => {
                   </div>
                 </Tooltip>
               </SortableHeader>
-              <SortableHeader field="maintHours">
+              <SortableHeader field="maintHours" className="text-center py-3 px-3 text-xs font-semibold text-slate-400 uppercase tracking-wider w-24">
                 <Tooltip text="Monthly maintenance hours (goal ≤ 10)">
                   <div className="flex items-center gap-1 cursor-help justify-center">
                     Maint (h/mo)
@@ -341,7 +341,7 @@ const IdeasTable: React.FC<IdeasTableProps> = ({ ideas, onRowClick }) => {
                   </div>
                 </Tooltip>
               </SortableHeader>
-              <SortableHeader field="score">
+              <SortableHeader field="score" className="text-center py-3 px-3 text-xs font-semibold text-slate-400 uppercase tracking-wider w-20">
                 <Tooltip text="Overall attractiveness score (0-100)">
                   <div className="flex items-center gap-1 cursor-help justify-center">
                     Score
@@ -349,7 +349,7 @@ const IdeasTable: React.FC<IdeasTableProps> = ({ ideas, onRowClick }) => {
                   </div>
                 </Tooltip>
               </SortableHeader>
-              <SortableHeader field="user">
+              <SortableHeader field="user" className="text-center py-3 px-3 text-xs font-semibold text-slate-400 uppercase tracking-wider w-24">
                 <Tooltip text="Primary target user persona">
                   <div className="flex items-center gap-1 cursor-help justify-center">
                     User
@@ -366,7 +366,7 @@ const IdeasTable: React.FC<IdeasTableProps> = ({ ideas, onRowClick }) => {
                 className="border-b border-slate-700/30 hover:bg-slate-800/30 cursor-pointer transition-all duration-200 group"
                 onClick={() => onRowClick(idea)}
               >
-                <td className="py-3 px-4 max-w-xs">
+                <td className="py-3 px-4 w-80">
                   <div className="flex flex-col">
                     <div className="flex items-center gap-2 mb-2">
                       <span className="px-2 py-1 bg-purple-600/20 border border-purple-500/30 text-purple-300 text-xs font-semibold rounded-md truncate">
