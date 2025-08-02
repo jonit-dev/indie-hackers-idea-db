@@ -144,3 +144,21 @@
   @apply border-purple-400/50 bg-white/10;
   box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
 }
+
+/* Modal scrollbar styling */
+.modal-scroll::-webkit-scrollbar {
+  width: 4px;
+}
+
+.modal-scroll::-webkit-scrollbar-track {
+  background: rgba(30, 41, 59, 0.5);
+}
+
+.modal-scroll::-webkit-scrollbar-thumb {
+  background: rgba(71, 85, 105, 0.8);
+  border-radius: 2px;
+}
+
+.modal-scroll::-webkit-scrollbar-thumb:hover {
+  background: rgba(100, 116, 139, 0.9);
+}

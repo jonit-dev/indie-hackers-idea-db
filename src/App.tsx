@@ -1,116 +1,57 @@
-import React, { useState, useMemo } from 'react';
-import { Search, Filter, Plus, Database, TrendingUp, SlidersHorizontal, X } from 'lucide-react';
+import React from 'react';
+import { Search, Plus, Database, TrendingUp, SlidersHorizontal, X } from 'lucide-react';
 import IdeasTable from './components/IdeasTable';
 import InsightsModal from './components/InsightsModal';
-import { IndieHackerIdea } from './types/idea';
-import { mockIdeas } from './data/mockData';
+import { useMicroSaasStore } from './stores/microSaasStore';
 
 function App() {
-  const [ideas] = useState<IndieHackerIdea[]>(mockIdeas);
-  const [selectedIdea, setSelectedIdea] = useState<IndieHackerIdea | null>(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [filterCategory, setFilterCategory] = useState('All');
-  const [filterStatus, setFilterStatus] = useState('All');
-  const [filterDifficulty, setFilterDifficulty] = useState('All');
-  const [filterCompetition, setFilterCompetition] = useState('All');
-  const [showAdvancedFilters, setShowAdvancedFilters] = useState(false);
-  const [sortBy, setSortBy] = useState('upvotes');
-  const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('desc');
+  const {
+    selectedIdea,
+    isModalOpen,
+    searchTerm,
+    filterNiche,
+    filterComp,
+    filterComplexity,
+    filterOneKMrrChance,
+    showAdvancedFilters,
+    sortBy,
+    sortOrder,
+    setSearchTerm,
+    setFilterNiche,
+    setFilterComp,
+    setFilterComplexity,
+    setFilterOneKMrrChance,
+    setShowAdvancedFilters,
+    setSortBy,
+    setSortOrder,
+    clearAllFilters,
+    openModal,
+    closeModal,
+    getFilteredIdeas,
+    hasActiveFilters,
+    getTotalIdeas,
+    getHighScoreIdeas,
+    getAvgScore,
+    getNiches
+  } = useMicroSaasStore();
 
-  const categories = useMemo(() => {
-    const cats = Array.from(new Set(ideas.map(idea => idea.category)));
-    return ['All', ...cats];
-  }, [ideas]);
+  const niches = getNiches();
 
-  const statuses = useMemo(() => {
-    const stats = Array.from(new Set(ideas.map(idea => idea.status)));
-    return ['All', ...stats];
-  }, [ideas]);
+  const competitions = ['All', 'Low', 'Med', 'High'];
+  const complexities = ['All', '1', '2', '3', '4', '5'];
+  const oneKMrrChances = ['All', 'H', 'M', 'L'];
 
-  const difficulties = ['All', 'Easy', 'Medium', 'Hard'];
-  const competitions = ['All', 'Low', 'Medium', 'High'];
+  const filteredIdeas = getFilteredIdeas();
 
-  const filteredIdeas = useMemo(() => {
-    let filtered = ideas.filter(idea => {
-      const matchesSearch = idea.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        idea.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        idea.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()));
-      
-      const matchesCategory = filterCategory === 'All' || idea.category === filterCategory;
-      const matchesStatus = filterStatus === 'All' || idea.status === filterStatus;
-      const matchesDifficulty = filterDifficulty === 'All' || idea.difficulty === filterDifficulty;
-      const matchesCompetition = filterCompetition === 'All' || idea.competition === filterCompetition;
-      
-      return matchesSearch && matchesCategory && matchesStatus && matchesDifficulty && matchesCompetition;
-    });
+  const handleRowClick = openModal;
+  const handleCloseModal = closeModal;
 
-    // Sort the filtered results
-    filtered.sort((a, b) => {
-      let aValue, bValue;
-      
-      switch (sortBy) {
-        case 'title':
-          aValue = a.title.toLowerCase();
-          bValue = b.title.toLowerCase();
-          break;
-        case 'marketPotential':
-          aValue = a.marketPotential;
-          bValue = b.marketPotential;
-          break;
-        case 'timeToMarket':
-          aValue = a.timeToMarket;
-          bValue = b.timeToMarket;
-          break;
-        case 'upvotes':
-          aValue = a.upvotes;
-          bValue = b.upvotes;
-          break;
-        case 'dateAdded':
-          aValue = new Date(a.dateAdded).getTime();
-          bValue = new Date(b.dateAdded).getTime();
-          break;
-        default:
-          aValue = a.upvotes;
-          bValue = b.upvotes;
-      }
 
-      if (typeof aValue === 'string') {
-        return sortOrder === 'asc' ? aValue.localeCompare(bValue as string) : (bValue as string).localeCompare(aValue);
-      } else {
-        return sortOrder === 'asc' ? (aValue as number) - (bValue as number) : (bValue as number) - (aValue as number);
-      }
-    });
+  const activeFilters = hasActiveFilters();
 
-    return filtered;
-  }, [ideas, searchTerm, filterCategory, filterStatus, filterDifficulty, filterCompetition, sortBy, sortOrder]);
-
-  const handleRowClick = (idea: IndieHackerIdea) => {
-    setSelectedIdea(idea);
-    setIsModalOpen(true);
-  };
-
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-    setSelectedIdea(null);
-  };
-
-  const clearAllFilters = () => {
-    setSearchTerm('');
-    setFilterCategory('All');
-    setFilterStatus('All');
-    setFilterDifficulty('All');
-    setFilterCompetition('All');
-    setSortBy('upvotes');
-    setSortOrder('desc');
-  };
-
-  const hasActiveFilters = searchTerm || filterCategory !== 'All' || filterStatus !== 'All' || 
-    filterDifficulty !== 'All' || filterCompetition !== 'All';
-
-  const totalIdeas = ideas.length;
-  const launchedIdeas = ideas.filter(idea => idea.status === 'Launched').length;
-  const avgMarketPotential = Math.round(ideas.reduce((sum, idea) => sum + idea.marketPotential, 0) / ideas.length);
+  const totalIdeas = getTotalIdeas();
+  const highScoreIdeas = getHighScoreIdeas();
+  const avgScore = getAvgScore();
 
   return (
     <div className="min-h-screen bg-slate-900">
@@ -160,12 +101,12 @@ function App() {
                 <TrendingUp className="w-5 h-5 text-green-400" />
               </div>
               <div className="text-right">
-                <div className="text-2xl font-bold text-white">{launchedIdeas}</div>
-                <div className="text-xs text-slate-400">launched</div>
+                <div className="text-2xl font-bold text-white">{highScoreIdeas}</div>
+                <div className="text-xs text-slate-400">high score</div>
               </div>
             </div>
-            <div className="text-sm font-medium text-slate-300">Launched Projects</div>
-            <div className="text-xs text-slate-500 mt-1">Successfully launched</div>
+            <div className="text-sm font-medium text-slate-300">Score ≥ 80</div>
+            <div className="text-xs text-slate-500 mt-1">High potential ideas</div>
           </div>
 
           <div className="bg-slate-800 border border-slate-700 rounded-lg p-4 hover:bg-slate-750 transition-colors">
@@ -174,11 +115,11 @@ function App() {
                 <TrendingUp className="w-5 h-5 text-orange-400" />
               </div>
               <div className="text-right">
-                <div className="text-2xl font-bold text-white">{avgMarketPotential}/10</div>
-                <div className="text-xs text-slate-400">score</div>
+                <div className="text-2xl font-bold text-white">{avgScore}/100</div>
+                <div className="text-xs text-slate-400">average</div>
               </div>
             </div>
-            <div className="text-sm font-medium text-slate-300">Avg Market Potential</div>
+            <div className="text-sm font-medium text-slate-300">Avg Score</div>
             <div className="text-xs text-slate-500 mt-1">Across all ideas</div>
           </div>
         </div>
@@ -204,24 +145,24 @@ function App() {
               <div className="flex gap-2">
                 <select
                   className="px-3 py-2.5 text-sm font-medium text-white min-w-[120px] bg-slate-700 border border-slate-600 rounded-lg focus:border-slate-500 focus:outline-none"
-                  value={filterCategory}
-                  onChange={(e) => setFilterCategory(e.target.value)}
+                  value={filterNiche}
+                  onChange={(e) => setFilterNiche(e.target.value)}
                 >
-                  {categories.map(category => (
-                    <option key={category} value={category} className="bg-slate-800 text-white">
-                      {category === 'All' ? 'All Categories' : category}
+                  {niches.map(niche => (
+                    <option key={niche} value={niche} className="bg-slate-800 text-white">
+                      {niche === 'All' ? 'All Niches' : niche}
                     </option>
                   ))}
                 </select>
 
                 <select
                   className="px-3 py-2.5 text-sm font-medium text-white min-w-[100px] bg-slate-700 border border-slate-600 rounded-lg focus:border-slate-500 focus:outline-none"
-                  value={filterStatus}
-                  onChange={(e) => setFilterStatus(e.target.value)}
+                  value={filterComp}
+                  onChange={(e) => setFilterComp(e.target.value)}
                 >
-                  {statuses.map(status => (
-                    <option key={status} value={status} className="bg-slate-800 text-white">
-                      {status === 'All' ? 'All Status' : status}
+                  {competitions.map(comp => (
+                    <option key={comp} value={comp} className="bg-slate-800 text-white">
+                      {comp === 'All' ? 'All Competition' : comp}
                     </option>
                   ))}
                 </select>
@@ -245,27 +186,27 @@ function App() {
               <div className="border-t border-slate-700 pt-4">
                 <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-4">
                   <div>
-                    <label className="block text-xs font-medium text-slate-400 mb-1">Difficulty</label>
+                    <label className="block text-xs font-medium text-slate-400 mb-1">Complexity</label>
                     <select
                       className="w-full px-3 py-2 text-sm font-medium text-white bg-slate-700 border border-slate-600 rounded-lg focus:border-slate-500 focus:outline-none"
-                      value={filterDifficulty}
-                      onChange={(e) => setFilterDifficulty(e.target.value)}
+                      value={filterComplexity}
+                      onChange={(e) => setFilterComplexity(e.target.value)}
                     >
-                      {difficulties.map(difficulty => (
-                        <option key={difficulty} value={difficulty} className="bg-slate-800 text-white">{difficulty}</option>
+                      {complexities.map(complexity => (
+                        <option key={complexity} value={complexity} className="bg-slate-800 text-white">{complexity}</option>
                       ))}
                     </select>
                   </div>
 
                   <div>
-                    <label className="block text-xs font-medium text-slate-400 mb-1">Competition</label>
+                    <label className="block text-xs font-medium text-slate-400 mb-1">1k MRR Chance</label>
                     <select
                       className="w-full px-3 py-2 text-sm font-medium text-white bg-slate-700 border border-slate-600 rounded-lg focus:border-slate-500 focus:outline-none"
-                      value={filterCompetition}
-                      onChange={(e) => setFilterCompetition(e.target.value)}
+                      value={filterOneKMrrChance}
+                      onChange={(e) => setFilterOneKMrrChance(e.target.value)}
                     >
-                      {competitions.map(competition => (
-                        <option key={competition} value={competition} className="bg-slate-800 text-white">{competition}</option>
+                      {oneKMrrChances.map(chance => (
+                        <option key={chance} value={chance} className="bg-slate-800 text-white">{chance}</option>
                       ))}
                     </select>
                   </div>
@@ -277,10 +218,10 @@ function App() {
                       value={sortBy}
                       onChange={(e) => setSortBy(e.target.value)}
                     >
-                      <option value="upvotes" className="bg-slate-800 text-white">Upvotes</option>
-                      <option value="marketPotential" className="bg-slate-800 text-white">Market Potential</option>
-                      <option value="timeToMarket" className="bg-slate-800 text-white">Time to Market</option>
-                      <option value="title" className="bg-slate-800 text-white">Title</option>
+                      <option value="score" className="bg-slate-800 text-white">Score</option>
+                      <option value="mrr" className="bg-slate-800 text-white">MRR</option>
+                      <option value="mvpWk" className="bg-slate-800 text-white">MVP Weeks</option>
+                      <option value="niche" className="bg-slate-800 text-white">Niche</option>
                       <option value="dateAdded" className="bg-slate-800 text-white">Date Added</option>
                     </select>
                   </div>
@@ -298,7 +239,7 @@ function App() {
                   </div>
                 </div>
 
-                {hasActiveFilters && (
+                {activeFilters && (
                   <div className="flex justify-end">
                     <button 
                       className="px-3 py-2 text-sm font-medium rounded-lg border bg-red-900/20 border-red-800 text-red-400 hover:bg-red-900/30 transition-colors flex items-center gap-1"
@@ -320,7 +261,7 @@ function App() {
             <p className="text-slate-300 text-sm font-medium">
               Showing <span className="font-bold text-white">{filteredIdeas.length}</span> of <span className="font-bold text-slate-400">{totalIdeas}</span> ideas
             </p>
-            {hasActiveFilters && (
+            {activeFilters && (
               <p className="text-xs text-slate-500 mt-1">
                 Filters applied - <button className="text-purple-400 hover:text-purple-300 font-medium" onClick={clearAllFilters}>clear all</button>
               </p>

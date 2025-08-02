@@ -1,6 +1,6 @@
 import React from 'react';
-import { IndieHackerIdea } from '../types/idea';
-import { X, ExternalLink, Calendar, DollarSign, TrendingUp, Users, Zap, Code, Target } from 'lucide-react';
+import { MicroSaasIdea } from '../types/idea';
+import { X, ExternalLink, Calendar, DollarSign, TrendingUp, Users, Zap, Code, Target, Clock } from 'lucide-react';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -30,7 +30,7 @@ ChartJS.register(
 );
 
 interface InsightsModalProps {
-  idea: IndieHackerIdea | null;
+  idea: MicroSaasIdea | null;
   isOpen: boolean;
   onClose: () => void;
 }
@@ -38,49 +38,90 @@ interface InsightsModalProps {
 const InsightsModal: React.FC<InsightsModalProps> = ({ idea, isOpen, onClose }) => {
   if (!idea || !isOpen) return null;
 
+  const getRevenuePotentialScore = (potential: string) => {
+    switch (potential) {
+      case 'H': return 85;
+      case 'M': return 60;
+      case 'L': return 35;
+      default: return 50;
+    }
+  };
+
+  const getOneKMrrChanceScore = (chance: string) => {
+    switch (chance) {
+      case 'H': return 85;
+      case 'M': return 60;
+      case 'L': return 35;
+      default: return 50;
+    }
+  };
+
+  // Calculate overall quality score for color interpolation
+  const qualityScore = (
+    idea.score +
+    getOneKMrrChanceScore(idea.oneKMrrChance) +
+    getRevenuePotentialScore(idea.revenuePotential) +
+    (idea.marketProof === 'Yes' ? 80 : 30)
+  ) / 4;
+
+  // Interpolate between red and green based on quality
+  const getQualityColor = (score: number, alpha: number = 1) => {
+    const red = Math.max(0, Math.min(255, 255 - (score - 20) * 3.2));
+    const green = Math.max(0, Math.min(255, (score - 20) * 3.2));
+    return `rgba(${red}, ${green}, 50, ${alpha})`;
+  };
+
   const radarData = {
-    labels: ['Market Size', 'Growth Potential', 'Tech Complexity', 'Resources Needed'],
+    labels: ['Score', '1k MRR Chance', 'Revenue Potential', 'Market Proof'],
     datasets: [
       {
-        label: 'Analysis Score',
+        label: 'Analysis Metrics',
         data: [
-          idea.insights.marketSize,
-          idea.insights.growthPotential,
-          idea.insights.technicalComplexity,
-          idea.insights.resourceRequirement,
+          idea.score,
+          getOneKMrrChanceScore(idea.oneKMrrChance),
+          getRevenuePotentialScore(idea.revenuePotential),
+          idea.marketProof === 'Yes' ? 80 : 30,
         ],
-        backgroundColor: 'rgba(99, 102, 241, 0.15)',
-        borderColor: 'rgba(99, 102, 241, 0.8)',
+        backgroundColor: getQualityColor(qualityScore, 0.15),
+        borderColor: getQualityColor(qualityScore, 0.8),
         borderWidth: 3,
-        pointBackgroundColor: 'rgba(99, 102, 241, 1)',
+        pointBackgroundColor: getQualityColor(qualityScore, 1),
         pointBorderColor: 'rgba(30, 41, 59, 1)',
         pointBorderWidth: 2,
         pointRadius: 6,
-        pointHoverBackgroundColor: 'rgba(99, 102, 241, 1)',
+        pointHoverBackgroundColor: getQualityColor(qualityScore, 1),
         pointHoverBorderColor: 'rgba(30, 41, 59, 1)',
         pointHoverRadius: 8,
       },
     ],
   };
 
+  // Performance metrics with normalized scales and better visualization
   const barData = {
-    labels: ['Market Score', 'Development Time', 'Community Interest'],
+    labels: ['Revenue Score', 'Time Efficiency', 'Market Viability', 'Build Feasibility'],
     datasets: [
       {
-        label: 'Key Metrics',
-        data: [idea.marketPotential * 10, idea.timeToMarket * 5, idea.upvotes],
+        label: 'Performance Metrics',
+        data: [
+          Math.min(100, (idea.mrr / 1000) * 10), // Normalize MRR to 0-100 scale
+          Math.max(0, 100 - (idea.mvpWk / 7) * 10), // Invert MVP weeks (less time = higher score)
+          idea.score, // Direct score
+          Math.max(0, 100 - (idea.complexity * 20)), // Invert complexity (lower complexity = higher score)
+        ],
         backgroundColor: [
-          'rgba(16, 185, 129, 0.9)',
-          'rgba(245, 158, 11, 0.9)',
-          'rgba(139, 92, 246, 0.9)',
+          getQualityColor(Math.min(100, (idea.mrr / 1000) * 10), 0.8),
+          getQualityColor(Math.max(0, 100 - (idea.mvpWk / 7) * 10), 0.8),
+          getQualityColor(idea.score, 0.8),
+          getQualityColor(Math.max(0, 100 - (idea.complexity * 20)), 0.8),
         ],
         borderColor: [
-          'rgba(16, 185, 129, 1)',
-          'rgba(245, 158, 11, 1)',
-          'rgba(139, 92, 246, 1)',
+          getQualityColor(Math.min(100, (idea.mrr / 1000) * 10), 1),
+          getQualityColor(Math.max(0, 100 - (idea.mvpWk / 7) * 10), 1),
+          getQualityColor(idea.score, 1),
+          getQualityColor(Math.max(0, 100 - (idea.complexity * 20)), 1),
         ],
         borderWidth: 2,
-        borderRadius: 8,
+        borderRadius: 12,
         borderSkipped: false,
       },
     ],
@@ -91,27 +132,23 @@ const InsightsModal: React.FC<InsightsModalProps> = ({ idea, isOpen, onClose }) 
     maintainAspectRatio: false,
     plugins: {
       legend: {
-        position: 'top' as const,
-        align: 'center' as const,
-        labels: {
-          color: '#cbd5e1',
-          font: {
-            size: 13,
-            weight: '500',
-          },
-          padding: 20,
-          usePointStyle: true,
-          pointStyle: 'circle',
-        },
+        display: false, // Hide legend for cleaner look
       },
       tooltip: {
         backgroundColor: 'rgba(30, 41, 59, 0.95)',
         titleColor: '#f1f5f9',
         bodyColor: '#cbd5e1',
-        borderColor: 'rgba(99, 102, 241, 0.3)',
+        borderColor: getQualityColor(qualityScore, 0.3),
         borderWidth: 1,
         cornerRadius: 8,
         padding: 12,
+        callbacks: {
+          label: function(context: any) {
+            const label = context.dataset.label || '';
+            const value = Math.round(context.parsed.y);
+            return `${label}: ${value}/100`;
+          }
+        }
       },
     },
     scales: {
@@ -123,12 +160,15 @@ const InsightsModal: React.FC<InsightsModalProps> = ({ idea, isOpen, onClose }) 
         ticks: {
           color: '#94a3b8',
           font: {
-            size: 12,
+            size: 11,
             weight: '500',
           },
+          maxRotation: 45,
         },
       },
       y: {
+        min: 0,
+        max: 100,
         grid: {
           color: 'rgba(71, 85, 105, 0.3)',
           drawBorder: false,
@@ -139,6 +179,7 @@ const InsightsModal: React.FC<InsightsModalProps> = ({ idea, isOpen, onClose }) 
             size: 12,
             weight: '500',
           },
+          stepSize: 25,
         },
       },
     },
@@ -209,23 +250,24 @@ const InsightsModal: React.FC<InsightsModalProps> = ({ idea, isOpen, onClose }) 
         {/* Header */}
         <div className="flex justify-between items-start p-6 border-b border-slate-700">
           <div className="flex-1 min-w-0">
-            <h3 className="font-bold text-xl text-white mb-2">{idea.title}</h3>
-            <p className="text-slate-300 text-sm leading-relaxed mb-3">{idea.description}</p>
-            <div className="flex items-center gap-2">
-              <span className={`px-2 py-1 rounded text-xs font-medium border ${
-                idea.status === 'Launched' ? 'text-green-400 bg-green-500/20 border-green-500/30' :
-                idea.status === 'In Progress' ? 'text-blue-400 bg-blue-500/20 border-blue-500/30' :
-                idea.status === 'Abandoned' ? 'text-red-400 bg-red-500/20 border-red-500/30' : 
-                'text-slate-400 bg-slate-500/20 border-slate-500/30'
-              }`}>
-                {idea.status}
-              </span>
+            <h3 className="font-bold text-xl text-white mb-2">{idea.niche}</h3>
+            <p className="text-slate-300 text-sm leading-relaxed mb-3">{idea.rationale}</p>
+            <div className="flex items-center gap-2 mb-2">
               <span className="px-2 py-1 rounded text-xs font-medium bg-purple-500/20 text-purple-300 border border-purple-500/30">
-                {idea.category}
+                {idea.user}
+              </span>
+              <span className="px-2 py-1 rounded text-xs font-medium bg-blue-500/20 text-blue-300 border border-blue-500/30">
+                {idea.channel}
               </span>
               <span className="text-slate-500 text-xs">
-                {new Date(idea.dateAdded).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                {idea.dateAdded && new Date(idea.dateAdded).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
               </span>
+            </div>
+            <div className="flex items-center gap-2 text-xs">
+              <a href={idea.url} target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-300 flex items-center gap-1">
+                <ExternalLink className="w-3 h-3" />
+                View Source
+              </a>
             </div>
           </div>
           <button
@@ -237,59 +279,59 @@ const InsightsModal: React.FC<InsightsModalProps> = ({ idea, isOpen, onClose }) 
         </div>
 
         {/* Content */}
-        <div className="flex-1 overflow-y-auto p-6">
+        <div className="flex-1 overflow-y-auto p-6 modal-scroll">
           {/* Key Metrics */}
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
             <div className="bg-slate-700 border border-slate-600 rounded-lg p-4">
               <div className="flex items-center gap-2 mb-2">
                 <DollarSign className="w-4 h-4 text-green-400" />
-                <span className="text-xs text-slate-400 font-medium">Revenue</span>
+                <span className="text-xs text-slate-400 font-medium">MRR</span>
               </div>
-              <div className="text-white font-bold text-lg">{idea.estimatedRevenue}</div>
-              <div className="text-xs text-slate-500">Monthly</div>
+              <div className="text-white font-bold text-lg">${idea.mrr.toLocaleString()}</div>
+              <div className="text-xs text-slate-500">{idea.pricing || 'Unknown pricing'}</div>
             </div>
             
             <div className="bg-slate-700 border border-slate-600 rounded-lg p-4">
               <div className="flex items-center gap-2 mb-2">
-                <Calendar className="w-4 h-4 text-orange-400" />
-                <span className="text-xs text-slate-400 font-medium">Time</span>
+                <Clock className="w-4 h-4 text-orange-400" />
+                <span className="text-xs text-slate-400 font-medium">MVP Time</span>
               </div>
-              <div className="text-white font-bold text-lg">{idea.timeToMarket}w</div>
-              <div className="text-xs text-slate-500">To market</div>
+              <div className="text-white font-bold text-lg">{idea.mvpWk} days</div>
+              <div className="text-xs text-slate-500">To build MVP</div>
             </div>
 
             <div className="bg-slate-700 border border-slate-600 rounded-lg p-4">
               <div className="flex items-center gap-2 mb-2">
                 <Target className={`w-4 h-4 ${
-                  idea.difficulty === 'Easy' ? 'text-green-400' :
-                  idea.difficulty === 'Medium' ? 'text-orange-400' : 'text-red-400'
+                  idea.complexity <= 2 ? 'text-green-400' :
+                  idea.complexity <= 3 ? 'text-orange-400' : 'text-red-400'
                 }`} />
-                <span className="text-xs text-slate-400 font-medium">Difficulty</span>
+                <span className="text-xs text-slate-400 font-medium">Complexity</span>
               </div>
               <div className={`font-bold text-lg ${
-                idea.difficulty === 'Easy' ? 'text-green-400' :
-                idea.difficulty === 'Medium' ? 'text-orange-400' : 'text-red-400'
+                idea.complexity <= 2 ? 'text-green-400' :
+                idea.complexity <= 3 ? 'text-orange-400' : 'text-red-400'
               }`}>
-                {idea.difficulty}
+                {idea.complexity}/5
               </div>
-              <div className="text-xs text-slate-500">Level</div>
+              <div className="text-xs text-slate-500">Build difficulty</div>
             </div>
 
             <div className="bg-slate-700 border border-slate-600 rounded-lg p-4">
               <div className="flex items-center gap-2 mb-2">
                 <Users className={`w-4 h-4 ${
-                  idea.competition === 'Low' ? 'text-green-400' :
-                  idea.competition === 'Medium' ? 'text-orange-400' : 'text-red-400'
+                  idea.comp === 'Low' ? 'text-green-400' :
+                  idea.comp === 'Med' ? 'text-orange-400' : 'text-red-400'
                 }`} />
                 <span className="text-xs text-slate-400 font-medium">Competition</span>
               </div>
               <div className={`font-bold text-lg ${
-                idea.competition === 'Low' ? 'text-green-400' :
-                idea.competition === 'Medium' ? 'text-orange-400' : 'text-red-400'
+                idea.comp === 'Low' ? 'text-green-400' :
+                idea.comp === 'Med' ? 'text-orange-400' : 'text-red-400'
               }`}>
-                {idea.competition}
+                {idea.comp}
               </div>
-              <div className="text-xs text-slate-500">Level</div>
+              <div className="text-xs text-slate-500">Market density</div>
             </div>
           </div>
 
@@ -317,33 +359,76 @@ const InsightsModal: React.FC<InsightsModalProps> = ({ idea, isOpen, onClose }) 
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            {/* Tech Stack */}
+            {/* Additional Metrics */}
             <div>
               <div className="flex items-center gap-2 mb-3">
-                <Code className="w-5 h-5 text-purple-400" />
-                <h4 className="text-lg font-bold text-white">Technology Stack</h4>
+                <Target className="w-5 h-5 text-purple-400" />
+                <h4 className="text-lg font-bold text-white">Additional Details</h4>
               </div>
-              <div className="flex flex-wrap gap-2">
-                {idea.techStack.map((tech) => (
-                  <span key={tech} className="px-3 py-1 bg-slate-600 text-slate-200 text-sm rounded border border-slate-500">
-                    {tech}
+              <div className="space-y-3">
+                <div className="flex justify-between">
+                  <span className="text-slate-400">1k MRR Chance:</span>
+                  <span className={`font-medium ${
+                    idea.oneKMrrChance === 'H' ? 'text-green-400' :
+                    idea.oneKMrrChance === 'M' ? 'text-orange-400' : 'text-red-400'
+                  }`}>{idea.oneKMrrChance === 'H' ? 'High' : idea.oneKMrrChance === 'M' ? 'Medium' : 'Low'}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-slate-400">Market Proof:</span>
+                  <span className={`font-medium ${idea.marketProof === 'Yes' ? 'text-green-400' : 'text-red-400'}`}>
+                    {idea.marketProof}
                   </span>
-                ))}
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-slate-400">Distribution Fit:</span>
+                  <span className={`font-medium ${
+                    idea.distFit === 'Good' ? 'text-green-400' :
+                    idea.distFit === 'Avg' ? 'text-orange-400' : 'text-red-400'
+                  }`}>{idea.distFit}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-slate-400">Maintenance:</span>
+                  <span className="text-white font-medium">{idea.maintHours}h/mo</span>
+                </div>
               </div>
             </div>
 
-            {/* Tags */}
+            {/* Risk Assessment */}
             <div>
               <div className="flex items-center gap-2 mb-3">
-                <Target className="w-5 h-5 text-cyan-400" />
-                <h4 className="text-lg font-bold text-white">Tags</h4>
+                <Zap className="w-5 h-5 text-cyan-400" />
+                <h4 className="text-lg font-bold text-white">Risk Assessment</h4>
               </div>
-              <div className="flex flex-wrap gap-2">
-                {idea.tags.map((tag) => (
-                  <span key={tag} className="px-3 py-1 bg-purple-500/20 text-purple-300 text-sm rounded border border-purple-500/30">
-                    {tag}
-                  </span>
-                ))}
+              <div className="space-y-3">
+                <div className="flex justify-between">
+                  <span className="text-slate-400">Platform Dependency:</span>
+                  <span className={`font-medium ${
+                    idea.platDep === 'None' || idea.platDep === 'Low' ? 'text-green-400' :
+                    idea.platDep === 'Med' ? 'text-orange-400' : 'text-red-400'
+                  }`}>{idea.platDep}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-slate-400">Legal Risk:</span>
+                  <span className={`font-medium ${
+                    idea.legalRisk === 'None' || idea.legalRisk === 'Low' ? 'text-green-400' :
+                    idea.legalRisk === 'Med' ? 'text-orange-400' : 'text-red-400'
+                  }`}>{idea.legalRisk}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-slate-400">Revenue Potential:</span>
+                  <span className={`font-medium ${
+                    idea.revenuePotential === 'H' ? 'text-green-400' :
+                    idea.revenuePotential === 'M' ? 'text-orange-400' : 'text-red-400'
+                  }`}>{idea.revenuePotential === 'H' ? 'High' : idea.revenuePotential === 'M' ? 'Medium' : 'Low'}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-slate-400">Passiveness:</span>
+                  <span className={`font-medium ${
+                    idea.passiveness === 'A' ? 'text-green-400' :
+                    idea.passiveness === 'B' ? 'text-blue-400' :
+                    idea.passiveness === 'C' ? 'text-orange-400' : 'text-red-400'
+                  }`}>Grade {idea.passiveness}</span>
+                </div>
               </div>
             </div>
           </div>
@@ -354,14 +439,19 @@ const InsightsModal: React.FC<InsightsModalProps> = ({ idea, isOpen, onClose }) 
           <div className="flex justify-between items-center">
             <div className="flex items-center gap-4">
               <div className="flex items-center gap-1">
-                <TrendingUp className="w-4 h-4 text-blue-400" />
-                <span className="text-white font-semibold">{idea.marketPotential}/10</span>
-                <span className="text-slate-400 text-sm">Market Score</span>
+                <Target className="w-4 h-4 text-purple-400" />
+                <span className="text-white font-semibold">{idea.score}/100</span>
+                <span className="text-slate-400 text-sm">Overall Score</span>
               </div>
               <div className="flex items-center gap-1">
-                <Zap className="w-4 h-4 text-yellow-400" />
-                <span className="text-white font-semibold">{idea.upvotes}</span>
-                <span className="text-slate-400 text-sm">Upvotes</span>
+                <DollarSign className="w-4 h-4 text-green-400" />
+                <span className="text-white font-semibold">${idea.mrr.toLocaleString()}</span>
+                <span className="text-slate-400 text-sm">MRR</span>
+              </div>
+              <div className="flex items-center gap-1">
+                <Clock className="w-4 h-4 text-orange-400" />
+                <span className="text-white font-semibold">{idea.mvpWk}d</span>
+                <span className="text-slate-400 text-sm">MVP Time</span>
               </div>
             </div>
             <button 
