@@ -13,8 +13,9 @@ import {
   PointElement,
   LineElement,
   Filler,
+  ArcElement,
 } from 'chart.js';
-import { Bar, Radar } from 'react-chartjs-2';
+import { Bar, Radar, PolarArea } from 'react-chartjs-2';
 
 ChartJS.register(
   CategoryScale,

@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, memo, useMemo } from 'react';
 import { createPortal } from 'react-dom';
 import { MicroSaasIdea } from '../types/idea';
 import { TrendingUp, Clock, Users, Zap, Target, ExternalLink, DollarSign, Shield, TrendingDown, CheckCircle, Activity, HelpCircle, ChevronUp, ChevronDown, Brain } from 'lucide-react';
@@ -76,7 +76,7 @@ const Tooltip: React.FC<{ text: string; children: React.ReactNode }> = ({ text, 
   );
 };
 
-const IdeasTable: React.FC<IdeasTableProps> = ({ ideas, onRowClick }) => {
+const IdeasTable: React.FC<IdeasTableProps> = memo(({ ideas, onRowClick }) => {
   const [sortField, setSortField] = useState<SortField | null>(null);
   const [sortDirection, setSortDirection] = useState<SortDirection>(null);
 
@@ -96,7 +96,7 @@ const IdeasTable: React.FC<IdeasTableProps> = ({ ideas, onRowClick }) => {
     }
   };
 
-  const sortedIdeas = React.useMemo(() => {
+  const sortedIdeas = useMemo(() => {
     if (!sortField || !sortDirection) return ideas;
 
     return [...ideas].sort((a, b) => {
@@ -122,6 +122,31 @@ const IdeasTable: React.FC<IdeasTableProps> = ({ ideas, onRowClick }) => {
       return 0;
     });
   }, [ideas, sortField, sortDirection]);
+
+  const memoizedIsAIRelated = useMemo(() => {
+    const cache = new Map<string, boolean>();
+    return (idea: MicroSaasIdea) => {
+      const key = `${idea.niche}-${idea.rationale}`;
+      if (!cache.has(key)) {
+        const searchText = `${idea.niche} ${idea.rationale}`.toLowerCase();
+        const result = searchText.includes('ai ') || 
+               searchText.includes('artificial intelligence') ||
+               searchText.includes('machine learning') ||
+               searchText.includes('ml ') ||
+               searchText.includes('chatbot') ||
+               searchText.includes('gpt') ||
+               searchText.includes('llm') ||
+               searchText.includes('ai-') ||
+               searchText.includes('automation') ||
+               searchText.includes('intelligent') ||
+               searchText.includes('smart ') ||
+               searchText.includes('neural') ||
+               searchText.includes('deep learning');
+        cache.set(key, result);
+      }
+      return cache.get(key)!;
+    };
+  }, []);
 
   const getSortIcon = (field: SortField) => {
     if (sortField !== field) return null;
@@ -214,22 +239,6 @@ const IdeasTable: React.FC<IdeasTableProps> = ({ ideas, onRowClick }) => {
     return 'text-red-400';
   };
 
-  const isAIRelated = (idea: MicroSaasIdea) => {
-    const searchText = `${idea.niche} ${idea.rationale}`.toLowerCase();
-    return searchText.includes('ai ') || 
-           searchText.includes('artificial intelligence') ||
-           searchText.includes('machine learning') ||
-           searchText.includes('ml ') ||
-           searchText.includes('chatbot') ||
-           searchText.includes('gpt') ||
-           searchText.includes('llm') ||
-           searchText.includes('ai-') ||
-           searchText.includes('automation') ||
-           searchText.includes('intelligent') ||
-           searchText.includes('smart ') ||
-           searchText.includes('neural') ||
-           searchText.includes('deep learning');
-  };
 
   if (sortedIdeas.length === 0) {
     return (
@@ -248,9 +257,8 @@ const IdeasTable: React.FC<IdeasTableProps> = ({ ideas, onRowClick }) => {
   }
 
   return (
-    <div className="bg-slate-800 border border-slate-700 rounded-lg overflow-hidden">
-      <div className="overflow-x-auto">
-        <table className="w-full min-w-[1200px]">
+    <div className="overflow-x-auto">
+      <table className="w-full min-w-[1200px]">
           <thead>
             <tr className="border-b border-slate-700/50">
               <SortableHeader field="niche" className="text-left py-3 px-4 text-xs font-semibold text-slate-400 uppercase tracking-wider w-80">
@@ -372,7 +380,7 @@ const IdeasTable: React.FC<IdeasTableProps> = ({ ideas, onRowClick }) => {
                       <span className="px-2 py-1 bg-purple-600/20 border border-purple-500/30 text-purple-300 text-xs font-semibold rounded-md truncate">
                         {idea.niche}
                       </span>
-                      {isAIRelated(idea) && (
+                      {memoizedIsAIRelated(idea) && (
                         <span className="px-1.5 py-0.5 bg-cyan-600/20 border border-cyan-500/30 text-cyan-300 text-xs font-bold rounded flex items-center gap-1">
                           <Brain className="w-3 h-3" />
                           AI
@@ -478,9 +486,10 @@ const IdeasTable: React.FC<IdeasTableProps> = ({ ideas, onRowClick }) => {
             ))}
           </tbody>
         </table>
-      </div>
     </div>
   );
-};
+});
+
+IdeasTable.displayName = 'IdeasTable';
 
 export default IdeasTable;

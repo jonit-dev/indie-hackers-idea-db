@@ -11,7 +11,7 @@ interface MicroSaasState {
   // UI State
   isModalOpen: boolean;
   searchTerm: string;
-  filterNiche: string;
+  filterNiche: string[];
   filterComp: string;
   filterComplexity: string;
   filterOneKMrrChance: string;
@@ -19,12 +19,14 @@ interface MicroSaasState {
   showAdvancedFilters: boolean;
   sortBy: string;
   sortOrder: 'asc' | 'desc';
+  currentPage: number;
+  itemsPerPage: number;
   
   // Actions
   setSelectedIdea: (idea: MicroSaasIdea | null) => void;
   setIsModalOpen: (isOpen: boolean) => void;
   setSearchTerm: (term: string) => void;
-  setFilterNiche: (niche: string) => void;
+  setFilterNiche: (niches: string[]) => void;
   setFilterComp: (comp: string) => void;
   setFilterComplexity: (complexity: string) => void;
   setFilterOneKMrrChance: (chance: string) => void;
@@ -32,12 +34,15 @@ interface MicroSaasState {
   setShowAdvancedFilters: (show: boolean) => void;
   setSortBy: (sortBy: string) => void;
   setSortOrder: (order: 'asc' | 'desc') => void;
+  setCurrentPage: (page: number) => void;
+  setItemsPerPage: (count: number) => void;
   clearAllFilters: () => void;
   openModal: (idea: MicroSaasIdea) => void;
   closeModal: () => void;
   
   // Computed
   getFilteredIdeas: () => MicroSaasIdea[];
+  getPaginatedIdeas: () => { items: MicroSaasIdea[]; totalPages: number; totalItems: number };
   hasActiveFilters: () => boolean;
   getTotalIdeas: () => number;
   getHighScoreIdeas: () => number;
@@ -55,7 +60,7 @@ export const useMicroSaasStore = create<MicroSaasState>()(
       // Initial UI State
       isModalOpen: false,
       searchTerm: '',
-      filterNiche: 'All',
+      filterNiche: [],
       filterComp: 'All',
       filterComplexity: 'All',
       filterOneKMrrChance: 'All',
@@ -63,29 +68,34 @@ export const useMicroSaasStore = create<MicroSaasState>()(
       showAdvancedFilters: false,
       sortBy: 'score',
       sortOrder: 'desc',
+      currentPage: 1,
+      itemsPerPage: 10,
       
       // Actions
       setSelectedIdea: (idea) => set({ selectedIdea: idea }),
       setIsModalOpen: (isOpen) => set({ isModalOpen: isOpen }),
-      setSearchTerm: (term) => set({ searchTerm: term }),
-      setFilterNiche: (niche) => set({ filterNiche: niche }),
-      setFilterComp: (comp) => set({ filterComp: comp }),
-      setFilterComplexity: (complexity) => set({ filterComplexity: complexity }),
-      setFilterOneKMrrChance: (chance) => set({ filterOneKMrrChance: chance }),
-      setFilterAI: (ai) => set({ filterAI: ai }),
+      setSearchTerm: (term) => set({ searchTerm: term, currentPage: 1 }),
+      setFilterNiche: (niches) => set({ filterNiche: niches, currentPage: 1 }),
+      setFilterComp: (comp) => set({ filterComp: comp, currentPage: 1 }),
+      setFilterComplexity: (complexity) => set({ filterComplexity: complexity, currentPage: 1 }),
+      setFilterOneKMrrChance: (chance) => set({ filterOneKMrrChance: chance, currentPage: 1 }),
+      setFilterAI: (ai) => set({ filterAI: ai, currentPage: 1 }),
       setShowAdvancedFilters: (show) => set({ showAdvancedFilters: show }),
       setSortBy: (sortBy) => set({ sortBy }),
       setSortOrder: (order) => set({ sortOrder: order }),
+      setCurrentPage: (page) => set({ currentPage: page }),
+      setItemsPerPage: (count) => set({ itemsPerPage: count, currentPage: 1 }),
       
       clearAllFilters: () => set({
         searchTerm: '',
-        filterNiche: 'All',
+        filterNiche: [],
         filterComp: 'All',
         filterComplexity: 'All',
         filterOneKMrrChance: 'All',
         filterAI: 'All',
         sortBy: 'score',
         sortOrder: 'desc',
+        currentPage: 1,
       }),
       
       openModal: (idea) => set({ selectedIdea: idea, isModalOpen: true }),
@@ -118,7 +128,8 @@ export const useMicroSaasStore = create<MicroSaasState>()(
             idea.user.toLowerCase().includes(state.searchTerm.toLowerCase()) ||
             idea.channel.toLowerCase().includes(state.searchTerm.toLowerCase());
           
-          const matchesNiche = state.filterNiche === 'All' || idea.niche === state.filterNiche;
+          const matchesNiche = state.filterNiche.length === 0 || state.filterNiche.includes(idea.niche);
+          const meetsMrrThreshold = idea.mrr >= 100;
           const matchesComp = state.filterComp === 'All' || idea.comp === state.filterComp;
           const matchesComplexity = state.filterComplexity === 'All' || idea.complexity.toString() === state.filterComplexity;
           const matchesOneKMrrChance = state.filterOneKMrrChance === 'All' || idea.oneKMrrChance === state.filterOneKMrrChance;
@@ -127,7 +138,7 @@ export const useMicroSaasStore = create<MicroSaasState>()(
             (state.filterAI === 'AI' && isAIRelated(idea)) ||
             (state.filterAI === 'Non-AI' && !isAIRelated(idea));
           
-          return matchesSearch && matchesNiche && matchesComp && matchesComplexity && matchesOneKMrrChance && matchesAI;
+          return matchesSearch && matchesNiche && meetsMrrThreshold && matchesComp && matchesComplexity && matchesOneKMrrChance && matchesAI;
         });
 
         // Sort the filtered results
@@ -170,9 +181,21 @@ export const useMicroSaasStore = create<MicroSaasState>()(
         return filtered;
       },
       
+      getPaginatedIdeas: () => {
+        const state = get();
+        const filtered = state.getFilteredIdeas();
+        const totalItems = filtered.length;
+        const totalPages = Math.ceil(totalItems / state.itemsPerPage);
+        const startIndex = (state.currentPage - 1) * state.itemsPerPage;
+        const endIndex = startIndex + state.itemsPerPage;
+        const items = filtered.slice(startIndex, endIndex);
+        
+        return { items, totalPages, totalItems };
+      },
+      
       hasActiveFilters: () => {
         const state = get();
-        return !!(state.searchTerm || state.filterNiche !== 'All' || state.filterComp !== 'All' || 
+        return !!(state.searchTerm || state.filterNiche.length > 0 || state.filterComp !== 'All' || 
           state.filterComplexity !== 'All' || state.filterOneKMrrChance !== 'All' || state.filterAI !== 'All');
       },
       
@@ -187,7 +210,7 @@ export const useMicroSaasStore = create<MicroSaasState>()(
       
       getNiches: () => {
         const niches = Array.from(new Set(get().ideas.map(idea => idea.niche)));
-        return ['All', ...niches];
+        return niches.sort();
       },
     }),
     {
