@@ -7,18 +7,18 @@ export interface MicroSaasIdea {
   pricing: string; // Short model description (e.g. "$19/mo freemium", "$99/seat")
   user: string; // Primary persona (e.g. SaaS founders, marketers, devs)
   channel: string; // Main acquisition channel (SEO, X, AppSumo, etc.)
-  comp: 'Low' | 'Med' | 'High'; // Competitive intensity
-  platDep: 'None' | 'Low' | 'Med' | 'High'; // Platform-dependence risk
-  complexity: 1 | 2 | 3 | 4 | 5; // Build complexity (1 = trivial, 5 = hard R&D)
+  comp: 'Low' | 'Medium' | 'High'; // Competitive intensity
+  platDep: 'None' | 'Low' | 'Medium' | 'High'; // Platform-dependence risk
+  complexity: 'Very Low' | 'Low' | 'Medium' | 'High' | 'Very High'; // Build complexity
   mvpWk: number; // Days to build MVP (target ≤ 7)
-  oneKMrrChance: 'H' | 'M' | 'L'; // Likelihood to hit ≥ $1k MRR in 6-12 months
+  oneKMrrChance: 'High' | 'Medium' | 'Low'; // Likelihood to hit ≥ $1k MRR in 6-12 months
   maintHours: number; // Monthly maintenance hours (goal ≤ 10)
   marketProof: 'Yes' | 'No'; // At least one indie hits ≥ 30k MRR in same niche
-  distFit: 'Good' | 'Avg' | 'Poor'; // Distribution alignment with proven indie channels
+  distFit: 'Good' | 'Average' | 'Poor'; // Distribution alignment with proven indie channels
   churn: string; // Churn rate if available, else "?"
-  passiveness: 'A' | 'B' | 'C' | 'D'; // Passiveness grade (A = highly passive)
-  revenuePotential: 'H' | 'M' | 'L'; // Revenue potential
-  legalRisk: 'None' | 'Low' | 'Med' | 'High'; // Legal risk assessment
+  passiveness: 'Very High' | 'High' | 'Medium' | 'Low'; // Passiveness grade (Very High = highly passive)
+  revenuePotential: 'High' | 'Medium' | 'Low'; // Revenue potential
+  legalRisk: 'None' | 'Low' | 'Medium' | 'High'; // Legal risk assessment
   score: number; // Overall attractiveness 0-100
   rationale: string; // 1-2 sentences explaining the scores
   dateAdded?: string; // When added to database

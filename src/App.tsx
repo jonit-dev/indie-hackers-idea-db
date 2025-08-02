@@ -211,9 +211,9 @@ function App() {
 
   const niches = getNiches();
 
-  const competitions = ['All', 'Low', 'Med', 'High'];
-  const complexities = ['All', '1', '2', '3', '4', '5'];
-  const oneKMrrChances = ['All', 'H', 'M', 'L'];
+  const competitions = ['All', 'Low', 'Medium', 'High'];
+  const complexities = ['All', 'Very Low', 'Low', 'Medium', 'High', 'Very High'];
+  const oneKMrrChances = ['All', 'High', 'Medium', 'Low'];
   const aiOptions = ['All', 'AI', 'Non-AI'];
 
   const filteredIdeas = getFilteredIdeas();

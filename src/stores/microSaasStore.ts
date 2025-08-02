@@ -131,7 +131,7 @@ export const useMicroSaasStore = create<MicroSaasState>()(
           const matchesNiche = state.filterNiche.length === 0 || state.filterNiche.includes(idea.niche);
           const meetsMrrThreshold = idea.mrr >= 100;
           const matchesComp = state.filterComp === 'All' || idea.comp === state.filterComp;
-          const matchesComplexity = state.filterComplexity === 'All' || idea.complexity.toString() === state.filterComplexity;
+          const matchesComplexity = state.filterComplexity === 'All' || idea.complexity === state.filterComplexity;
           const matchesOneKMrrChance = state.filterOneKMrrChance === 'All' || idea.oneKMrrChance === state.filterOneKMrrChance;
           
           const matchesAI = state.filterAI === 'All' || 

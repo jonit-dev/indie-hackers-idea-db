@@ -170,17 +170,22 @@ const IdeasTable: React.FC<IdeasTableProps> = memo(({ ideas, onRowClick }) => {
       </div>
     </th>
   );
-  const getComplexityColor = (complexity: number) => {
-    if (complexity <= 2) return 'text-green-400 bg-green-500/20 border-green-500/30';
-    if (complexity <= 3) return 'text-orange-400 bg-orange-500/20 border-orange-500/30';
-    return 'text-red-400 bg-red-500/20 border-red-500/30';
+  const getComplexityColor = (complexity: string) => {
+    switch (complexity) {
+      case 'Very Low':
+      case 'Low': return 'text-green-400 bg-green-500/20 border-green-500/30';
+      case 'Medium': return 'text-orange-400 bg-orange-500/20 border-orange-500/30';
+      case 'High':
+      case 'Very High': return 'text-red-400 bg-red-500/20 border-red-500/30';
+      default: return 'text-slate-400 bg-slate-500/20 border-slate-500/30';
+    }
   };
 
   const getOneKMrrChanceColor = (chance: string) => {
     switch (chance) {
-      case 'H': return 'text-green-400 bg-green-500/20 border-green-500/30';
-      case 'M': return 'text-orange-400 bg-orange-500/20 border-orange-500/30';
-      case 'L': return 'text-red-400 bg-red-500/20 border-red-500/30';
+      case 'High': return 'text-green-400 bg-green-500/20 border-green-500/30';
+      case 'Medium': return 'text-orange-400 bg-orange-500/20 border-orange-500/30';
+      case 'Low': return 'text-red-400 bg-red-500/20 border-red-500/30';
       default: return 'text-slate-400 bg-slate-500/20 border-slate-500/30';
     }
   };
@@ -188,7 +193,7 @@ const IdeasTable: React.FC<IdeasTableProps> = memo(({ ideas, onRowClick }) => {
   const getCompetitionColor = (competition: string) => {
     switch (competition) {
       case 'Low': return 'text-green-400';
-      case 'Med': return 'text-orange-400';
+      case 'Medium': return 'text-orange-400';
       case 'High': return 'text-red-400';
       default: return 'text-slate-400';
     }
@@ -204,7 +209,7 @@ const IdeasTable: React.FC<IdeasTableProps> = memo(({ ideas, onRowClick }) => {
     switch (risk) {
       case 'None': 
       case 'Low': return 'text-green-400 bg-green-500/20 border-green-500/30';
-      case 'Med': return 'text-orange-400 bg-orange-500/20 border-orange-500/30';
+      case 'Medium': return 'text-orange-400 bg-orange-500/20 border-orange-500/30';
       case 'High': return 'text-red-400 bg-red-500/20 border-red-500/30';
       default: return 'text-slate-400 bg-slate-500/20 border-slate-500/30';
     }
@@ -212,9 +217,9 @@ const IdeasTable: React.FC<IdeasTableProps> = memo(({ ideas, onRowClick }) => {
 
   const getRevenuePotentialColor = (potential: string) => {
     switch (potential) {
-      case 'H': return 'text-green-400 bg-green-500/20 border-green-500/30';
-      case 'M': return 'text-orange-400 bg-orange-500/20 border-orange-500/30';
-      case 'L': return 'text-red-400 bg-red-500/20 border-red-500/30';
+      case 'High': return 'text-green-400 bg-green-500/20 border-green-500/30';
+      case 'Medium': return 'text-orange-400 bg-orange-500/20 border-orange-500/30';
+      case 'Low': return 'text-red-400 bg-red-500/20 border-red-500/30';
       default: return 'text-slate-400 bg-slate-500/20 border-slate-500/30';
     }
   };
@@ -225,10 +230,10 @@ const IdeasTable: React.FC<IdeasTableProps> = memo(({ ideas, onRowClick }) => {
 
   const getPassivenessColor = (grade: string) => {
     switch (grade) {
-      case 'A': return 'text-green-400 bg-green-500/20 border-green-500/30';
-      case 'B': return 'text-blue-400 bg-blue-500/20 border-blue-500/30';
-      case 'C': return 'text-orange-400 bg-orange-500/20 border-orange-500/30';
-      case 'D': return 'text-red-400 bg-red-500/20 border-red-500/30';
+      case 'Very High': return 'text-green-400 bg-green-500/20 border-green-500/30';
+      case 'High': return 'text-blue-400 bg-blue-500/20 border-blue-500/30';
+      case 'Medium': return 'text-orange-400 bg-orange-500/20 border-orange-500/30';
+      case 'Low': return 'text-red-400 bg-red-500/20 border-red-500/30';
       default: return 'text-slate-400 bg-slate-500/20 border-slate-500/30';
     }
   };
@@ -318,9 +323,9 @@ const IdeasTable: React.FC<IdeasTableProps> = memo(({ ideas, onRowClick }) => {
                 </Tooltip>
               </SortableHeader>
               <SortableHeader field="revenuePotential" className="text-center py-3 px-3 text-xs font-semibold text-slate-400 uppercase tracking-wider w-24">
-                <Tooltip text="Revenue potential assessment (H/M/L)">
+                <Tooltip text="Revenue potential assessment (High/Medium/Low)">
                   <div className="flex items-center gap-1 cursor-help justify-center">
-                    Revenue Pot.
+                    Rev. Potential
                     <HelpCircle className="w-3 h-3 opacity-60" />
                   </div>
                 </Tooltip>
@@ -328,13 +333,13 @@ const IdeasTable: React.FC<IdeasTableProps> = memo(({ ideas, onRowClick }) => {
               <SortableHeader field="marketProof" className="text-center py-3 px-3 text-xs font-semibold text-slate-400 uppercase tracking-wider w-24">
                 <Tooltip text="At least one indie hits ≥ 30k MRR in same niche">
                   <div className="flex items-center gap-1 cursor-help justify-center">
-                    Market Proof
+                    Market Validation
                     <HelpCircle className="w-3 h-3 opacity-60" />
                   </div>
                 </Tooltip>
               </SortableHeader>
               <SortableHeader field="passiveness" className="text-center py-3 px-3 text-xs font-semibold text-slate-400 uppercase tracking-wider w-20">
-                <Tooltip text="Passiveness grade (A = highly passive, D = hands-on)">
+                <Tooltip text="Passiveness grade (Very High = highly passive, Low = hands-on)">
                   <div className="flex items-center gap-1 cursor-help justify-center">
                     Passiveness
                     <HelpCircle className="w-3 h-3 opacity-60" />
@@ -358,9 +363,9 @@ const IdeasTable: React.FC<IdeasTableProps> = memo(({ ideas, onRowClick }) => {
                 </Tooltip>
               </SortableHeader>
               <SortableHeader field="user" className="text-center py-3 px-3 text-xs font-semibold text-slate-400 uppercase tracking-wider w-24">
-                <Tooltip text="Primary target user persona">
+                <Tooltip text="Primary target market/user persona">
                   <div className="flex items-center gap-1 cursor-help justify-center">
-                    User
+                    Target Mkt
                     <HelpCircle className="w-3 h-3 opacity-60" />
                   </div>
                 </Tooltip>
