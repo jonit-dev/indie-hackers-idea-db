@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect, memo, useCallback } from 'react';
 import { Search, Plus, Database, TrendingUp, SlidersHorizontal, X, Tag, ChevronDown, Check, ChevronLeft, ChevronRight } from 'lucide-react';
 import IdeasTable from './components/IdeasTable';
 import InsightsModal from './components/InsightsModal';
+import ScoreRing from './components/ScoreRing';
 import { useMicroSaasStore } from './stores/microSaasStore';
 
 const MultiSelectDropdown: React.FC<{
@@ -35,7 +36,7 @@ const MultiSelectDropdown: React.FC<{
     <div className="relative" ref={dropdownRef}>
       <button
         type="button"
-        className="w-full px-3 py-2.5 text-sm font-medium text-left text-white bg-slate-700 border border-slate-600 rounded-lg focus:border-slate-500 focus:outline-none flex items-center justify-between"
+        className="w-full input-modern flex items-center justify-between"
         onClick={() => setIsOpen(!isOpen)}
       >
         <span className="truncate">
@@ -50,11 +51,11 @@ const MultiSelectDropdown: React.FC<{
       </button>
 
       {isOpen && (
-        <div className="absolute z-50 w-full mt-1 bg-slate-800 border border-slate-600 rounded-lg shadow-lg max-h-60 overflow-y-auto">
+        <div className="absolute z-50 w-full mt-1 glass-card rounded-xl shadow-lg max-h-60 overflow-y-auto animate-slide-up">
           {options.map((option) => (
             <div
               key={option}
-              className="flex items-center px-3 py-2 text-sm text-white hover:bg-slate-700 cursor-pointer"
+              className="flex items-center px-3 py-2 text-sm text-white hover:bg-white/5 cursor-pointer rounded-lg mx-1 transition-colors"
               onClick={() => handleToggleOption(option)}
             >
               <div className={`w-4 h-4 mr-3 border border-slate-500 rounded flex items-center justify-center ${
@@ -237,25 +238,25 @@ function App() {
   const avgScore = getAvgScore();
 
   return (
-    <div className="min-h-screen bg-slate-900">
+    <div className="min-h-screen modern-typography" style={{ background: 'var(--bg-primary)' }}>
       {/* Header */}
-      <div className="bg-slate-800 border-b border-slate-700">
+      <div className="glass-effect border-b border-white/10">
         <div className="container mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
-              <div className="p-2 bg-slate-700 rounded-lg">
-                <Database className="w-6 h-6 text-slate-300" />
+              <div className="p-3 glass-card rounded-xl">
+                <Database className="w-6 h-6 text-purple-400" />
               </div>
               <div>
-                <h1 className="text-xl font-bold text-white">
+                <h1 className="text-xl font-bold text-white heading-font gradient-text">
                   Indie Hacker Ideas
                 </h1>
-                <p className="text-slate-400 text-sm">Discover innovative startup concepts</p>
+                <p className="text-slate-300 text-sm font-medium">Discover innovative startup concepts</p>
               </div>
             </div>
-            <button className="px-4 py-2 bg-slate-700 hover:bg-slate-600 rounded-lg border border-slate-600 transition-colors flex items-center gap-2">
-              <Plus className="w-4 h-4 text-white" />
-              <span className="text-white font-medium text-sm">Add Idea</span>
+            <button className="btn-modern flex items-center gap-2 animate-scale-in">
+              <Plus className="w-4 h-4" />
+              <span className="font-semibold text-sm">Add Idea</span>
             </button>
           </div>
         </div>
@@ -264,10 +265,10 @@ function App() {
       <div className="container mx-auto px-6 py-6">
         {/* Stats */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-          <div className="bg-slate-800 border border-slate-700 rounded-lg p-4 hover:bg-slate-750 transition-colors">
+          <div className="glass-card rounded-xl p-6 animate-scale-in transition-all duration-300 hover:scale-105">
             <div className="flex items-center justify-between mb-3">
-              <div className="p-2 bg-slate-700 rounded-lg">
-                <Database className="w-5 h-5 text-slate-300" />
+              <div className="p-3 glass-card rounded-xl">
+                <Database className="w-5 h-5 text-purple-400" />
               </div>
               <div className="text-right">
                 <div className="text-2xl font-bold text-white">{totalIdeas}</div>
@@ -278,9 +279,9 @@ function App() {
             <div className="text-xs text-slate-500 mt-1">In the database</div>
           </div>
 
-          <div className="bg-slate-800 border border-slate-700 rounded-lg p-4 hover:bg-slate-750 transition-colors">
+          <div className="glass-card rounded-xl p-6 animate-scale-in transition-all duration-300 hover:scale-105">
             <div className="flex items-center justify-between mb-3">
-              <div className="p-2 bg-slate-700 rounded-lg">
+              <div className="p-3 glass-card rounded-xl">
                 <TrendingUp className="w-5 h-5 text-green-400" />
               </div>
               <div className="text-right">
@@ -292,9 +293,9 @@ function App() {
             <div className="text-xs text-slate-500 mt-1">High potential ideas</div>
           </div>
 
-          <div className="bg-slate-800 border border-slate-700 rounded-lg p-4 hover:bg-slate-750 transition-colors">
+          <div className="glass-card rounded-xl p-6 animate-scale-in transition-all duration-300 hover:scale-105">
             <div className="flex items-center justify-between mb-3">
-              <div className="p-2 bg-slate-700 rounded-lg">
+              <div className="p-3 glass-card rounded-xl">
                 <TrendingUp className="w-5 h-5 text-orange-400" />
               </div>
               <div className="text-right">
@@ -308,7 +309,7 @@ function App() {
         </div>
 
         {/* Compact Filters */}
-        <div className="bg-slate-800 border border-slate-700 rounded-lg p-4 mb-6">
+        <div className="glass-card rounded-xl p-6 mb-6 animate-slide-up">
           <div className="flex flex-col gap-4">
             {/* Single Row Filters */}
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-3 items-end">
@@ -319,7 +320,7 @@ function App() {
                   <input
                     type="text"
                     placeholder="Search ideas..."
-                    className="w-full pl-10 pr-4 py-2.5 text-sm font-medium text-white placeholder-slate-400 bg-slate-700 border border-slate-600 rounded-lg focus:border-slate-500 focus:outline-none"
+                    className="w-full pl-10 pr-4 input-modern"
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                   />
@@ -339,7 +340,7 @@ function App() {
               {/* Competition Filter */}
               <div className="lg:col-span-2">
                 <select
-                  className="w-full px-3 py-2.5 text-sm font-medium text-white bg-slate-700 border border-slate-600 rounded-lg focus:border-slate-500 focus:outline-none"
+                  className="w-full select-modern"
                   value={filterComp}
                   onChange={(e) => setFilterComp(e.target.value)}
                 >
@@ -354,7 +355,7 @@ function App() {
               {/* AI Filter */}
               <div className="lg:col-span-2">
                 <select
-                  className="w-full px-3 py-2.5 text-sm font-medium text-white bg-slate-700 border border-slate-600 rounded-lg focus:border-slate-500 focus:outline-none"
+                  className="w-full select-modern"
                   value={filterAI}
                   onChange={(e) => setFilterAI(e.target.value)}
                 >
@@ -367,7 +368,7 @@ function App() {
               {/* Sort */}
               <div className="lg:col-span-1">
                 <select
-                  className="w-full px-3 py-2.5 text-sm font-medium text-white bg-slate-700 border border-slate-600 rounded-lg focus:border-slate-500 focus:outline-none"
+                  className="w-full select-modern"
                   value={sortBy}
                   onChange={(e) => setSortBy(e.target.value)}
                 >
@@ -379,20 +380,16 @@ function App() {
               </div>
 
               {/* Actions */}
-              <div className="lg:col-span-1 flex gap-1">
+              <div className="lg:col-span-1 flex gap-1 justify-center">
                 <button 
-                  className={`px-2 py-2.5 text-sm font-medium rounded-lg border transition-colors flex items-center justify-center ${
-                    showAdvancedFilters 
-                      ? 'bg-slate-600 border-slate-500 text-white' 
-                      : 'bg-slate-700 border-slate-600 text-slate-300 hover:bg-slate-600'
-                  }`}
+                  className={`filter-button ${showAdvancedFilters ? 'active' : ''}`}
                   onClick={() => setShowAdvancedFilters(!showAdvancedFilters)}
                 >
                   <SlidersHorizontal className="w-4 h-4" />
                 </button>
                 {activeFilters && (
                   <button 
-                    className="px-2 py-2.5 text-sm font-medium rounded-lg border bg-red-900/20 border-red-800 text-red-400 hover:bg-red-900/30 transition-colors flex items-center justify-center"
+                    className="filter-button danger"
                     onClick={clearAllFilters}
                   >
                     <X className="w-4 h-4" />
@@ -403,12 +400,12 @@ function App() {
 
             {/* Advanced Filters (Collapsible) */}
             {showAdvancedFilters && (
-              <div className="border-t border-slate-700 pt-4">
+              <div className="border-t border-white/10 pt-4">
                 <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
                   <div>
                     <label className="block text-xs font-medium text-slate-400 mb-1">Complexity</label>
                     <select
-                      className="w-full px-3 py-2 text-sm font-medium text-white bg-slate-700 border border-slate-600 rounded-lg focus:border-slate-500 focus:outline-none"
+                      className="w-full select-modern"
                       value={filterComplexity}
                       onChange={(e) => setFilterComplexity(e.target.value)}
                     >
@@ -421,7 +418,7 @@ function App() {
                   <div>
                     <label className="block text-xs font-medium text-slate-400 mb-1">1k MRR Chance</label>
                     <select
-                      className="w-full px-3 py-2 text-sm font-medium text-white bg-slate-700 border border-slate-600 rounded-lg focus:border-slate-500 focus:outline-none"
+                      className="w-full select-modern"
                       value={filterOneKMrrChance}
                       onChange={(e) => setFilterOneKMrrChance(e.target.value)}
                     >
@@ -434,7 +431,7 @@ function App() {
                   <div>
                     <label className="block text-xs font-medium text-slate-400 mb-1">Sort Order</label>
                     <select
-                      className="w-full px-3 py-2 text-sm font-medium text-white bg-slate-700 border border-slate-600 rounded-lg focus:border-slate-500 focus:outline-none"
+                      className="w-full select-modern"
                       value={sortOrder}
                       onChange={(e) => setSortOrder(e.target.value as 'asc' | 'desc')}
                     >
@@ -485,7 +482,7 @@ function App() {
         </div>
 
         {/* Ideas Table */}
-        <div className="bg-slate-800 border border-slate-700 rounded-lg overflow-hidden">
+        <div className="glass-card rounded-xl overflow-hidden animate-slide-up">
           <IdeasTable ideas={paginatedData.items} onRowClick={handleRowClick} />
           <Pagination
             currentPage={currentPage}

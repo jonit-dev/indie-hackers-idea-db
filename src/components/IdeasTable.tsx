@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect, memo, useMemo } from 'react';
 import { createPortal } from 'react-dom';
 import { MicroSaasIdea } from '../types/idea';
 import { TrendingUp, Clock, Users, Zap, Target, ExternalLink, DollarSign, Shield, TrendingDown, CheckCircle, Activity, HelpCircle, ChevronUp, ChevronDown, Brain } from 'lucide-react';
+import ScoreRing from './ScoreRing';
 
 interface IdeasTableProps {
   ideas: MicroSaasIdea[];
@@ -263,7 +264,7 @@ const IdeasTable: React.FC<IdeasTableProps> = memo(({ ideas, onRowClick }) => {
 
   return (
     <div className="overflow-x-auto">
-      <table className="w-full min-w-[1200px]">
+      <table className="w-full min-w-[1200px] table-modern">
           <thead>
             <tr className="border-b border-slate-700/50">
               <SortableHeader field="niche" className="text-left py-3 px-4 text-xs font-semibold text-slate-400 uppercase tracking-wider w-80">
@@ -376,7 +377,7 @@ const IdeasTable: React.FC<IdeasTableProps> = memo(({ ideas, onRowClick }) => {
             {sortedIdeas.map((idea) => (
               <tr 
                 key={idea.id} 
-                className="border-b border-slate-700/30 hover:bg-slate-800/30 cursor-pointer transition-all duration-200 group"
+                className="table-row-modern group"
                 onClick={() => onRowClick(idea)}
               >
                 <td className="py-3 px-4 w-80">
@@ -408,7 +409,7 @@ const IdeasTable: React.FC<IdeasTableProps> = memo(({ ideas, onRowClick }) => {
                 <td className="text-center py-3 px-3">
                   <div className="flex items-center justify-center gap-1">
                     <DollarSign className="w-3 h-3 text-green-400" />
-                    <span className="text-green-300 font-bold text-sm bg-green-600/10 px-2 py-1 rounded border border-green-600/20">
+                    <span className="score-badge">
                       ${idea.mrr.toLocaleString()}
                     </span>
                   </div>
@@ -421,7 +422,7 @@ const IdeasTable: React.FC<IdeasTableProps> = memo(({ ideas, onRowClick }) => {
                 <td className="text-center py-3 px-3">
                   <div className="flex items-center justify-center gap-1">
                     <Clock className="w-3 h-3 text-orange-400" />
-                    <span className="text-orange-300 font-bold text-sm bg-orange-600/10 px-2 py-1 rounded border border-orange-600/20">
+                    <span className="score-badge warning">
                       {idea.mvpWk}d
                     </span>
                   </div>
@@ -471,15 +472,8 @@ const IdeasTable: React.FC<IdeasTableProps> = memo(({ ideas, onRowClick }) => {
                   </div>
                 </td>
                 <td className="text-center py-3 px-3">
-                  <div className="flex items-center justify-center gap-1">
-                    <Target className={`w-3 h-3 ${getScoreColor(idea.score)}`} />
-                    <span className={`font-bold text-sm px-2 py-1 rounded border ${getScoreColor(idea.score)} ${
-                      idea.score >= 80 ? 'bg-green-600/10 border-green-600/20' :
-                      idea.score >= 60 ? 'bg-orange-600/10 border-orange-600/20' :
-                      'bg-red-600/10 border-red-600/20'
-                    }`}>
-                      {idea.score}
-                    </span>
+                  <div className="flex items-center justify-center">
+                    <ScoreRing score={idea.score} size={50} className="animate-scale-in" />
                   </div>
                 </td>
                 <td className="text-center py-3 px-3">
