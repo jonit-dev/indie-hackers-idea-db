@@ -13,6 +13,7 @@ function App() {
     filterComp,
     filterComplexity,
     filterOneKMrrChance,
+    filterAI,
     showAdvancedFilters,
     sortBy,
     sortOrder,
@@ -21,6 +22,7 @@ function App() {
     setFilterComp,
     setFilterComplexity,
     setFilterOneKMrrChance,
+    setFilterAI,
     setShowAdvancedFilters,
     setSortBy,
     setSortOrder,
@@ -40,6 +42,7 @@ function App() {
   const competitions = ['All', 'Low', 'Med', 'High'];
   const complexities = ['All', '1', '2', '3', '4', '5'];
   const oneKMrrChances = ['All', 'H', 'M', 'L'];
+  const aiOptions = ['All', 'AI', 'Non-AI'];
 
   const filteredIdeas = getFilteredIdeas();
 
@@ -184,7 +187,7 @@ function App() {
             {/* Advanced Filters */}
             {showAdvancedFilters && (
               <div className="border-t border-slate-700 pt-4">
-                <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-4">
+                <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-3 mb-4">
                   <div>
                     <label className="block text-xs font-medium text-slate-400 mb-1">Complexity</label>
                     <select
@@ -207,6 +210,19 @@ function App() {
                     >
                       {oneKMrrChances.map(chance => (
                         <option key={chance} value={chance} className="bg-slate-800 text-white">{chance}</option>
+                      ))}
+                    </select>
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-medium text-slate-400 mb-1">AI Type</label>
+                    <select
+                      className="w-full px-3 py-2 text-sm font-medium text-white bg-slate-700 border border-slate-600 rounded-lg focus:border-slate-500 focus:outline-none"
+                      value={filterAI}
+                      onChange={(e) => setFilterAI(e.target.value)}
+                    >
+                      {aiOptions.map(option => (
+                        <option key={option} value={option} className="bg-slate-800 text-white">{option}</option>
                       ))}
                     </select>
                   </div>

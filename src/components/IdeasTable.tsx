@@ -1,13 +1,150 @@
-import React from 'react';
+import React, { useState, useRef, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { MicroSaasIdea } from '../types/idea';
-import { TrendingUp, Clock, Users, Zap, Target, ExternalLink, DollarSign, Shield, TrendingDown, CheckCircle, Activity } from 'lucide-react';
+import { TrendingUp, Clock, Users, Zap, Target, ExternalLink, DollarSign, Shield, TrendingDown, CheckCircle, Activity, HelpCircle, ChevronUp, ChevronDown, Brain } from 'lucide-react';
 
 interface IdeasTableProps {
   ideas: MicroSaasIdea[];
   onRowClick: (idea: MicroSaasIdea) => void;
 }
 
+type SortField = keyof MicroSaasIdea;
+type SortDirection = 'asc' | 'desc' | null;
+
+const Tooltip: React.FC<{ text: string; children: React.ReactNode }> = ({ text, children }) => {
+  const [isVisible, setIsVisible] = useState(false);
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const triggerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const updatePosition = () => {
+      if (triggerRef.current) {
+        const rect = triggerRef.current.getBoundingClientRect();
+        setPosition({
+          x: rect.left + rect.width / 2,
+          y: rect.top - 8
+        });
+      }
+    };
+
+    if (isVisible) {
+      updatePosition();
+      window.addEventListener('scroll', updatePosition);
+      window.addEventListener('resize', updatePosition);
+    }
+
+    return () => {
+      window.removeEventListener('scroll', updatePosition);
+      window.removeEventListener('resize', updatePosition);
+    };
+  }, [isVisible]);
+
+  const tooltip = isVisible && (
+    <div
+      className="fixed px-3 py-2 bg-slate-900 text-white text-xs rounded-lg shadow-lg border border-slate-600 whitespace-nowrap pointer-events-none"
+      style={{
+        left: position.x,
+        top: position.y,
+        transform: 'translate(-50%, -100%)',
+        zIndex: 9999
+      }}
+    >
+      {text}
+      <div 
+        className="absolute border-4 border-transparent border-t-slate-900"
+        style={{
+          left: '50%',
+          top: '100%',
+          transform: 'translateX(-50%)'
+        }}
+      />
+    </div>
+  );
+
+  return (
+    <>
+      <div
+        ref={triggerRef}
+        className="inline-block"
+        onMouseEnter={() => setIsVisible(true)}
+        onMouseLeave={() => setIsVisible(false)}
+      >
+        {children}
+      </div>
+      {typeof document !== 'undefined' && createPortal(tooltip, document.body)}
+    </>
+  );
+};
+
 const IdeasTable: React.FC<IdeasTableProps> = ({ ideas, onRowClick }) => {
+  const [sortField, setSortField] = useState<SortField | null>(null);
+  const [sortDirection, setSortDirection] = useState<SortDirection>(null);
+
+  const handleSort = (field: SortField) => {
+    if (sortField === field) {
+      if (sortDirection === 'asc') {
+        setSortDirection('desc');
+      } else if (sortDirection === 'desc') {
+        setSortDirection(null);
+        setSortField(null);
+      } else {
+        setSortDirection('asc');
+      }
+    } else {
+      setSortField(field);
+      setSortDirection('asc');
+    }
+  };
+
+  const sortedIdeas = React.useMemo(() => {
+    if (!sortField || !sortDirection) return ideas;
+
+    return [...ideas].sort((a, b) => {
+      const aValue = a[sortField];
+      const bValue = b[sortField];
+
+      // Handle null/undefined values
+      if (aValue == null && bValue == null) return 0;
+      if (aValue == null) return sortDirection === 'asc' ? 1 : -1;
+      if (bValue == null) return sortDirection === 'asc' ? -1 : 1;
+
+      // Handle numeric values
+      if (typeof aValue === 'number' && typeof bValue === 'number') {
+        return sortDirection === 'asc' ? aValue - bValue : bValue - aValue;
+      }
+
+      // Handle string values
+      const aStr = String(aValue).toLowerCase();
+      const bStr = String(bValue).toLowerCase();
+      
+      if (aStr < bStr) return sortDirection === 'asc' ? -1 : 1;
+      if (aStr > bStr) return sortDirection === 'asc' ? 1 : -1;
+      return 0;
+    });
+  }, [ideas, sortField, sortDirection]);
+
+  const getSortIcon = (field: SortField) => {
+    if (sortField !== field) return null;
+    if (sortDirection === 'asc') return <ChevronUp className="w-3 h-3" />;
+    if (sortDirection === 'desc') return <ChevronDown className="w-3 h-3" />;
+    return null;
+  };
+
+  const SortableHeader: React.FC<{ field: SortField; children: React.ReactNode; className?: string }> = ({ 
+    field, 
+    children, 
+    className = "text-center py-3 px-3 text-xs font-semibold text-slate-400 uppercase tracking-wider" 
+  }) => (
+    <th 
+      className={`${className} cursor-pointer hover:text-slate-300 transition-colors select-none`}
+      onClick={() => handleSort(field)}
+    >
+      <div className="flex items-center gap-1">
+        {children}
+        {getSortIcon(field)}
+      </div>
+    </th>
+  );
   const getComplexityColor = (complexity: number) => {
     if (complexity <= 2) return 'text-green-400 bg-green-500/20 border-green-500/30';
     if (complexity <= 3) return 'text-orange-400 bg-orange-500/20 border-orange-500/30';
@@ -77,7 +214,24 @@ const IdeasTable: React.FC<IdeasTableProps> = ({ ideas, onRowClick }) => {
     return 'text-red-400';
   };
 
-  if (ideas.length === 0) {
+  const isAIRelated = (idea: MicroSaasIdea) => {
+    const searchText = `${idea.niche} ${idea.rationale}`.toLowerCase();
+    return searchText.includes('ai ') || 
+           searchText.includes('artificial intelligence') ||
+           searchText.includes('machine learning') ||
+           searchText.includes('ml ') ||
+           searchText.includes('chatbot') ||
+           searchText.includes('gpt') ||
+           searchText.includes('llm') ||
+           searchText.includes('ai-') ||
+           searchText.includes('automation') ||
+           searchText.includes('intelligent') ||
+           searchText.includes('smart ') ||
+           searchText.includes('neural') ||
+           searchText.includes('deep learning');
+  };
+
+  if (sortedIdeas.length === 0) {
     return (
       <div className="bg-slate-800 border border-slate-700 rounded-lg p-12 text-center">
         <div className="max-w-md mx-auto">
@@ -99,49 +253,114 @@ const IdeasTable: React.FC<IdeasTableProps> = ({ ideas, onRowClick }) => {
         <table className="w-full">
           <thead>
             <tr className="border-b border-slate-700/50">
-              <th className="text-left py-3 px-4 text-xs font-semibold text-slate-400 uppercase tracking-wider">
-                Niche
-              </th>
-              <th className="text-center py-3 px-3 text-xs font-semibold text-slate-400 uppercase tracking-wider">
-                MRR
-              </th>
-              <th className="text-center py-3 px-3 text-xs font-semibold text-slate-400 uppercase tracking-wider">
-                Complexity
-              </th>
-              <th className="text-center py-3 px-3 text-xs font-semibold text-slate-400 uppercase tracking-wider">
-                MVP Days
-              </th>
-              <th className="text-center py-3 px-3 text-xs font-semibold text-slate-400 uppercase tracking-wider">
-                1k MRR
-              </th>
-              <th className="text-center py-3 px-3 text-xs font-semibold text-slate-400 uppercase tracking-wider">
-                Competition
-              </th>
-              <th className="text-center py-3 px-3 text-xs font-semibold text-slate-400 uppercase tracking-wider">
-                Platform Risk
-              </th>
-              <th className="text-center py-3 px-3 text-xs font-semibold text-slate-400 uppercase tracking-wider">
-                Revenue Pot.
-              </th>
-              <th className="text-center py-3 px-3 text-xs font-semibold text-slate-400 uppercase tracking-wider">
-                Market Proof
-              </th>
-              <th className="text-center py-3 px-3 text-xs font-semibold text-slate-400 uppercase tracking-wider">
-                Passiveness
-              </th>
-              <th className="text-center py-3 px-3 text-xs font-semibold text-slate-400 uppercase tracking-wider">
-                Maint (h/mo)
-              </th>
-              <th className="text-center py-3 px-3 text-xs font-semibold text-slate-400 uppercase tracking-wider">
-                Score
-              </th>
-              <th className="text-center py-3 px-3 text-xs font-semibold text-slate-400 uppercase tracking-wider">
-                User
-              </th>
+              <SortableHeader field="niche" className="text-left py-3 px-4 text-xs font-semibold text-slate-400 uppercase tracking-wider">
+                <Tooltip text="Product domain/market niche (e.g. SEO, HR, DevTools)">
+                  <div className="flex items-center gap-1 cursor-help">
+                    Niche
+                    <HelpCircle className="w-3 h-3 opacity-60" />
+                  </div>
+                </Tooltip>
+              </SortableHeader>
+              <SortableHeader field="mrr">
+                <Tooltip text="Monthly Recurring Revenue in USD">
+                  <div className="flex items-center gap-1 cursor-help justify-center">
+                    MRR
+                    <HelpCircle className="w-3 h-3 opacity-60" />
+                  </div>
+                </Tooltip>
+              </SortableHeader>
+              <SortableHeader field="complexity">
+                <Tooltip text="Build complexity (1 = trivial, 5 = hard R&D)">
+                  <div className="flex items-center gap-1 cursor-help justify-center">
+                    Complexity
+                    <HelpCircle className="w-3 h-3 opacity-60" />
+                  </div>
+                </Tooltip>
+              </SortableHeader>
+              <SortableHeader field="mvpWk">
+                <Tooltip text="Days to build MVP (target ≤ 7)">
+                  <div className="flex items-center gap-1 cursor-help justify-center">
+                    MVP Days
+                    <HelpCircle className="w-3 h-3 opacity-60" />
+                  </div>
+                </Tooltip>
+              </SortableHeader>
+              <SortableHeader field="oneKMrrChance">
+                <Tooltip text="Likelihood to hit ≥ $1k MRR in 6-12 months (H/M/L)">
+                  <div className="flex items-center gap-1 cursor-help justify-center">
+                    1k MRR
+                    <HelpCircle className="w-3 h-3 opacity-60" />
+                  </div>
+                </Tooltip>
+              </SortableHeader>
+              <SortableHeader field="comp">
+                <Tooltip text="Competitive intensity in the market">
+                  <div className="flex items-center gap-1 cursor-help justify-center">
+                    Competition
+                    <HelpCircle className="w-3 h-3 opacity-60" />
+                  </div>
+                </Tooltip>
+              </SortableHeader>
+              <SortableHeader field="platDep">
+                <Tooltip text="Platform-dependence risk (None/Low/Med/High)">
+                  <div className="flex items-center gap-1 cursor-help justify-center">
+                    Platform Risk
+                    <HelpCircle className="w-3 h-3 opacity-60" />
+                  </div>
+                </Tooltip>
+              </SortableHeader>
+              <SortableHeader field="revenuePotential">
+                <Tooltip text="Revenue potential assessment (H/M/L)">
+                  <div className="flex items-center gap-1 cursor-help justify-center">
+                    Revenue Pot.
+                    <HelpCircle className="w-3 h-3 opacity-60" />
+                  </div>
+                </Tooltip>
+              </SortableHeader>
+              <SortableHeader field="marketProof">
+                <Tooltip text="At least one indie hits ≥ 30k MRR in same niche">
+                  <div className="flex items-center gap-1 cursor-help justify-center">
+                    Market Proof
+                    <HelpCircle className="w-3 h-3 opacity-60" />
+                  </div>
+                </Tooltip>
+              </SortableHeader>
+              <SortableHeader field="passiveness">
+                <Tooltip text="Passiveness grade (A = highly passive, D = hands-on)">
+                  <div className="flex items-center gap-1 cursor-help justify-center">
+                    Passiveness
+                    <HelpCircle className="w-3 h-3 opacity-60" />
+                  </div>
+                </Tooltip>
+              </SortableHeader>
+              <SortableHeader field="maintHours">
+                <Tooltip text="Monthly maintenance hours (goal ≤ 10)">
+                  <div className="flex items-center gap-1 cursor-help justify-center">
+                    Maint (h/mo)
+                    <HelpCircle className="w-3 h-3 opacity-60" />
+                  </div>
+                </Tooltip>
+              </SortableHeader>
+              <SortableHeader field="score">
+                <Tooltip text="Overall attractiveness score (0-100)">
+                  <div className="flex items-center gap-1 cursor-help justify-center">
+                    Score
+                    <HelpCircle className="w-3 h-3 opacity-60" />
+                  </div>
+                </Tooltip>
+              </SortableHeader>
+              <SortableHeader field="user">
+                <Tooltip text="Primary target user persona">
+                  <div className="flex items-center gap-1 cursor-help justify-center">
+                    User
+                    <HelpCircle className="w-3 h-3 opacity-60" />
+                  </div>
+                </Tooltip>
+              </SortableHeader>
             </tr>
           </thead>
           <tbody>
-            {ideas.map((idea) => (
+            {sortedIdeas.map((idea) => (
               <tr 
                 key={idea.id} 
                 className="border-b border-slate-700/30 hover:bg-slate-800/30 cursor-pointer transition-all duration-200 group"
@@ -149,24 +368,36 @@ const IdeasTable: React.FC<IdeasTableProps> = ({ ideas, onRowClick }) => {
               >
                 <td className="py-3 px-4 max-w-xs">
                   <div className="flex flex-col">
-                    <div className="font-semibold text-white text-sm mb-1 group-hover:text-purple-300 transition-colors flex items-center gap-2">
-                      <span className="truncate">{idea.niche}</span>
-                      <ExternalLink className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0" />
+                    <div className="flex items-center gap-2 mb-2">
+                      <span className="px-2 py-1 bg-purple-600/20 border border-purple-500/30 text-purple-300 text-xs font-semibold rounded-md truncate">
+                        {idea.niche}
+                      </span>
+                      {isAIRelated(idea) && (
+                        <span className="px-1.5 py-0.5 bg-cyan-600/20 border border-cyan-500/30 text-cyan-300 text-xs font-bold rounded flex items-center gap-1">
+                          <Brain className="w-3 h-3" />
+                          AI
+                        </span>
+                      )}
+                      <ExternalLink className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0 text-slate-400" />
                     </div>
-                    <div className="text-xs text-slate-400 line-clamp-2 mb-2">
+                    <div className="text-xs text-slate-300 line-clamp-2 mb-2 leading-relaxed">
                       {idea.rationale}
                     </div>
                     <div className="flex items-center gap-2 text-xs">
-                      <span className="text-slate-500">{idea.pricing || '?'}</span>
+                      <span className="px-2 py-0.5 bg-green-600/20 border border-green-500/30 text-green-300 rounded font-medium">
+                        {idea.pricing || '?'}
+                      </span>
                       <span className="text-slate-600">•</span>
-                      <span className="text-slate-500">{idea.channel}</span>
+                      <span className="text-slate-400 font-medium">{idea.channel}</span>
                     </div>
                   </div>
                 </td>
                 <td className="text-center py-3 px-3">
                   <div className="flex items-center justify-center gap-1">
                     <DollarSign className="w-3 h-3 text-green-400" />
-                    <span className="text-white font-semibold text-sm">{idea.mrr.toLocaleString()}</span>
+                    <span className="text-green-300 font-bold text-sm bg-green-600/10 px-2 py-1 rounded border border-green-600/20">
+                      ${idea.mrr.toLocaleString()}
+                    </span>
                   </div>
                 </td>
                 <td className="text-center py-3 px-3">
@@ -177,8 +408,9 @@ const IdeasTable: React.FC<IdeasTableProps> = ({ ideas, onRowClick }) => {
                 <td className="text-center py-3 px-3">
                   <div className="flex items-center justify-center gap-1">
                     <Clock className="w-3 h-3 text-orange-400" />
-                    <span className="text-white font-semibold text-sm">{idea.mvpWk}</span>
-                    <span className="text-slate-500 text-xs">d</span>
+                    <span className="text-orange-300 font-bold text-sm bg-orange-600/10 px-2 py-1 rounded border border-orange-600/20">
+                      {idea.mvpWk}d
+                    </span>
                   </div>
                 </td>
                 <td className="text-center py-3 px-3">
@@ -228,7 +460,11 @@ const IdeasTable: React.FC<IdeasTableProps> = ({ ideas, onRowClick }) => {
                 <td className="text-center py-3 px-3">
                   <div className="flex items-center justify-center gap-1">
                     <Target className={`w-3 h-3 ${getScoreColor(idea.score)}`} />
-                    <span className={`font-bold text-sm ${getScoreColor(idea.score)}`}>
+                    <span className={`font-bold text-sm px-2 py-1 rounded border ${getScoreColor(idea.score)} ${
+                      idea.score >= 80 ? 'bg-green-600/10 border-green-600/20' :
+                      idea.score >= 60 ? 'bg-orange-600/10 border-orange-600/20' :
+                      'bg-red-600/10 border-red-600/20'
+                    }`}>
                       {idea.score}
                     </span>
                   </div>

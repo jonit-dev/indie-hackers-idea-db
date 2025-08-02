@@ -15,6 +15,7 @@ interface MicroSaasState {
   filterComp: string;
   filterComplexity: string;
   filterOneKMrrChance: string;
+  filterAI: string;
   showAdvancedFilters: boolean;
   sortBy: string;
   sortOrder: 'asc' | 'desc';
@@ -27,6 +28,7 @@ interface MicroSaasState {
   setFilterComp: (comp: string) => void;
   setFilterComplexity: (complexity: string) => void;
   setFilterOneKMrrChance: (chance: string) => void;
+  setFilterAI: (ai: string) => void;
   setShowAdvancedFilters: (show: boolean) => void;
   setSortBy: (sortBy: string) => void;
   setSortOrder: (order: 'asc' | 'desc') => void;
@@ -57,6 +59,7 @@ export const useMicroSaasStore = create<MicroSaasState>()(
       filterComp: 'All',
       filterComplexity: 'All',
       filterOneKMrrChance: 'All',
+      filterAI: 'All',
       showAdvancedFilters: false,
       sortBy: 'score',
       sortOrder: 'desc',
@@ -69,6 +72,7 @@ export const useMicroSaasStore = create<MicroSaasState>()(
       setFilterComp: (comp) => set({ filterComp: comp }),
       setFilterComplexity: (complexity) => set({ filterComplexity: complexity }),
       setFilterOneKMrrChance: (chance) => set({ filterOneKMrrChance: chance }),
+      setFilterAI: (ai) => set({ filterAI: ai }),
       setShowAdvancedFilters: (show) => set({ showAdvancedFilters: show }),
       setSortBy: (sortBy) => set({ sortBy }),
       setSortOrder: (order) => set({ sortOrder: order }),
@@ -79,6 +83,7 @@ export const useMicroSaasStore = create<MicroSaasState>()(
         filterComp: 'All',
         filterComplexity: 'All',
         filterOneKMrrChance: 'All',
+        filterAI: 'All',
         sortBy: 'score',
         sortOrder: 'desc',
       }),
@@ -89,6 +94,24 @@ export const useMicroSaasStore = create<MicroSaasState>()(
       // Computed functions
       getFilteredIdeas: () => {
         const state = get();
+        
+        const isAIRelated = (idea: MicroSaasIdea) => {
+          const searchText = `${idea.niche} ${idea.rationale}`.toLowerCase();
+          return searchText.includes('ai ') || 
+                 searchText.includes('artificial intelligence') ||
+                 searchText.includes('machine learning') ||
+                 searchText.includes('ml ') ||
+                 searchText.includes('chatbot') ||
+                 searchText.includes('gpt') ||
+                 searchText.includes('llm') ||
+                 searchText.includes('ai-') ||
+                 searchText.includes('automation') ||
+                 searchText.includes('intelligent') ||
+                 searchText.includes('smart ') ||
+                 searchText.includes('neural') ||
+                 searchText.includes('deep learning');
+        };
+        
         let filtered = state.ideas.filter(idea => {
           const matchesSearch = idea.niche.toLowerCase().includes(state.searchTerm.toLowerCase()) ||
             idea.rationale.toLowerCase().includes(state.searchTerm.toLowerCase()) ||
@@ -100,7 +123,11 @@ export const useMicroSaasStore = create<MicroSaasState>()(
           const matchesComplexity = state.filterComplexity === 'All' || idea.complexity.toString() === state.filterComplexity;
           const matchesOneKMrrChance = state.filterOneKMrrChance === 'All' || idea.oneKMrrChance === state.filterOneKMrrChance;
           
-          return matchesSearch && matchesNiche && matchesComp && matchesComplexity && matchesOneKMrrChance;
+          const matchesAI = state.filterAI === 'All' || 
+            (state.filterAI === 'AI' && isAIRelated(idea)) ||
+            (state.filterAI === 'Non-AI' && !isAIRelated(idea));
+          
+          return matchesSearch && matchesNiche && matchesComp && matchesComplexity && matchesOneKMrrChance && matchesAI;
         });
 
         // Sort the filtered results
@@ -146,7 +173,7 @@ export const useMicroSaasStore = create<MicroSaasState>()(
       hasActiveFilters: () => {
         const state = get();
         return !!(state.searchTerm || state.filterNiche !== 'All' || state.filterComp !== 'All' || 
-          state.filterComplexity !== 'All' || state.filterOneKMrrChance !== 'All');
+          state.filterComplexity !== 'All' || state.filterOneKMrrChance !== 'All' || state.filterAI !== 'All');
       },
       
       getTotalIdeas: () => get().ideas.length,
