@@ -290,7 +290,9 @@ function Dashboard() {
             <div className="text-xs text-slate-400">Avg Score</div>
           </div>
           <div className="glass-card rounded-lg p-2 text-center">
-            <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse mx-auto mb-1"></div>
+            <div className="flex justify-center mb-1">
+              <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+            </div>
             <div className="text-xs text-slate-400">Live Data</div>
           </div>
         </div>

@@ -199,12 +199,12 @@ export const useMicroSaasStore = create<MicroSaasState>()(
           state.filterComplexity !== 'All' || state.filterOneKMrrChance !== 'All' || state.filterAI !== 'All');
       },
       
-      getTotalIdeas: () => get().ideas.length,
+      getTotalIdeas: () => get().ideas.filter(idea => idea.mrr >= 100).length,
       
-      getHighScoreIdeas: () => get().ideas.filter(idea => idea.score >= 80).length,
+      getHighScoreIdeas: () => get().ideas.filter(idea => idea.score >= 80 && idea.mrr >= 100).length,
       
       getAvgScore: () => {
-        const ideas = get().ideas;
+        const ideas = get().ideas.filter(idea => idea.mrr >= 100);
         return Math.round(ideas.reduce((sum, idea) => sum + idea.score, 0) / ideas.length);
       },
       

@@ -258,9 +258,9 @@ const IdeasTable: React.FC<IdeasTableProps> = memo(({ ideas, onRowClick }) => {
                 </Tooltip>
               </SortableHeader>
               <SortableHeader field="mvpWk" className="text-center py-3 px-3 text-xs font-semibold text-slate-400 uppercase tracking-wider w-20">
-                <Tooltip text="Days to build MVP (target ≤ 7)">
+                <Tooltip text="Weeks to build MVP (target ≤ 7)">
                   <div className="flex items-center gap-1 cursor-help justify-center">
-                    MVP Days
+                    MVP Weeks
                     <HelpCircle className="w-3 h-3 opacity-60" />
                   </div>
                 </Tooltip>
@@ -268,7 +268,7 @@ const IdeasTable: React.FC<IdeasTableProps> = memo(({ ideas, onRowClick }) => {
               <SortableHeader field="oneKMrrChance" className="text-center py-3 px-3 text-xs font-semibold text-slate-400 uppercase tracking-wider w-20">
                 <Tooltip text="Likelihood to hit ≥ $1k MRR in 6-12 months (H/M/L)">
                   <div className="flex items-center gap-1 cursor-help justify-center">
-                    1k MRR
+                    1k MRR Chance
                     <HelpCircle className="w-3 h-3 opacity-60" />
                   </div>
                 </Tooltip>
@@ -403,7 +403,7 @@ const IdeasTable: React.FC<IdeasTableProps> = memo(({ ideas, onRowClick }) => {
                   <div className="flex items-center justify-center gap-1">
                     <Clock className="w-3 h-3 text-orange-400" />
                     <span className="score-badge warning">
-                      {idea.mvpWk}d
+                      {idea.mvpWk}w
                     </span>
                   </div>
                 </td>

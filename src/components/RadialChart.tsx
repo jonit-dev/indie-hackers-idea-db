@@ -124,6 +124,17 @@ const RadialChart: React.FC<RadialChartProps> = ({ idea, size = 200, className =
   
   const colors = getColor(idea.score);
 
+  // Get score text color class based on the score
+  const getScoreTextColor = (score: number) => {
+    if (score >= 80) {
+      return 'from-green-400 to-emerald-500';
+    } else if (score >= 60) {
+      return 'from-yellow-400 to-orange-500';
+    } else {
+      return 'from-red-400 to-red-500';
+    }
+  };
+
   const data = {
     labels: [
       'Overall Score',
@@ -154,6 +165,9 @@ const RadialChart: React.FC<RadialChartProps> = ({ idea, size = 200, className =
   const options = {
     responsive: true,
     maintainAspectRatio: true,
+    layout: {
+      padding: 20
+    },
     plugins: {
       legend: {
         display: false
@@ -187,15 +201,16 @@ const RadialChart: React.FC<RadialChartProps> = ({ idea, size = 200, className =
         pointLabels: {
           color: '#94a3b8',
           font: {
-            size: 11,
+            size: 8,
             weight: '500'
-          }
+          },
+          padding: 8
         },
         ticks: {
           stepSize: 20,
           color: '#64748b',
           font: {
-            size: 9
+            size: 8
           },
           backdropColor: 'transparent'
         }
@@ -204,15 +219,14 @@ const RadialChart: React.FC<RadialChartProps> = ({ idea, size = 200, className =
   };
 
   return (
-    <div className={`flex flex-col items-center ${className}`}>
-      <div className="relative" style={{ width: size, height: size }}>
-        <Radar data={data} options={options} />
-      </div>
+    <div className={`relative ${className}`} style={{ width: size, height: size }}>
+      <Radar data={data} options={options} />
       
-      {/* Score display below chart */}
-      <div className="mt-2 text-center">
-        <div className="text-xl font-bold text-white">{idea.score}</div>
-        <div className="text-xs text-slate-400">AI Score</div>
+      {/* Score display in center of chart */}
+      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 pointer-events-none">
+        <div className={`text-xl font-bold bg-gradient-to-r ${getScoreTextColor(idea.score)} bg-clip-text text-transparent text-center`}>
+          {idea.score}
+        </div>
       </div>
     </div>
   );
