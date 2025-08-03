@@ -1,5 +1,24 @@
 import React from 'react';
 import { MicroSaasIdea } from '../types/idea';
+import { Radar } from 'react-chartjs-2';
+import {
+  Chart as ChartJS,
+  RadialLinearScale,
+  PointElement,
+  LineElement,
+  Filler,
+  Tooltip,
+  Legend
+} from 'chart.js';
+
+ChartJS.register(
+  RadialLinearScale,
+  PointElement,
+  LineElement,
+  Filler,
+  Tooltip,
+  Legend
+);
 
 interface RadialChartProps {
   idea: MicroSaasIdea;
@@ -8,124 +27,192 @@ interface RadialChartProps {
 }
 
 const RadialChart: React.FC<RadialChartProps> = ({ idea, size = 200, className = '' }) => {
-  // Calculate metrics for the radial chart
-  const getScoreValue = (score: number) => (score / 100) * 360;
-  const getMrrValue = (mrr: number) => Math.min((mrr / 100000) * 360, 360); // Scale to 100k max
-  const getComplexityValue = (complexity: string | number) => {
-    const complexityNum = typeof complexity === 'string' ? parseInt(complexity) || 1 : complexity;
-    return ((5 - complexityNum) / 4) * 360; // Invert so lower complexity = higher score
-  };
-  const getChanceValue = (chance: string) => {
-    const chanceMap = { 'High': 0.9, 'Medium': 0.6, 'Low': 0.3, 'H': 0.9, 'M': 0.6, 'L': 0.3 };
-    return (chanceMap[chance as keyof typeof chanceMap] || 0.5) * 360;
-  };
-
-  const metrics = [
-    {
-      label: 'Overall Score',
-      value: getScoreValue(idea.score),
-      color: '#8b5cf6', // purple-500
-      percentage: idea.score
-    },
-    {
-      label: 'Revenue Potential', 
-      value: getMrrValue(idea.mrr),
-      color: '#10b981', // emerald-500
-      percentage: Math.min(Math.round((idea.mrr / 100000) * 100), 100)
-    },
-    {
-      label: 'Build Ease',
-      value: getComplexityValue(idea.complexity),
-      color: '#f59e0b', // amber-500
-      percentage: Math.round(((5 - (typeof idea.complexity === 'string' ? parseInt(idea.complexity) || 1 : idea.complexity)) / 4) * 100)
-    },
-    {
-      label: '1K MRR Chance',
-      value: getChanceValue(idea.oneKMrrChance),
-      color: '#3b82f6', // blue-500
-      percentage: Math.round((getChanceValue(idea.oneKMrrChance) / 360) * 100)
+  // Calculate normalized scores (0-100 scale)
+  const getCompetitionScore = (comp: string) => {
+    switch (comp.toLowerCase()) {
+      case 'low': return 85;
+      case 'med': case 'medium': return 50;
+      case 'high': return 20;
+      default: return 50;
     }
-  ];
-
-  const radius = size / 2 - 20;
-  const center = size / 2;
-  const strokeWidth = 12;
-
-  const createPath = (startAngle: number, endAngle: number, radius: number) => {
-    const start = polarToCartesian(center, center, radius, endAngle);
-    const end = polarToCartesian(center, center, radius, startAngle);
-    const largeArcFlag = endAngle - startAngle <= 180 ? "0" : "1";
-    return [
-      "M", start.x, start.y,
-      "A", radius, radius, 0, largeArcFlag, 0, end.x, end.y
-    ].join(" ");
   };
 
-  const polarToCartesian = (centerX: number, centerY: number, radius: number, angleInDegrees: number) => {
-    const angleInRadians = (angleInDegrees - 90) * Math.PI / 180.0;
-    return {
-      x: centerX + (radius * Math.cos(angleInRadians)),
-      y: centerY + (radius * Math.sin(angleInRadians))
-    };
+  const getComplexityScore = (complexity: string | number) => {
+    if (typeof complexity === 'string') {
+      switch (complexity.toLowerCase()) {
+        case 'very low': return 90;
+        case 'low': return 75;
+        case 'medium': return 50;
+        case 'high': return 25;
+        case 'very high': return 10;
+        default: return 50;
+      }
+    }
+    const complexityNum = complexity;
+    return Math.max(0, (6 - complexityNum) * 20); // Invert: lower complexity = higher score
+  };
+
+  const getPlatformDepScore = (platDep: string) => {
+    switch (platDep.toLowerCase()) {
+      case 'none': return 100;
+      case 'low': return 75;
+      case 'med': case 'medium': return 45;
+      case 'high': return 20;
+      default: return 50;
+    }
+  };
+
+  const getChanceScore = (chance: string) => {
+    switch (chance.toUpperCase()) {
+      case 'H': case 'HIGH': return 85;
+      case 'M': case 'MEDIUM': case 'MED': return 60;
+      case 'L': case 'LOW': return 35;
+      default: return 50;
+    }
+  };
+
+  const getMarketProofScore = (proof: string) => {
+    return proof === 'Yes' ? 85 : 35;
+  };
+
+  const getMaintainabilityScore = (hours: number) => {
+    if (hours <= 5) return 90;
+    if (hours <= 10) return 70;
+    if (hours <= 20) return 50;
+    if (hours <= 40) return 30;
+    return 10;
+  };
+
+  // Calculate overall potential score for color determination
+  const scores = [
+    idea.score,
+    getCompetitionScore(idea.comp),
+    getComplexityScore(idea.complexity),
+    getPlatformDepScore(idea.platDep),
+    getChanceScore(idea.oneKMrrChance),
+    getMarketProofScore(idea.marketProof),
+    getMaintainabilityScore(idea.maintHours)
+  ];
+  
+  // Use the main idea score for color determination
+  
+  // Dynamic color based on the main AI score (matching ScoreRing thresholds)
+  const getColor = (score: number) => {
+    if (score >= 80) {
+      // High potential - Green
+      return {
+        bg: 'rgba(34, 197, 94, 0.2)',
+        border: 'rgba(34, 197, 94, 1)',
+        point: 'rgba(34, 197, 94, 1)'
+      };
+    } else if (score >= 60) {
+      // Medium potential - Yellow/Orange
+      return {
+        bg: 'rgba(251, 191, 36, 0.2)',
+        border: 'rgba(251, 191, 36, 1)',
+        point: 'rgba(251, 191, 36, 1)'
+      };
+    } else {
+      // Low potential - Red
+      return {
+        bg: 'rgba(239, 68, 68, 0.2)',
+        border: 'rgba(239, 68, 68, 1)',
+        point: 'rgba(239, 68, 68, 1)'
+      };
+    }
+  };
+  
+  const colors = getColor(idea.score);
+
+  const data = {
+    labels: [
+      'Overall Score',
+      'Competition',
+      'Build Ease',
+      'Platform Risk',
+      '1K MRR Chance',
+      'Market Proof',
+      'Maintainability'
+    ],
+    datasets: [
+      {
+        label: 'Metrics',
+        data: scores,
+        backgroundColor: colors.bg,
+        borderColor: colors.border,
+        borderWidth: 2,
+        pointBackgroundColor: colors.point,
+        pointBorderColor: '#fff',
+        pointHoverBackgroundColor: '#fff',
+        pointHoverBorderColor: colors.border,
+        pointRadius: 4,
+        pointHoverRadius: 6
+      }
+    ]
+  };
+
+  const options = {
+    responsive: true,
+    maintainAspectRatio: true,
+    plugins: {
+      legend: {
+        display: false
+      },
+      tooltip: {
+        backgroundColor: 'rgba(30, 41, 59, 0.95)',
+        titleColor: '#fff',
+        bodyColor: '#cbd5e1',
+        borderColor: 'rgba(148, 163, 184, 0.2)',
+        borderWidth: 1,
+        padding: 12,
+        displayColors: false,
+        callbacks: {
+          label: function(context: any) {
+            return `Score: ${context.raw}`;
+          }
+        }
+      }
+    },
+    scales: {
+      r: {
+        min: 0,
+        max: 100,
+        beginAtZero: true,
+        angleLines: {
+          color: 'rgba(148, 163, 184, 0.1)'
+        },
+        grid: {
+          color: 'rgba(148, 163, 184, 0.1)'
+        },
+        pointLabels: {
+          color: '#94a3b8',
+          font: {
+            size: 11,
+            weight: '500'
+          }
+        },
+        ticks: {
+          stepSize: 20,
+          color: '#64748b',
+          font: {
+            size: 9
+          },
+          backdropColor: 'transparent'
+        }
+      }
+    }
   };
 
   return (
     <div className={`flex flex-col items-center ${className}`}>
-      <div className="relative">
-        <svg width={size} height={size} className="transform -rotate-90">
-          {/* Background circles */}
-          {metrics.map((_, index) => (
-            <circle
-              key={`bg-${index}`}
-              cx={center}
-              cy={center}
-              r={radius - (index * (strokeWidth + 4))}
-              fill="none"
-              stroke="rgba(148, 163, 184, 0.1)"
-              strokeWidth={strokeWidth}
-            />
-          ))}
-          
-          {/* Progress arcs */}
-          {metrics.map((metric, index) => (
-            <path
-              key={`arc-${index}`}
-              d={createPath(0, metric.value)}
-              fill="none"
-              stroke={metric.color}
-              strokeWidth={strokeWidth}
-              strokeLinecap="round"
-              className="drop-shadow-sm"
-              style={{
-                filter: `drop-shadow(0 0 8px ${metric.color}40)`
-              }}
-            />
-          ))}
-        </svg>
-        
-        {/* Center score */}
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="text-center">
-            <div className="text-3xl font-bold text-white">{idea.score}</div>
-            <div className="text-xs text-slate-400 font-medium">AI Score</div>
-          </div>
-        </div>
+      <div className="relative" style={{ width: size, height: size }}>
+        <Radar data={data} options={options} />
       </div>
-
-      {/* Legend */}
-      <div className="grid grid-cols-2 gap-3 mt-6 w-full max-w-sm">
-        {metrics.map((metric, index) => (
-          <div key={index} className="flex items-center gap-2 text-sm">
-            <div 
-              className="w-3 h-3 rounded-full flex-shrink-0"
-              style={{ backgroundColor: metric.color }}
-            />
-            <div className="flex-1">
-              <div className="text-slate-300 font-medium">{metric.label}</div>
-              <div className="text-slate-500 text-xs">{metric.percentage}%</div>
-            </div>
-          </div>
-        ))}
+      
+      {/* Score display below chart */}
+      <div className="mt-2 text-center">
+        <div className="text-xl font-bold text-white">{idea.score}</div>
+        <div className="text-xs text-slate-400">AI Score</div>
       </div>
     </div>
   );

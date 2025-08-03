@@ -1,21 +1,20 @@
-import React from 'react';
-import { MicroSaasIdea } from '../types/idea';
-import { X, ExternalLink, Calendar, DollarSign, TrendingUp, Users, Zap, Code, Target, Clock } from 'lucide-react';
 import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
   BarElement,
-  Title,
-  Tooltip,
-  Legend,
-  RadialLinearScale,
-  PointElement,
-  LineElement,
+  CategoryScale,
+  Chart as ChartJS,
   Filler,
-  ArcElement,
+  Legend,
+  LinearScale,
+  LineElement,
+  PointElement,
+  RadialLinearScale,
+  Title,
+  Tooltip
 } from 'chart.js';
-import { Bar, Radar, PolarArea } from 'react-chartjs-2';
+import { Clock, DollarSign, ExternalLink, Target, TrendingUp, Users, X, Zap } from 'lucide-react';
+import React from 'react';
+import { Bar, Radar } from 'react-chartjs-2';
+import { MicroSaasIdea } from '../types/idea';
 
 ChartJS.register(
   CategoryScale,
@@ -144,7 +143,7 @@ const InsightsModal: React.FC<InsightsModalProps> = ({ idea, isOpen, onClose }) 
         cornerRadius: 8,
         padding: 12,
         callbacks: {
-          label: function(context: any) {
+          label: function (context: any) {
             const label = context.dataset.label || '';
             const value = Math.round(context.parsed.y);
             return `${label}: ${value}/100`;
@@ -291,7 +290,7 @@ const InsightsModal: React.FC<InsightsModalProps> = ({ idea, isOpen, onClose }) 
               <div className="text-white font-bold text-lg">${idea.mrr.toLocaleString()}</div>
               <div className="text-xs text-slate-500">{idea.pricing || 'Unknown pricing'}</div>
             </div>
-            
+
             <div className="bg-slate-700 border border-slate-600 rounded-lg p-4">
               <div className="flex items-center gap-2 mb-2">
                 <Clock className="w-4 h-4 text-orange-400" />
@@ -303,16 +302,14 @@ const InsightsModal: React.FC<InsightsModalProps> = ({ idea, isOpen, onClose }) 
 
             <div className="bg-slate-700 border border-slate-600 rounded-lg p-4">
               <div className="flex items-center gap-2 mb-2">
-                <Target className={`w-4 h-4 ${
-                  idea.complexity <= 2 ? 'text-green-400' :
-                  idea.complexity <= 3 ? 'text-orange-400' : 'text-red-400'
-                }`} />
+                <Target className={`w-4 h-4 ${idea.complexity <= 2 ? 'text-green-400' :
+                    idea.complexity <= 3 ? 'text-orange-400' : 'text-red-400'
+                  }`} />
                 <span className="text-xs text-slate-400 font-medium">Complexity</span>
               </div>
-              <div className={`font-bold text-lg ${
-                idea.complexity <= 2 ? 'text-green-400' :
-                idea.complexity <= 3 ? 'text-orange-400' : 'text-red-400'
-              }`}>
+              <div className={`font-bold text-lg ${idea.complexity <= 2 ? 'text-green-400' :
+                  idea.complexity <= 3 ? 'text-orange-400' : 'text-red-400'
+                }`}>
                 {idea.complexity}/5
               </div>
               <div className="text-xs text-slate-500">Build difficulty</div>
@@ -320,16 +317,14 @@ const InsightsModal: React.FC<InsightsModalProps> = ({ idea, isOpen, onClose }) 
 
             <div className="bg-slate-700 border border-slate-600 rounded-lg p-4">
               <div className="flex items-center gap-2 mb-2">
-                <Users className={`w-4 h-4 ${
-                  idea.comp === 'Low' ? 'text-green-400' :
-                  idea.comp === 'Med' ? 'text-orange-400' : 'text-red-400'
-                }`} />
+                <Users className={`w-4 h-4 ${idea.comp === 'Low' ? 'text-green-400' :
+                    idea.comp === 'Med' ? 'text-orange-400' : 'text-red-400'
+                  }`} />
                 <span className="text-xs text-slate-400 font-medium">Competition</span>
               </div>
-              <div className={`font-bold text-lg ${
-                idea.comp === 'Low' ? 'text-green-400' :
-                idea.comp === 'Med' ? 'text-orange-400' : 'text-red-400'
-              }`}>
+              <div className={`font-bold text-lg ${idea.comp === 'Low' ? 'text-green-400' :
+                  idea.comp === 'Med' ? 'text-orange-400' : 'text-red-400'
+                }`}>
                 {idea.comp}
               </div>
               <div className="text-xs text-slate-500">Market density</div>
@@ -369,10 +364,9 @@ const InsightsModal: React.FC<InsightsModalProps> = ({ idea, isOpen, onClose }) 
               <div className="space-y-3">
                 <div className="flex justify-between">
                   <span className="text-slate-400">1k MRR Chance:</span>
-                  <span className={`font-medium ${
-                    idea.oneKMrrChance === 'H' ? 'text-green-400' :
-                    idea.oneKMrrChance === 'M' ? 'text-orange-400' : 'text-red-400'
-                  }`}>{idea.oneKMrrChance === 'H' ? 'High' : idea.oneKMrrChance === 'M' ? 'Medium' : 'Low'}</span>
+                  <span className={`font-medium ${idea.oneKMrrChance === 'H' ? 'text-green-400' :
+                      idea.oneKMrrChance === 'M' ? 'text-orange-400' : 'text-red-400'
+                    }`}>{idea.oneKMrrChance === 'H' ? 'High' : idea.oneKMrrChance === 'M' ? 'Medium' : 'Low'}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-slate-400">Market Proof:</span>
@@ -382,10 +376,9 @@ const InsightsModal: React.FC<InsightsModalProps> = ({ idea, isOpen, onClose }) 
                 </div>
                 <div className="flex justify-between">
                   <span className="text-slate-400">Distribution Fit:</span>
-                  <span className={`font-medium ${
-                    idea.distFit === 'Good' ? 'text-green-400' :
-                    idea.distFit === 'Avg' ? 'text-orange-400' : 'text-red-400'
-                  }`}>{idea.distFit}</span>
+                  <span className={`font-medium ${idea.distFit === 'Good' ? 'text-green-400' :
+                      idea.distFit === 'Avg' ? 'text-orange-400' : 'text-red-400'
+                    }`}>{idea.distFit}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-slate-400">Maintenance:</span>
@@ -403,32 +396,28 @@ const InsightsModal: React.FC<InsightsModalProps> = ({ idea, isOpen, onClose }) 
               <div className="space-y-3">
                 <div className="flex justify-between">
                   <span className="text-slate-400">Platform Dependency:</span>
-                  <span className={`font-medium ${
-                    idea.platDep === 'None' || idea.platDep === 'Low' ? 'text-green-400' :
-                    idea.platDep === 'Med' ? 'text-orange-400' : 'text-red-400'
-                  }`}>{idea.platDep}</span>
+                  <span className={`font-medium ${idea.platDep === 'None' || idea.platDep === 'Low' ? 'text-green-400' :
+                      idea.platDep === 'Med' ? 'text-orange-400' : 'text-red-400'
+                    }`}>{idea.platDep}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-slate-400">Legal Risk:</span>
-                  <span className={`font-medium ${
-                    idea.legalRisk === 'None' || idea.legalRisk === 'Low' ? 'text-green-400' :
-                    idea.legalRisk === 'Med' ? 'text-orange-400' : 'text-red-400'
-                  }`}>{idea.legalRisk}</span>
+                  <span className={`font-medium ${idea.legalRisk === 'None' || idea.legalRisk === 'Low' ? 'text-green-400' :
+                      idea.legalRisk === 'Med' ? 'text-orange-400' : 'text-red-400'
+                    }`}>{idea.legalRisk}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-slate-400">Revenue Potential:</span>
-                  <span className={`font-medium ${
-                    idea.revenuePotential === 'H' ? 'text-green-400' :
-                    idea.revenuePotential === 'M' ? 'text-orange-400' : 'text-red-400'
-                  }`}>{idea.revenuePotential === 'H' ? 'High' : idea.revenuePotential === 'M' ? 'Medium' : 'Low'}</span>
+                  <span className={`font-medium ${idea.revenuePotential === 'H' ? 'text-green-400' :
+                      idea.revenuePotential === 'M' ? 'text-orange-400' : 'text-red-400'
+                    }`}>{idea.revenuePotential === 'H' ? 'High' : idea.revenuePotential === 'M' ? 'Medium' : 'Low'}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-slate-400">Passiveness:</span>
-                  <span className={`font-medium ${
-                    idea.passiveness === 'A' ? 'text-green-400' :
-                    idea.passiveness === 'B' ? 'text-blue-400' :
-                    idea.passiveness === 'C' ? 'text-orange-400' : 'text-red-400'
-                  }`}>Grade {idea.passiveness}</span>
+                  <span className={`font-medium ${idea.passiveness === 'A' ? 'text-green-400' :
+                      idea.passiveness === 'B' ? 'text-blue-400' :
+                        idea.passiveness === 'C' ? 'text-orange-400' : 'text-red-400'
+                    }`}>Grade {idea.passiveness}</span>
                 </div>
               </div>
             </div>
@@ -455,7 +444,7 @@ const InsightsModal: React.FC<InsightsModalProps> = ({ idea, isOpen, onClose }) 
                 <span className="text-slate-400 text-sm">MVP Time</span>
               </div>
             </div>
-            <button 
+            <button
               className="px-4 py-2 bg-slate-700 hover:bg-slate-600 rounded-lg border border-slate-600 transition-colors text-white font-medium"
               onClick={onClose}
             >

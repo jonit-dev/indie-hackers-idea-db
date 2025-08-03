@@ -274,106 +274,30 @@ function Dashboard() {
       </div>
 
       <div className="container mx-auto px-6 py-6">
-        {/* Premium Intelligence Banner */}
-        <div className="glass-card rounded-xl p-4 mb-6 border-l-4 border-purple-500 animate-slide-up">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="p-2 bg-purple-500/20 rounded-lg">
-                <Brain className="w-5 h-5 text-purple-400" />
-              </div>
-              <div>
-                <h3 className="text-sm font-semibold text-white">Real-Time AI Intelligence</h3>
-                <p className="text-xs text-slate-400">Ideas automatically sourced from X (Twitter) and analyzed by Grok 4 AI</p>
-              </div>
-            </div>
-            <div className="flex items-center gap-3">
-              <div className="flex items-center gap-2 px-3 py-1 bg-green-500/20 rounded-full border border-green-500/30">
-                <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-                <span className="text-xs text-green-300 font-medium">Live Updates</span>
-              </div>
-            </div>
+
+        {/* Compact Stats */}
+        <div className="grid grid-cols-4 gap-2 mb-3">
+          <div className="glass-card rounded-lg p-2 text-center">
+            <div className="text-base font-bold text-white">{totalIdeas}</div>
+            <div className="text-xs text-slate-400">Ideas</div>
+          </div>
+          <div className="glass-card rounded-lg p-2 text-center">
+            <div className="text-base font-bold text-white">{highScoreIdeas}</div>
+            <div className="text-xs text-slate-400">High Score</div>
+          </div>
+          <div className="glass-card rounded-lg p-2 text-center">
+            <div className="text-base font-bold text-white">{avgScore}</div>
+            <div className="text-xs text-slate-400">Avg Score</div>
+          </div>
+          <div className="glass-card rounded-lg p-2 text-center">
+            <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse mx-auto mb-1"></div>
+            <div className="text-xs text-slate-400">Live Data</div>
           </div>
         </div>
 
-        {/* Intelligence Dashboard */}
-        <div className="mb-6">
-          <div className="flex items-center gap-3 mb-4">
-            <Brain className="w-5 h-5 text-purple-400" />
-            <h2 className="text-lg font-semibold text-white">Intelligence Dashboard</h2>
-            <div className="flex items-center gap-2 px-3 py-1 glass-card rounded-full">
-              <Activity className="w-3 h-3 text-green-400" />
-              <span className="text-xs text-slate-300">Updated 2 mins ago</span>
-            </div>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-            <div className="glass-card rounded-xl p-6 animate-scale-in transition-all duration-300 hover:scale-105">
-              <div className="flex items-center justify-between mb-3">
-                <div className="p-3 glass-card rounded-xl">
-                  <Brain className="w-5 h-5 text-purple-400" />
-                </div>
-                <div className="text-right">
-                  <div className="text-2xl font-bold text-white">{totalIdeas}</div>
-                  <div className="text-xs text-slate-400">analyzed</div>
-                </div>
-              </div>
-              <div className="text-sm font-medium text-slate-300">AI-Analyzed Ideas</div>
-              <div className="text-xs text-slate-500 mt-1">Grok 4 intelligence</div>
-            </div>
-
-            <div className="glass-card rounded-xl p-6 animate-scale-in transition-all duration-300 hover:scale-105">
-              <div className="flex items-center justify-between mb-3">
-                <div className="p-3 glass-card rounded-xl">
-                  <TrendingUp className="w-5 h-5 text-green-400" />
-                </div>
-                <div className="text-right">
-                  <div className="text-2xl font-bold text-white">{highScoreIdeas}</div>
-                  <div className="text-xs text-slate-400">high potential</div>
-                </div>
-              </div>
-              <div className="text-sm font-medium text-slate-300">AI Score ≥ 80</div>
-              <div className="text-xs text-slate-500 mt-1">Premium opportunities</div>
-            </div>
-
-            <div className="glass-card rounded-xl p-6 animate-scale-in transition-all duration-300 hover:scale-105">
-              <div className="flex items-center justify-between mb-3">
-                <div className="p-3 glass-card rounded-xl">
-                  <Activity className="w-5 h-5 text-orange-400" />
-                </div>
-                <div className="text-right">
-                  <div className="text-2xl font-bold text-white">{avgScore}/100</div>
-                  <div className="text-xs text-slate-400">avg score</div>
-                </div>
-              </div>
-              <div className="text-sm font-medium text-slate-300">Market Intelligence</div>
-              <div className="text-xs text-slate-500 mt-1">AI risk assessment</div>
-            </div>
-
-            <div className="glass-card rounded-xl p-6 animate-scale-in transition-all duration-300 hover:scale-105">
-              <div className="flex items-center justify-between mb-3">
-                <div className="p-3 glass-card rounded-xl">
-                  <Zap className="w-5 h-5 text-blue-400" />
-                </div>
-                <div className="text-right">
-                  <div className="text-2xl font-bold text-white">24h</div>
-                  <div className="text-xs text-slate-400">refresh</div>
-                </div>
-              </div>
-              <div className="text-sm font-medium text-slate-300">Real-Time Data</div>
-              <div className="text-xs text-slate-500 mt-1">X (Twitter) analysis</div>
-            </div>
-          </div>
-        </div>
-
-        {/* AI-Powered Filters */}
-        <div className="glass-card rounded-xl p-6 mb-6 animate-slide-up">
-          <div className="flex items-center gap-3 mb-4">
-            <Zap className="w-4 h-4 text-blue-400" />
-            <h3 className="text-sm font-semibold text-white">AI-Powered Filters</h3>
-            <span className="text-xs text-slate-400">Smart opportunity discovery</span>
-          </div>
+        {/* Filters */}
+        <div className="glass-card rounded-xl p-4 mb-4">
           <div className="flex flex-col gap-4">
-            {/* Single Row Filters */}
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-3 items-end">
               {/* Search - takes most space */}
               <div className="lg:col-span-4">
@@ -549,94 +473,43 @@ function Dashboard() {
           </div>
         </div>
 
-        {/* Ideas Table */}
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
-          <div className="lg:col-span-3">
-            <div className="glass-card rounded-xl overflow-hidden animate-slide-up">
-              <IdeasTable ideas={paginatedData.items} onRowClick={handleRowClick} />
-              <Pagination
-                currentPage={currentPage}
-                totalPages={paginatedData.totalPages}
-                totalItems={paginatedData.totalItems}
-                itemsPerPage={itemsPerPage}
-                onPageChange={setCurrentPage}
-                onItemsPerPageChange={setItemsPerPage}
-              />
+        {/* Ideas Table - Full Width */}
+        <div className="glass-card rounded-xl overflow-hidden animate-slide-up">
+          <IdeasTable ideas={paginatedData.items} onRowClick={handleRowClick} />
+          <Pagination
+            currentPage={currentPage}
+            totalPages={paginatedData.totalPages}
+            totalItems={paginatedData.totalItems}
+            itemsPerPage={itemsPerPage}
+            onPageChange={setCurrentPage}
+            onItemsPerPageChange={setItemsPerPage}
+          />
+        </div>
+
+        {/* Quick Insights - Horizontal Layout */}
+        <div className="mt-6 grid grid-cols-1 lg:grid-cols-3 gap-4">
+          <div className="glass-card rounded-xl p-4">
+            <div className="flex items-center gap-3 mb-3">
+              <Brain className="w-5 h-5 text-purple-400" />
+              <h3 className="text-sm font-semibold text-white">AI Insights</h3>
             </div>
+            <div className="text-xs text-slate-300">AI Tools seeing 400% growth this month</div>
           </div>
 
-          {/* Community Sidebar */}
-          <div className="lg:col-span-1 space-y-6">
-            {/* Community Activity */}
-            <div className="glass-card rounded-xl p-6 animate-slide-up">
-              <div className="flex items-center gap-3 mb-4">
-                <Users className="w-5 h-5 text-blue-400" />
-                <h3 className="text-lg font-semibold text-white">Community</h3>
-              </div>
-              
-              <div className="space-y-4">
-                <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full flex items-center justify-center text-white text-sm font-bold">
-                    S
-                  </div>
-                  <div className="flex-1">
-                    <div className="text-sm font-medium text-white">Sarah built idea #143</div>
-                    <div className="text-xs text-slate-400">2 mins ago • $2K MRR</div>
-                  </div>
-                </div>
-
-                <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 bg-gradient-to-r from-green-500 to-emerald-500 rounded-full flex items-center justify-center text-white text-sm font-bold">
-                    M
-                  </div>
-                  <div className="flex-1">
-                    <div className="text-sm font-medium text-white">Marcus validating idea #87</div>
-                    <div className="text-xs text-slate-400">15 mins ago</div>
-                  </div>
-                </div>
-
-                <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 bg-gradient-to-r from-orange-500 to-red-500 rounded-full flex items-center justify-center text-white text-sm font-bold">
-                    E
-                  </div>
-                  <div className="flex-1">
-                    <div className="text-sm font-medium text-white">Elena joined community</div>
-                    <div className="text-xs text-slate-400">1 hour ago</div>
-                  </div>
-                </div>
-              </div>
-
-              <button className="w-full mt-4 px-4 py-2 bg-blue-600/20 hover:bg-blue-600/30 rounded-lg text-blue-400 font-medium text-sm transition-colors">
-                Join Discussion
-              </button>
+          <div className="glass-card rounded-xl p-4">
+            <div className="flex items-center gap-3 mb-3">
+              <TrendingUp className="w-5 h-5 text-green-400" />
+              <h3 className="text-sm font-semibold text-white">Success Pattern</h3>
             </div>
+            <div className="text-xs text-slate-300">SaaS ideas hitting $1K MRR 30% faster</div>
+          </div>
 
-            {/* Success Stories */}
-            <div className="glass-card rounded-xl p-6 animate-slide-up">
-              <div className="flex items-center gap-3 mb-4">
-                <TrendingUp className="w-5 h-5 text-green-400" />
-                <h3 className="text-lg font-semibold text-white">Success Stories</h3>
-              </div>
-              
-              <div className="space-y-3">
-                <div className="p-3 bg-green-500/10 rounded-lg border border-green-500/20">
-                  <div className="text-sm font-medium text-green-300">Idea #143 Success</div>
-                  <div className="text-xs text-slate-400 mt-1">Sarah reached $8K MRR in 4 months</div>
-                </div>
-
-                <div className="p-3 bg-purple-500/10 rounded-lg border border-purple-500/20">
-                  <div className="text-sm font-medium text-purple-300">Idea #87 Launch</div>
-                  <div className="text-xs text-slate-400 mt-1">Marcus launched MVP this week</div>
-                </div>
-              </div>
-
-              <button 
-                onClick={() => navigate('/pricing')}
-                className="w-full mt-4 px-4 py-2 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 rounded-lg text-white font-medium text-sm transition-all"
-              >
-                Upgrade for Full Access
-              </button>
+          <div className="glass-card rounded-xl p-4">
+            <div className="flex items-center gap-3 mb-3">
+              <Activity className="w-5 h-5 text-blue-400" />
+              <h3 className="text-sm font-semibold text-white">Community</h3>
             </div>
+            <div className="text-xs text-slate-300">47 active builders, $127K total MRR</div>
           </div>
         </div>
       </div>

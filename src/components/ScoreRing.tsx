@@ -15,6 +15,12 @@ const ScoreRing: React.FC<ScoreRingProps> = ({
 }) => {
   const [animatedScore, setAnimatedScore] = useState(0);
   
+  // Generate unique IDs for gradients to avoid conflicts
+  const uniqueId = React.useId();
+  const successGradientId = `successGradient-${uniqueId}`;
+  const warningGradientId = `warningGradient-${uniqueId}`;
+  const errorGradientId = `errorGradient-${uniqueId}`;
+  
   useEffect(() => {
     const timer = setTimeout(() => {
       setAnimatedScore(score);
@@ -33,25 +39,31 @@ const ScoreRing: React.FC<ScoreRingProps> = ({
     return "#ef4444"; // red
   };
   
+  const getScoreTextColor = (score: number) => {
+    if (score >= 80) return "text-green-400"; // green
+    if (score >= 60) return "text-orange-400"; // orange
+    return "text-red-400"; // red
+  };
+  
   const getScoreGradient = (score: number) => {
-    if (score >= 80) return "url(#successGradient)";
-    if (score >= 60) return "url(#warningGradient)";
-    return "url(#errorGradient)";
+    if (score >= 80) return `url(#${successGradientId})`;
+    if (score >= 60) return `url(#${warningGradientId})`;
+    return `url(#${errorGradientId})`;
   };
   
   return (
     <div className={`relative inline-flex items-center justify-center ${className}`}>
       <svg width={size} height={size} className="transform -rotate-90">
         <defs>
-          <linearGradient id="successGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+          <linearGradient id={successGradientId} x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stopColor="#10b981" />
             <stop offset="100%" stopColor="#059669" />
           </linearGradient>
-          <linearGradient id="warningGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+          <linearGradient id={warningGradientId} x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stopColor="#f59e0b" />
             <stop offset="100%" stopColor="#d97706" />
           </linearGradient>
-          <linearGradient id="errorGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+          <linearGradient id={errorGradientId} x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stopColor="#ef4444" />
             <stop offset="100%" stopColor="#dc2626" />
           </linearGradient>
@@ -87,7 +99,7 @@ const ScoreRing: React.FC<ScoreRingProps> = ({
       
       {/* Score text */}
       <div className="absolute inset-0 flex items-center justify-center">
-        <span className="text-sm font-bold text-white gradient-text">
+        <span className={`text-sm font-bold ${getScoreTextColor(score)}`}>
           {Math.round(animatedScore)}
         </span>
       </div>

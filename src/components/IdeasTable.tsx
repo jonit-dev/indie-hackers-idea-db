@@ -360,8 +360,22 @@ const IdeasTable: React.FC<IdeasTableProps> = memo(({ ideas, onRowClick }) => {
                       )}
                       <ExternalLink className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0 text-slate-400" />
                     </div>
+                    {/* Product Name */}
+                    {idea.product_name && (
+                      <div className="mb-1">
+                        <span className="text-sm font-semibold text-white">
+                          {idea.product_name}
+                        </span>
+                        {idea.founder && (
+                          <span className="ml-2 text-xs text-slate-400">
+                            by {idea.founder}
+                          </span>
+                        )}
+                      </div>
+                    )}
+                    {/* Description or Rationale */}
                     <div className="text-xs text-slate-300 line-clamp-2 mb-2 leading-relaxed">
-                      {idea.rationale}
+                      {idea.description || idea.rationale}
                     </div>
                     <div className="flex items-center gap-2 text-xs">
                       <span className="px-2 py-0.5 bg-green-600/20 border border-green-500/30 text-green-300 rounded font-medium">
