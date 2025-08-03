@@ -11,10 +11,11 @@ import {
   Title,
   Tooltip
 } from 'chart.js';
-import { Clock, DollarSign, ExternalLink, Target, TrendingUp, Users, X, Zap } from 'lucide-react';
+import { Clock, DollarSign, ExternalLink, Heart, Target, TrendingUp, Users, X, Zap } from 'lucide-react';
 import React from 'react';
 import { Bar, Radar } from 'react-chartjs-2';
 import { MicroSaasIdea } from '../types/idea';
+import { useMicroSaasStore } from '../stores/microSaasStore';
 
 ChartJS.register(
   CategoryScale,
@@ -36,7 +37,11 @@ interface InsightsModalProps {
 }
 
 const InsightsModal: React.FC<InsightsModalProps> = ({ idea, isOpen, onClose }) => {
+  const { toggleFavorite, isFavorite } = useMicroSaasStore();
+  
   if (!idea || !isOpen) return null;
+
+  const isIdeaFavorite = isFavorite(idea.id);
 
   const getRevenuePotentialScore = (potential: string) => {
     switch (potential) {
@@ -270,12 +275,27 @@ const InsightsModal: React.FC<InsightsModalProps> = ({ idea, isOpen, onClose }) 
               </a>
             </div>
           </div>
-          <button
-            className="ml-4 p-2 rounded-lg bg-slate-700 border border-slate-600 hover:bg-slate-600 transition-colors"
-            onClick={onClose}
-          >
-            <X className="w-5 h-5 text-slate-400" />
-          </button>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => toggleFavorite(idea.id)}
+              className={`p-2 rounded-lg border transition-all duration-200 ${
+                isIdeaFavorite 
+                  ? 'border-amber-500 text-amber-400 hover:text-amber-500' 
+                  : 'border-slate-600 text-slate-400 hover:text-amber-400 hover:border-amber-500/50'
+              }`}
+              title={isIdeaFavorite ? 'Remove from favorites' : 'Add to favorites'}
+            >
+              <Heart 
+                className={`w-5 h-5 ${isIdeaFavorite ? 'fill-amber-400' : ''}`} 
+              />
+            </button>
+            <button
+              className="p-2 rounded-lg bg-slate-700 border border-slate-600 hover:bg-slate-600 transition-colors"
+              onClick={onClose}
+            >
+              <X className="w-5 h-5 text-slate-400" />
+            </button>
+          </div>
         </div>
 
         {/* Content */}

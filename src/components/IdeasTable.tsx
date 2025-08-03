@@ -1,4 +1,4 @@
-import { Activity, Brain, CheckCircle, ChevronDown, ChevronUp, Clock, DollarSign, ExternalLink, HelpCircle, TrendingUp, Users } from 'lucide-react';
+import { Activity, Brain, CheckCircle, ChevronDown, ChevronUp, Clock, DollarSign, ExternalLink, Heart, HelpCircle, TrendingUp, Users } from 'lucide-react';
 import React, { memo, useEffect, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { useMicroSaasStore } from '../stores/microSaasStore';
@@ -78,7 +78,7 @@ const Tooltip: React.FC<{ text: string; children: React.ReactNode }> = ({ text, 
 };
 
 const IdeasTable: React.FC<IdeasTableProps> = memo(({ ideas, onRowClick }) => {
-  const { sortBy, sortOrder, setSortBy, setSortOrder } = useMicroSaasStore();
+  const { sortBy, sortOrder, setSortBy, setSortOrder, toggleFavorite, isFavorite } = useMicroSaasStore();
 
   const handleSort = (field: string) => {
     if (sortBy === field) {
@@ -354,10 +354,13 @@ const IdeasTable: React.FC<IdeasTableProps> = memo(({ ideas, onRowClick }) => {
           </tr>
         </thead>
         <tbody>
-          {ideas.map((idea) => (
+          {ideas.map((idea) => {
+            const isIdeaFavorite = isFavorite(idea.id);
+            return (
             <tr
               key={idea.id}
-              className="table-row-modern group"
+              className={`table-row-modern group ${isIdeaFavorite ? 'bg-amber-500/10' : ''}`}
+              style={isIdeaFavorite ? { boxShadow: 'inset 4px 0 0 0 rgb(251 191 36)' } : {}}
               onClick={() => onRowClick(idea)}
             >
               <td className="py-2 px-3 w-80">
@@ -366,6 +369,26 @@ const IdeasTable: React.FC<IdeasTableProps> = memo(({ ideas, onRowClick }) => {
                     <span className="px-2 py-0.5 bg-purple-600/20 border border-purple-500/30 text-purple-300 text-xs font-semibold rounded-md truncate">
                       {idea.niche}
                     </span>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        toggleFavorite(idea.id);
+                      }}
+                      className={`p-1 rounded transition-all duration-200 ${
+                        isIdeaFavorite 
+                          ? 'text-amber-400 hover:text-amber-500' 
+                          : 'text-slate-500 hover:text-amber-400'
+                      }`}
+                      title={isIdeaFavorite ? 'Remove from favorites' : 'Add to favorites'}
+                    >
+                      <Heart 
+                        className={`w-4 h-4 ${
+                          isIdeaFavorite 
+                            ? 'fill-amber-400' 
+                            : ''
+                        }`} 
+                      />
+                    </button>
                     {memoizedIsAIRelated(idea) && (
                       <span className="px-1.5 py-0.5 bg-cyan-600/20 border border-cyan-500/30 text-cyan-300 text-xs font-bold rounded flex items-center gap-1">
                         <Brain className="w-3 h-3" />
@@ -476,7 +499,8 @@ const IdeasTable: React.FC<IdeasTableProps> = memo(({ ideas, onRowClick }) => {
                 </span>
               </td>
             </tr>
-          ))}
+            );
+          })}
         </tbody>
       </table>
     </div>

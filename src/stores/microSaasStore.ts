@@ -3,10 +3,31 @@ import { devtools } from 'zustand/middleware';
 import microSaasIdeasData from '../data/microSaasIdeas.json';
 import { MicroSaasIdea } from '../types/idea';
 
+// Helper function to get favorites from localStorage
+const getFavoritesFromStorage = (): string[] => {
+  try {
+    const item = window.localStorage.getItem('micro-saas-favorites');
+    return item ? JSON.parse(item) : [];
+  } catch (error) {
+    console.warn('Error reading favorites from localStorage:', error);
+    return [];
+  }
+};
+
+// Helper function to save favorites to localStorage
+const saveFavoritesToStorage = (favorites: string[]): void => {
+  try {
+    window.localStorage.setItem('micro-saas-favorites', JSON.stringify(favorites));
+  } catch (error) {
+    console.warn('Error saving favorites to localStorage:', error);
+  }
+};
+
 interface MicroSaasState {
   // Data
   ideas: MicroSaasIdea[];
   selectedIdea: MicroSaasIdea | null;
+  favorites: string[];
 
   // UI State
   isModalOpen: boolean;
@@ -16,6 +37,7 @@ interface MicroSaasState {
   filterComplexity: string;
   filterOneKMrrChance: string;
   filterAI: string;
+  filterFavorites: string;
   showAdvancedFilters: boolean;
   sortBy: string;
   sortOrder: 'asc' | 'desc';
@@ -31,11 +53,13 @@ interface MicroSaasState {
   setFilterComplexity: (complexity: string) => void;
   setFilterOneKMrrChance: (chance: string) => void;
   setFilterAI: (ai: string) => void;
+  setFilterFavorites: (filter: string) => void;
   setShowAdvancedFilters: (show: boolean) => void;
   setSortBy: (sortBy: string) => void;
   setSortOrder: (order: 'asc' | 'desc') => void;
   setCurrentPage: (page: number) => void;
   setItemsPerPage: (count: number) => void;
+  toggleFavorite: (ideaId: string) => void;
   clearAllFilters: () => void;
   openModal: (idea: MicroSaasIdea) => void;
   closeModal: () => void;
@@ -52,6 +76,8 @@ interface MicroSaasState {
   getHighScoreIdeas: () => number;
   getAvgScore: () => number;
   getNiches: () => string[];
+  isFavorite: (ideaId: string) => boolean;
+  getFavoriteIdeas: () => MicroSaasIdea[];
 }
 
 export const useMicroSaasStore = create<MicroSaasState>()(
@@ -60,6 +86,7 @@ export const useMicroSaasStore = create<MicroSaasState>()(
       // Initial Data - Hydrated from JSON
       ideas: microSaasIdeasData as MicroSaasIdea[],
       selectedIdea: null,
+      favorites: getFavoritesFromStorage(),
 
       // Initial UI State
       isModalOpen: false,
@@ -69,6 +96,7 @@ export const useMicroSaasStore = create<MicroSaasState>()(
       filterComplexity: 'All',
       filterOneKMrrChance: 'All',
       filterAI: 'All',
+      filterFavorites: 'All',
       showAdvancedFilters: false,
       sortBy: 'score',
       sortOrder: 'desc',
@@ -86,11 +114,22 @@ export const useMicroSaasStore = create<MicroSaasState>()(
       setFilterOneKMrrChance: (chance) =>
         set({ filterOneKMrrChance: chance, currentPage: 1 }),
       setFilterAI: (ai) => set({ filterAI: ai, currentPage: 1 }),
+      setFilterFavorites: (filter) => set({ filterFavorites: filter, currentPage: 1 }),
       setShowAdvancedFilters: (show) => set({ showAdvancedFilters: show }),
       setSortBy: (sortBy) => set({ sortBy }),
       setSortOrder: (order) => set({ sortOrder: order }),
       setCurrentPage: (page) => set({ currentPage: page }),
       setItemsPerPage: (count) => set({ itemsPerPage: count, currentPage: 1 }),
+
+      toggleFavorite: (ideaId) => {
+        const state = get();
+        const newFavorites = state.favorites.includes(ideaId)
+          ? state.favorites.filter(id => id !== ideaId)
+          : [...state.favorites, ideaId];
+        
+        saveFavoritesToStorage(newFavorites);
+        set({ favorites: newFavorites });
+      },
 
       clearAllFilters: () =>
         set({
@@ -100,6 +139,7 @@ export const useMicroSaasStore = create<MicroSaasState>()(
           filterComplexity: 'All',
           filterOneKMrrChance: 'All',
           filterAI: 'All',
+          filterFavorites: 'All',
           sortBy: 'score',
           sortOrder: 'desc',
           currentPage: 1,
@@ -157,18 +197,32 @@ export const useMicroSaasStore = create<MicroSaasState>()(
             (state.filterAI === 'AI' && isAIRelated(idea)) ||
             (state.filterAI === 'Non-AI' && !isAIRelated(idea));
 
+          const matchesFavorites =
+            state.filterFavorites === 'All' ||
+            (state.filterFavorites === 'Favorites' && state.favorites.includes(idea.id)) ||
+            (state.filterFavorites === 'Non-Favorites' && !state.favorites.includes(idea.id));
+
           return (
             matchesSearch &&
             matchesNiche &&
             matchesComp &&
             matchesComplexity &&
             matchesOneKMrrChance &&
-            matchesAI
+            matchesAI &&
+            matchesFavorites
           );
         });
 
-        // Sort the filtered results
+        // Sort the filtered results - favorites first, then by selected sort
         filtered.sort((a, b) => {
+          // First priority: favorites should be at the top
+          const aIsFavorite = state.favorites.includes(a.id);
+          const bIsFavorite = state.favorites.includes(b.id);
+          
+          if (aIsFavorite && !bIsFavorite) return -1;
+          if (!aIsFavorite && bIsFavorite) return 1;
+
+          // If both are favorites or both are not favorites, sort by selected criteria
           let aValue, bValue;
 
           switch (state.sortBy) {
@@ -231,7 +285,8 @@ export const useMicroSaasStore = create<MicroSaasState>()(
           state.filterComp !== 'All' ||
           state.filterComplexity !== 'All' ||
           state.filterOneKMrrChance !== 'All' ||
-          state.filterAI !== 'All'
+          state.filterAI !== 'All' ||
+          state.filterFavorites !== 'All'
         );
       },
 
@@ -252,6 +307,13 @@ export const useMicroSaasStore = create<MicroSaasState>()(
           new Set(get().ideas.map((idea) => idea.niche))
         );
         return niches.sort();
+      },
+
+      isFavorite: (ideaId) => get().favorites.includes(ideaId),
+
+      getFavoriteIdeas: () => {
+        const state = get();
+        return state.ideas.filter(idea => state.favorites.includes(idea.id));
       },
     }),
     {

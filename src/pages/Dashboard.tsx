@@ -180,6 +180,7 @@ function Dashboard() {
     filterComplexity,
     filterOneKMrrChance,
     filterAI,
+    filterFavorites,
     showAdvancedFilters,
     sortBy,
     sortOrder,
@@ -191,6 +192,7 @@ function Dashboard() {
     setFilterComplexity,
     setFilterOneKMrrChance,
     setFilterAI,
+    setFilterFavorites,
     setShowAdvancedFilters,
     setSortBy,
     setSortOrder,
@@ -212,6 +214,7 @@ function Dashboard() {
   const complexities = ['All', 'Very Low', 'Low', 'Medium', 'High', 'Very High'];
   const oneKMrrChances = ['All', 'High', 'Medium', 'Low'];
   const aiOptions = ['All', 'AI', 'Non-AI'];
+  const favoritesOptions = ['All', 'Favorites', 'Non-Favorites'];
 
   const filteredIdeas = getFilteredIdeas();
   const paginatedData = getPaginatedIdeas();
@@ -221,7 +224,7 @@ function Dashboard() {
     if (currentPage > paginatedData.totalPages && paginatedData.totalPages > 0) {
       setCurrentPage(1);
     }
-  }, [searchTerm, filterNiche, filterComp, filterComplexity, filterOneKMrrChance, filterAI, currentPage, paginatedData.totalPages, setCurrentPage]);
+  }, [searchTerm, filterNiche, filterComp, filterComplexity, filterOneKMrrChance, filterAI, filterFavorites, currentPage, paginatedData.totalPages, setCurrentPage]);
 
   const handleRowClick = useCallback((idea: any) => {
     navigate(`/idea/${idea.id}`);
@@ -349,6 +352,19 @@ function Dashboard() {
                   onChange={(e) => setFilterAI(e.target.value)}
                 >
                   {aiOptions.map(option => (
+                    <option key={option} value={option} className="bg-slate-800 text-white">{option}</option>
+                  ))}
+                </select>
+              </div>
+
+              {/* Favorites Filter */}
+              <div className="lg:col-span-2">
+                <select
+                  className="w-full select-modern"
+                  value={filterFavorites}
+                  onChange={(e) => setFilterFavorites(e.target.value)}
+                >
+                  {favoritesOptions.map(option => (
                     <option key={option} value={option} className="bg-slate-800 text-white">{option}</option>
                   ))}
                 </select>
