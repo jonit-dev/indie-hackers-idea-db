@@ -95,15 +95,12 @@ const IdeaDetail: React.FC = () => {
           <div className="flex items-start justify-between gap-6">
             {/* Left - Main Info */}
             <div className="flex-1">
-              <div className="flex items-center gap-3 mb-4">
+              <div className="mb-4">
                 {idea.productName ? (
                   <h1 className="text-3xl font-bold text-white heading-font">{idea.productName}</h1>
                 ) : (
                   <h1 className="text-3xl font-bold text-white heading-font">{idea.niche}</h1>
                 )}
-                <span className="px-3 py-1 bg-purple-500/20 rounded-lg text-purple-300 text-sm font-medium border border-purple-500/30">
-                  #{idea.id}
-                </span>
               </div>
 
               <div className="flex items-center gap-3 mb-4">
@@ -264,7 +261,7 @@ const IdeaDetail: React.FC = () => {
                 <span className="text-sm font-medium text-slate-300">{idea.dateAdded}</span>
               </div>
               <div className="text-right">
-                <span className="text-sm text-slate-400">Source: </span>
+                <span className="text-sm text-slate-400">ID #{idea.id} • Source: </span>
                 <span className="text-sm font-medium text-slate-300">{idea.source}</span>
               </div>
             </div>
