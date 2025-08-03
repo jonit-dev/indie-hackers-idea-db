@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect, memo, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Search, Plus, Database, TrendingUp, SlidersHorizontal, X, Tag, ChevronDown, Check, ChevronLeft, ChevronRight, Brain, Zap, Activity, Users } from 'lucide-react';
+import { Search, Plus, Database, TrendingUp, SlidersHorizontal, X, Tag, ChevronDown, Check, ChevronLeft, ChevronRight, Brain, Zap, Activity, Users, Heart } from 'lucide-react';
 import IdeasTable from '../components/IdeasTable';
 import { useMicroSaasStore } from '../stores/microSaasStore';
 
@@ -235,6 +235,7 @@ function Dashboard() {
   const totalIdeas = getTotalIdeas();
   const highScoreIdeas = getHighScoreIdeas();
   const avgScore = getAvgScore();
+  const { favorites } = useMicroSaasStore();
 
   return (
     <div className="min-h-screen modern-typography" style={{ background: 'var(--bg-primary)' }}>
@@ -254,16 +255,16 @@ function Dashboard() {
               </div>
             </div>
             <div className="flex items-center gap-3">
-              <div className="flex items-center gap-4">
-                <div className="flex items-center gap-2 px-3 py-2 glass-card rounded-lg">
-                  <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-                  <span className="text-xs text-slate-300 font-medium">Live Intelligence</span>
-                </div>
-                <div className="flex items-center gap-2 px-3 py-2 glass-card rounded-lg">
-                  <Users className="w-3 h-3 text-blue-400" />
-                  <span className="text-xs text-slate-300 font-medium">500+ Members</span>
-                </div>
+              {/* My Ideas Section */}
+              <div className="flex items-center gap-2 px-3 py-2 glass-card rounded-lg cursor-pointer hover:bg-white/5 transition-colors"
+                   onClick={() => setFilterFavorites('Favorites')}>
+                <Heart className="w-4 h-4 text-amber-400" />
+                <span className="text-sm text-slate-300 font-medium">My Ideas</span>
+                <span className="px-2 py-0.5 bg-amber-500/20 text-amber-400 text-xs font-bold rounded-full">
+                  {favorites.length}
+                </span>
               </div>
+              
               <button 
                 onClick={() => navigate('/pricing')}
                 className="btn-modern flex items-center gap-2 animate-scale-in"

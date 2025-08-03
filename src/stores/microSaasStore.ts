@@ -23,6 +23,31 @@ const saveFavoritesToStorage = (favorites: string[]): void => {
   }
 };
 
+// Helper function to deduplicate ideas by productName and URL
+const deduplicateIdeas = (ideas: MicroSaasIdea[]): MicroSaasIdea[] => {
+  const seen = new Set<string>();
+  const deduplicated: MicroSaasIdea[] = [];
+  
+  for (const idea of ideas) {
+    // Create a key based on productName (if available) and URL
+    const key = idea.productName ? `name:${idea.productName}` : `url:${idea.url}`;
+    
+    // Also check for URL duplicates separately
+    const urlKey = `url:${idea.url}`;
+    
+    if (!seen.has(key) && !seen.has(urlKey)) {
+      seen.add(key);
+      seen.add(urlKey);
+      if (idea.productName) {
+        seen.add(`name:${idea.productName}`);
+      }
+      deduplicated.push(idea);
+    }
+  }
+  
+  return deduplicated;
+};
+
 interface MicroSaasState {
   // Data
   ideas: MicroSaasIdea[];
@@ -83,8 +108,8 @@ interface MicroSaasState {
 export const useMicroSaasStore = create<MicroSaasState>()(
   devtools(
     (set, get) => ({
-      // Initial Data - Hydrated from JSON
-      ideas: microSaasIdeasData as MicroSaasIdea[],
+      // Initial Data - Hydrated from JSON and deduplicated
+      ideas: deduplicateIdeas(microSaasIdeasData as MicroSaasIdea[]),
       selectedIdea: null,
       favorites: getFavoritesFromStorage(),
 
@@ -185,9 +210,21 @@ export const useMicroSaasStore = create<MicroSaasState>()(
             state.filterNiche.includes(idea.niche);
           const matchesComp =
             state.filterComp === 'All' || idea.comp === state.filterComp;
-          const matchesComplexity =
-            state.filterComplexity === 'All' ||
-            idea.complexity === state.filterComplexity;
+          const matchesComplexity = (() => {
+            if (state.filterComplexity === 'All') return true;
+            
+            // Map string complexity to numeric values
+            const complexityMap: { [key: string]: number } = {
+              'Very Low': 1,
+              'Low': 2,
+              'Medium': 3,
+              'High': 4,
+              'Very High': 5
+            };
+            
+            const targetComplexity = complexityMap[state.filterComplexity];
+            return targetComplexity ? idea.complexity === targetComplexity : true;
+          })();
           const matchesOneKMrrChance =
             state.filterOneKMrrChance === 'All' ||
             idea.oneKMrrChance === state.filterOneKMrrChance;

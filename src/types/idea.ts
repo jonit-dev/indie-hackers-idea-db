@@ -9,7 +9,7 @@ export interface MicroSaasIdea {
   channel: string; // Main acquisition channel (SEO, X, AppSumo, etc.)
   comp: 'Low' | 'Medium' | 'High'; // Competitive intensity
   platDep: 'None' | 'Low' | 'Medium' | 'High'; // Platform-dependence risk
-  complexity: 'Very Low' | 'Low' | 'Medium' | 'High' | 'Very High'; // Build complexity
+  complexity: number; // Build complexity (1-5: 1=Very Low, 2=Low, 3=Medium, 4=High, 5=Very High)
   mvpWk: number; // Days to build MVP (target ≤ 7)
   oneKMrrChance: 'High' | 'Medium' | 'Low'; // Likelihood to hit ≥ $1k MRR in 6-12 months
   maintHours: number; // Monthly maintenance hours (goal ≤ 10)
