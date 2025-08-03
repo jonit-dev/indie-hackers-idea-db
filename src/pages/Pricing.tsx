@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ArrowLeft, Check, Zap, Brain, TrendingUp, Target, Shield, Clock, Star, Sparkles } from 'lucide-react';
+import { ArrowLeft, Check, Zap, Brain, TrendingUp, Clock, Star, Sparkles } from 'lucide-react';
 
 const Pricing: React.FC = () => {
   const navigate = useNavigate();
@@ -151,7 +151,7 @@ const Pricing: React.FC = () => {
 
         {/* Pricing Plans */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-          {plans.map((plan, index) => (
+          {plans.map((plan) => (
             <div 
               key={plan.name}
               className={`glass-card rounded-xl p-8 relative ${

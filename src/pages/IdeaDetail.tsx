@@ -1,4 +1,4 @@
-import { ArrowLeft, BarChart3, Brain, ExternalLink, MessageCircle, Star } from 'lucide-react';
+import { ArrowLeft, Brain, ExternalLink, Star } from 'lucide-react';
 import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import RadialChart from '../components/RadialChart';

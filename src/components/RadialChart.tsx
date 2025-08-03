@@ -181,7 +181,7 @@ const RadialChart: React.FC<RadialChartProps> = ({ idea, size = 200, className =
         padding: 12,
         displayColors: false,
         callbacks: {
-          label: function(context: any) {
+          label: function(context: { raw: number }) {
             return `Score: ${context.raw}`;
           }
         }

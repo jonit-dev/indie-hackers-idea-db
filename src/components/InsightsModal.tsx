@@ -148,7 +148,7 @@ const InsightsModal: React.FC<InsightsModalProps> = ({ idea, isOpen, onClose }) 
         cornerRadius: 8,
         padding: 12,
         callbacks: {
-          label: function (context: any) {
+          label: function (context: { dataset: { label?: string }; parsed: { y: number } }) {
             const label = context.dataset.label || '';
             const value = Math.round(context.parsed.y);
             return `${label}: ${value}/100`;

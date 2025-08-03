@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Camera, Heart, MessageCircle, Share, Plus, Image, Video, Link, TrendingUp, DollarSign, Users } from 'lucide-react';
+import { Heart, MessageCircle, Share, Image, Video, Link, TrendingUp, DollarSign, Users } from 'lucide-react';
 
 interface BuildUpdate {
   id: string;

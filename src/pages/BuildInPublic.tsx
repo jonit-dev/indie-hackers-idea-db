@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ArrowLeft, Brain, Heart, MessageCircle, Share, Plus, Image, Video, Link, TrendingUp, DollarSign, Users, Zap, Activity, Star, Search } from 'lucide-react';
+import { ArrowLeft, Brain, Heart, MessageCircle, Share, Plus, Image, Video, Link, TrendingUp, DollarSign, Users, Activity, Star, Search } from 'lucide-react';
 
 interface BuildUpdate {
   id: string;

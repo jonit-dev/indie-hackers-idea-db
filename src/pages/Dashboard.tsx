@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect, memo, useCallback } from 'react';
 import { createPortal } from 'react-dom';
 import { useNavigate } from 'react-router-dom';
-import { Search, Plus, Database, TrendingUp, SlidersHorizontal, X, Tag, ChevronDown, Check, ChevronLeft, ChevronRight, Brain, Zap, Activity, Users, Heart } from 'lucide-react';
+import { Search, TrendingUp, SlidersHorizontal, X, ChevronDown, Check, ChevronLeft, ChevronRight, Brain, Zap, Activity, Heart } from 'lucide-react';
 import IdeasTable from '../components/IdeasTable';
 import { useMicroSaasStore } from '../stores/microSaasStore';
 
@@ -228,7 +228,6 @@ function Dashboard() {
     setCurrentPage,
     setItemsPerPage,
     clearAllFilters,
-    getFilteredIdeas,
     getPaginatedIdeas,
     hasActiveFilters,
     getTotalIdeas,
@@ -246,7 +245,6 @@ function Dashboard() {
   const favoritesOptions = ['All', 'Favorites', 'Non-Favorites'];
   const infrastructureOptions = ['All', 'Supabase Only', 'Edge Stack', 'Complex'];
 
-  const filteredIdeas = getFilteredIdeas();
   const paginatedData = getPaginatedIdeas();
   
   // Reset to page 1 when filters change
@@ -256,7 +254,7 @@ function Dashboard() {
     }
   }, [searchTerm, filterNiche, filterComp, filterComplexity, filterOneKMrrChance, filterAI, filterFavorites, filterInfrastructure, currentPage, paginatedData.totalPages, setCurrentPage]);
 
-  const handleRowClick = useCallback((idea: any) => {
+  const handleRowClick = useCallback((idea: { id: string }) => {
     navigate(`/idea/${idea.id}`);
   }, [navigate]);
 

@@ -8,22 +8,22 @@ import ScoreRing from './ScoreRing';
 // Infrastructure SVG Icons
 const SupabaseIcon: React.FC<{ className?: string }> = ({ className = "w-4 h-4" }) => (
   <svg viewBox="0 0 24 24" className={className} fill="currentColor">
-    <path d="M21.362 9.354H12V.396a.395.395 0 0 0-.716-.233L2.203 12.424l-.005.007a.5.5 0 0 0 .362.848h9.36v8.958a.395.395 0 0 0 .716.233l9.081-12.261.005-.007a.5.5 0 0 0-.36-.848Z"/>
+    <path d="M21.362 9.354H12V.396a.395.395 0 0 0-.716-.233L2.203 12.424l-.005.007a.5.5 0 0 0 .362.848h9.36v8.958a.395.395 0 0 0 .716.233l9.081-12.261.005-.007a.5.5 0 0 0-.36-.848Z" />
   </svg>
 );
 
 const CloudflareIcon: React.FC<{ className?: string }> = ({ className = "w-4 h-4" }) => (
   <svg viewBox="0 0 24 24" className={className} fill="currentColor">
-    <path d="M19.9 11.5c-.4-1.5-1.7-2.6-3.3-2.6s-3 1.1-3.3 2.6h-.6c-1.8 0-3.3 1.5-3.3 3.3s1.5 3.3 3.3 3.3h6.6c1.3 0 2.4-1.1 2.4-2.4 0-1-.6-1.9-1.5-2.2zm-5.3 0c0-.9.7-1.6 1.6-1.6s1.6.7 1.6 1.6h-3.2z"/>
-    <path d="M8.7 10.2c-.7-.7-1.7-1.1-2.7-1.1-2.1 0-3.8 1.7-3.8 3.8s1.7 3.8 3.8 3.8h1.1c-.1-.4-.1-.8-.1-1.2 0-1.8 1.5-3.3 3.3-3.3h.6c0-.5.2-1 .5-1.4l-2.7-0.6z"/>
+    <path d="M19.9 11.5c-.4-1.5-1.7-2.6-3.3-2.6s-3 1.1-3.3 2.6h-.6c-1.8 0-3.3 1.5-3.3 3.3s1.5 3.3 3.3 3.3h6.6c1.3 0 2.4-1.1 2.4-2.4 0-1-.6-1.9-1.5-2.2zm-5.3 0c0-.9.7-1.6 1.6-1.6s1.6.7 1.6 1.6h-3.2z" />
+    <path d="M8.7 10.2c-.7-.7-1.7-1.1-2.7-1.1-2.1 0-3.8 1.7-3.8 3.8s1.7 3.8 3.8 3.8h1.1c-.1-.4-.1-.8-.1-1.2 0-1.8 1.5-3.3 3.3-3.3h.6c0-.5.2-1 .5-1.4l-2.7-0.6z" />
   </svg>
 );
 
 const DatabaseIcon: React.FC<{ className?: string }> = ({ className = "w-4 h-4" }) => (
   <svg viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <ellipse cx="12" cy="5" rx="9" ry="3"/>
-    <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/>
-    <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/>
+    <ellipse cx="12" cy="5" rx="9" ry="3" />
+    <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3" />
+    <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5" />
   </svg>
 );
 
@@ -196,11 +196,7 @@ const IdeasTable: React.FC<IdeasTableProps> = memo(({ ideas, onRowClick }) => {
     }
   };
 
-  const getScoreColor = (score: number) => {
-    if (score >= 80) return 'text-green-400';
-    if (score >= 60) return 'text-orange-400';
-    return 'text-red-400';
-  };
+
 
   const getPlatformRiskColor = (risk: string) => {
     switch (risk) {
@@ -387,175 +383,173 @@ const IdeasTable: React.FC<IdeasTableProps> = memo(({ ideas, onRowClick }) => {
           {ideas.map((idea) => {
             const isIdeaFavorite = isFavorite(idea.id);
             return (
-            <tr
-              key={idea.id}
-              className={`table-row-modern group ${isIdeaFavorite ? 'bg-amber-500/10' : ''}`}
-              style={isIdeaFavorite ? { boxShadow: 'inset 4px 0 0 0 rgb(251 191 36)' } : {}}
-              onClick={() => onRowClick(idea)}
-            >
-              <td className="py-2 px-3 w-80">
-                <div className="flex flex-col">
-                  <div className="flex items-center gap-2 mb-1">
-                    <span className="px-2 py-0.5 bg-purple-600/20 border border-purple-500/30 text-purple-300 text-xs font-semibold rounded-md truncate">
-                      {idea.niche}
-                    </span>
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        toggleFavorite(idea.id);
-                      }}
-                      className={`p-1 rounded transition-all duration-200 ${
-                        isIdeaFavorite 
-                          ? 'text-amber-400 hover:text-amber-500' 
-                          : 'text-slate-500 hover:text-amber-400'
-                      }`}
-                      title={isIdeaFavorite ? 'Remove from favorites' : 'Add to favorites'}
-                    >
-                      <Heart 
-                        className={`w-4 h-4 ${
-                          isIdeaFavorite 
-                            ? 'fill-amber-400' 
-                            : ''
-                        }`} 
-                      />
-                    </button>
-                    {memoizedIsAIRelated(idea) && (
-                      <span className="px-1.5 py-0.5 bg-cyan-600/20 border border-cyan-500/30 text-cyan-300 text-xs font-bold rounded flex items-center gap-1">
-                        <Brain className="w-3 h-3" />
-                        AI
+              <tr
+                key={idea.id}
+                className={`table-row-modern group ${isIdeaFavorite ? 'bg-amber-500/10' : ''}`}
+                style={isIdeaFavorite ? { boxShadow: 'inset 4px 0 0 0 rgb(251 191 36)' } : {}}
+                onClick={() => onRowClick(idea)}
+              >
+                <td className="py-2 px-3 w-80">
+                  <div className="flex flex-col">
+                    <div className="flex items-center gap-2 mb-1">
+                      <span className="px-2 py-0.5 bg-purple-600/20 border border-purple-500/30 text-purple-300 text-xs font-semibold rounded-md truncate">
+                        {idea.niche}
                       </span>
-                    )}
-                    <ExternalLink className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0 text-slate-400" />
-                  </div>
-                  {/* Product Name */}
-                  {idea.productName && (
-                    <div className="mb-1">
-                      <span className="text-sm font-semibold text-white">
-                        {idea.productName}
-                      </span>
-                      {idea.founder && (
-                        <span className="ml-2 text-xs text-slate-400">
-                          by {idea.founder}
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          toggleFavorite(idea.id);
+                        }}
+                        className={`p-1 rounded transition-all duration-200 ${isIdeaFavorite
+                            ? 'text-amber-400 hover:text-amber-500'
+                            : 'text-slate-500 hover:text-amber-400'
+                          }`}
+                        title={isIdeaFavorite ? 'Remove from favorites' : 'Add to favorites'}
+                      >
+                        <Heart
+                          className={`w-4 h-4 ${isIdeaFavorite
+                              ? 'fill-amber-400'
+                              : ''
+                            }`}
+                        />
+                      </button>
+                      {memoizedIsAIRelated(idea) && (
+                        <span className="px-1.5 py-0.5 bg-cyan-600/20 border border-cyan-500/30 text-cyan-300 text-xs font-bold rounded flex items-center gap-1">
+                          <Brain className="w-3 h-3" />
+                          AI
                         </span>
                       )}
+                      <ExternalLink className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0 text-slate-400" />
                     </div>
-                  )}
-                  {/* Description or Rationale */}
-                  <div className="text-xs text-slate-300 line-clamp-1 mb-1 leading-relaxed">
-                    {idea.description || idea.rationale}
+                    {/* Product Name */}
+                    {idea.productName && (
+                      <div className="mb-1">
+                        <span className="text-sm font-semibold text-white">
+                          {idea.productName}
+                        </span>
+                        {idea.founder && (
+                          <span className="ml-2 text-xs text-slate-400">
+                            by {idea.founder}
+                          </span>
+                        )}
+                      </div>
+                    )}
+                    {/* Description or Rationale */}
+                    <div className="text-xs text-slate-300 line-clamp-1 mb-1 leading-relaxed">
+                      {idea.description || idea.rationale}
+                    </div>
+                    <div className="flex items-center gap-2 text-xs">
+                      <span className="px-1.5 py-0.5 bg-green-600/20 border border-green-500/30 text-green-300 rounded font-medium">
+                        {idea.pricing || '?'}
+                      </span>
+                      <span className="text-slate-600">•</span>
+                      <span className="text-slate-400 font-medium">{idea.channel}</span>
+                    </div>
                   </div>
-                  <div className="flex items-center gap-2 text-xs">
-                    <span className="px-1.5 py-0.5 bg-green-600/20 border border-green-500/30 text-green-300 rounded font-medium">
-                      {idea.pricing || '?'}
+                </td>
+                <td className="text-center py-2 px-2">
+                  <div className="flex items-center justify-center">
+                    <ScoreRing score={idea.score} size={40} className="animate-scale-in" />
+                  </div>
+                </td>
+                <td className="text-center py-2 px-2">
+                  <div className="flex items-center justify-center gap-1">
+                    <DollarSign className="w-3 h-3 text-green-400" />
+                    <span className="score-badge text-xs">
+                      ${idea.mrr.toLocaleString()}
                     </span>
-                    <span className="text-slate-600">•</span>
-                    <span className="text-slate-400 font-medium">{idea.channel}</span>
                   </div>
-                </div>
-              </td>
-              <td className="text-center py-2 px-2">
-                <div className="flex items-center justify-center">
-                  <ScoreRing score={idea.score} size={40} className="animate-scale-in" />
-                </div>
-              </td>
-              <td className="text-center py-2 px-2">
-                <div className="flex items-center justify-center gap-1">
-                  <DollarSign className="w-3 h-3 text-green-400" />
-                  <span className="score-badge text-xs">
-                    ${idea.mrr.toLocaleString()}
+                </td>
+                <td className="text-center py-2 px-2">
+                  <div className="flex items-center justify-center gap-1">
+                    {idea.canSupabaseOnly ? (
+                      <Tooltip text="Can run entirely on Supabase backend">
+                        <div className="flex items-center gap-1">
+                          <SupabaseIcon className="w-4 h-4 text-green-400" />
+                          <span className="text-green-400 text-xs font-medium">SB</span>
+                        </div>
+                      </Tooltip>
+                    ) : idea.canSupaEdgeStack ? (
+                      <Tooltip text="Can run on Supabase + Cloudflare Workers edge stack">
+                        <div className="flex items-center gap-1">
+                          <SupabaseIcon className="w-3 h-3 text-blue-400" />
+                          <CloudflareIcon className="w-3 h-3 text-orange-400" />
+                          <span className="text-blue-400 text-xs font-medium">Edge</span>
+                        </div>
+                      </Tooltip>
+                    ) : (
+                      <Tooltip text="Requires complex infrastructure setup">
+                        <div className="flex items-center gap-1">
+                          <DatabaseIcon className="w-4 h-4 text-red-400" />
+                          <span className="text-red-400 text-xs font-medium">Complex</span>
+                        </div>
+                      </Tooltip>
+                    )}
+                  </div>
+                </td>
+                <td className="text-center py-2 px-2">
+                  <span className={`px-1.5 py-0.5 rounded text-xs font-medium border ${getComplexityColor(idea.complexity)}`}>
+                    {idea.complexity}
                   </span>
-                </div>
-              </td>
-              <td className="text-center py-2 px-2">
-                <div className="flex items-center justify-center gap-1">
-                  {idea.canSupabaseOnly ? (
-                    <Tooltip text="Can run entirely on Supabase backend">
-                      <div className="flex items-center gap-1">
-                        <SupabaseIcon className="w-4 h-4 text-green-400" />
-                        <span className="text-green-400 text-xs font-medium">SB</span>
-                      </div>
-                    </Tooltip>
-                  ) : idea.canSupaEdgeStack ? (
-                    <Tooltip text="Can run on Supabase + Cloudflare Workers edge stack">
-                      <div className="flex items-center gap-1">
-                        <SupabaseIcon className="w-3 h-3 text-blue-400" />
-                        <CloudflareIcon className="w-3 h-3 text-orange-400" />
-                        <span className="text-blue-400 text-xs font-medium">Edge</span>
-                      </div>
-                    </Tooltip>
-                  ) : (
-                    <Tooltip text="Requires complex infrastructure setup">
-                      <div className="flex items-center gap-1">
-                        <DatabaseIcon className="w-4 h-4 text-red-400" />
-                        <span className="text-red-400 text-xs font-medium">Complex</span>
-                      </div>
-                    </Tooltip>
-                  )}
-                </div>
-              </td>
-              <td className="text-center py-2 px-2">
-                <span className={`px-1.5 py-0.5 rounded text-xs font-medium border ${getComplexityColor(idea.complexity)}`}>
-                  {idea.complexity}
-                </span>
-              </td>
-              <td className="text-center py-2 px-2">
-                <div className="flex items-center justify-center gap-1">
-                  <Clock className="w-3 h-3 text-orange-400" />
-                  <span className="text-orange-300 font-semibold text-xs">
-                    {idea.mvpWk}w
+                </td>
+                <td className="text-center py-2 px-2">
+                  <div className="flex items-center justify-center gap-1">
+                    <Clock className="w-3 h-3 text-orange-400" />
+                    <span className="text-orange-300 font-semibold text-xs">
+                      {idea.mvpWk}w
+                    </span>
+                  </div>
+                </td>
+                <td className="text-center py-2 px-2">
+                  <span className={`px-1.5 py-0.5 rounded text-xs font-medium border ${getOneKMrrChanceColor(idea.oneKMrrChance)}`}>
+                    {idea.oneKMrrChance}
                   </span>
-                </div>
-              </td>
-              <td className="text-center py-2 px-2">
-                <span className={`px-1.5 py-0.5 rounded text-xs font-medium border ${getOneKMrrChanceColor(idea.oneKMrrChance)}`}>
-                  {idea.oneKMrrChance}
-                </span>
-              </td>
-              <td className="text-center py-2 px-2">
-                <div className="flex items-center justify-center gap-1">
-                  <Users className={`w-3 h-3 ${getCompetitionColor(idea.comp)}`} />
-                  <span className={`font-semibold text-xs ${getCompetitionColor(idea.comp)}`}>
-                    {idea.comp}
+                </td>
+                <td className="text-center py-2 px-2">
+                  <div className="flex items-center justify-center gap-1">
+                    <Users className={`w-3 h-3 ${getCompetitionColor(idea.comp)}`} />
+                    <span className={`font-semibold text-xs ${getCompetitionColor(idea.comp)}`}>
+                      {idea.comp}
+                    </span>
+                  </div>
+                </td>
+                <td className="text-center py-2 px-2">
+                  <span className={`px-1.5 py-0.5 rounded text-xs font-medium border ${getPlatformRiskColor(idea.platDep)}`}>
+                    {idea.platDep}
                   </span>
-                </div>
-              </td>
-              <td className="text-center py-2 px-2">
-                <span className={`px-1.5 py-0.5 rounded text-xs font-medium border ${getPlatformRiskColor(idea.platDep)}`}>
-                  {idea.platDep}
-                </span>
-              </td>
-              <td className="text-center py-2 px-2">
-                <span className={`px-1.5 py-0.5 rounded text-xs font-medium border ${getRevenuePotentialColor(idea.revenuePotential)}`}>
-                  {idea.revenuePotential}
-                </span>
-              </td>
-              <td className="text-center py-2 px-2">
-                <div className="flex items-center justify-center gap-1">
-                  <CheckCircle className={`w-3 h-3 ${getMarketProofColor(idea.marketProof)}`} />
-                  <span className={`font-semibold text-xs ${getMarketProofColor(idea.marketProof)}`}>
-                    {idea.marketProof}
+                </td>
+                <td className="text-center py-2 px-2">
+                  <span className={`px-1.5 py-0.5 rounded text-xs font-medium border ${getRevenuePotentialColor(idea.revenuePotential)}`}>
+                    {idea.revenuePotential}
                   </span>
-                </div>
-              </td>
-              <td className="text-center py-2 px-2">
-                <span className={`px-1.5 py-0.5 rounded text-xs font-medium border ${getPassivenessColor(idea.passiveness)}`}>
-                  {idea.passiveness}
-                </span>
-              </td>
-              <td className="text-center py-2 px-2">
-                <div className="flex items-center justify-center gap-1">
-                  <Activity className={`w-3 h-3 ${getMaintenanceColor(idea.maintHours)}`} />
-                  <span className={`font-semibold text-xs ${getMaintenanceColor(idea.maintHours)}`}>
-                    {idea.maintHours}
+                </td>
+                <td className="text-center py-2 px-2">
+                  <div className="flex items-center justify-center gap-1">
+                    <CheckCircle className={`w-3 h-3 ${getMarketProofColor(idea.marketProof)}`} />
+                    <span className={`font-semibold text-xs ${getMarketProofColor(idea.marketProof)}`}>
+                      {idea.marketProof}
+                    </span>
+                  </div>
+                </td>
+                <td className="text-center py-2 px-2">
+                  <span className={`px-1.5 py-0.5 rounded text-xs font-medium border ${getPassivenessColor(idea.passiveness)}`}>
+                    {idea.passiveness}
                   </span>
-                </div>
-              </td>
-              <td className="text-center py-2 px-2">
-                <span className="text-slate-300 text-xs font-medium">
-                  {idea.user}
-                </span>
-              </td>
-            </tr>
+                </td>
+                <td className="text-center py-2 px-2">
+                  <div className="flex items-center justify-center gap-1">
+                    <Activity className={`w-3 h-3 ${getMaintenanceColor(idea.maintHours)}`} />
+                    <span className={`font-semibold text-xs ${getMaintenanceColor(idea.maintHours)}`}>
+                      {idea.maintHours}
+                    </span>
+                  </div>
+                </td>
+                <td className="text-center py-2 px-2">
+                  <span className="text-slate-300 text-xs font-medium">
+                    {idea.user}
+                  </span>
+                </td>
+              </tr>
             );
           })}
         </tbody>

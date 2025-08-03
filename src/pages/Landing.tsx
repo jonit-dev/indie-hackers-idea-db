@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ArrowRight, Brain, TrendingUp, Clock, Target, Shield, Star, Zap, CheckCircle, DollarSign, Users, BarChart3, Sparkles, Play, X, Quote } from 'lucide-react';
+import { ArrowRight, Brain, TrendingUp, Star, Zap, CheckCircle, DollarSign, Users, BarChart3, Sparkles, Play, X, Quote } from 'lucide-react';
 
 const Landing: React.FC = () => {
   const navigate = useNavigate();
