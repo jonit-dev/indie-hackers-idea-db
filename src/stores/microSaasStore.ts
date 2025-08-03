@@ -73,7 +73,7 @@ export const useMicroSaasStore = create<MicroSaasState>()(
       sortBy: 'score',
       sortOrder: 'desc',
       currentPage: 1,
-      itemsPerPage: 10,
+      itemsPerPage: 25,
 
       // Actions
       setSelectedIdea: (idea) => set({ selectedIdea: idea }),
@@ -235,14 +235,13 @@ export const useMicroSaasStore = create<MicroSaasState>()(
         );
       },
 
-      getTotalIdeas: () => get().ideas.filter((idea) => idea.mrr >= 100).length,
+      getTotalIdeas: () => get().ideas.length,
 
       getHighScoreIdeas: () =>
-        get().ideas.filter((idea) => idea.score >= 80 && idea.mrr >= 100)
-          .length,
+        get().ideas.filter((idea) => idea.score >= 80).length,
 
       getAvgScore: () => {
-        const ideas = get().ideas.filter((idea) => idea.mrr >= 100);
+        const ideas = get().ideas;
         return Math.round(
           ideas.reduce((sum, idea) => sum + idea.score, 0) / ideas.length
         );

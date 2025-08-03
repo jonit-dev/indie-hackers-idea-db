@@ -273,6 +273,7 @@ function Dashboard() {
         </div>
       </div>
 
+      {/* Content with container constraints */}
       <div className="container mx-auto px-6 py-6">
 
         {/* Compact Stats */}
@@ -487,7 +488,6 @@ function Dashboard() {
             onItemsPerPageChange={setItemsPerPage}
           />
         </div>
-
         {/* Quick Insights - Horizontal Layout */}
         <div className="mt-6 grid grid-cols-1 lg:grid-cols-3 gap-4">
           <div className="glass-card rounded-xl p-4">
