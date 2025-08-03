@@ -5,6 +5,27 @@ import { useMicroSaasStore } from '../stores/microSaasStore';
 import { MicroSaasIdea } from '../types/idea';
 import ScoreRing from './ScoreRing';
 
+// Infrastructure SVG Icons
+const SupabaseIcon: React.FC<{ className?: string }> = ({ className = "w-4 h-4" }) => (
+  <svg viewBox="0 0 24 24" className={className} fill="currentColor">
+    <path d="M21.362 9.354H12V.396a.395.395 0 0 0-.716-.233L2.203 12.424l-.005.007a.5.5 0 0 0 .362.848h9.36v8.958a.395.395 0 0 0 .716.233l9.081-12.261.005-.007a.5.5 0 0 0-.36-.848Z"/>
+  </svg>
+);
+
+const CloudflareIcon: React.FC<{ className?: string }> = ({ className = "w-4 h-4" }) => (
+  <svg viewBox="0 0 24 24" className={className} fill="currentColor">
+    <path d="M17.815 10.043h-.054c-.052 0-.095.02-.134.051a.135.135 0 0 0-.054.11v.011c0 .061.033.116.087.134.042.015.096.024.147.024h.008c.051 0 .105-.009.147-.024a.157.157 0 0 0 .087-.134v-.011a.135.135 0 0 0-.054-.11.152.152 0 0 0-.134-.051h-.046zM23.999 15.724s-.01.021-.027.051c-.118.303-.408.513-.737.513H5.347c-.33 0-.62-.21-.738-.513-.016-.03-.026-.051-.026-.051l-.001-.004c-.01-.024-.015-.05-.015-.077 0-.027.005-.053.015-.077l.001-.004s.01-.021.026-.051c.118-.303.408-.513.738-.513h17.888c.329 0 .619.21.737.513.017.03.027.051.027.051l.001.004c.01.024.015.05.015.077 0 .027-.005.053-.015.077l-.001.004z"/>
+  </svg>
+);
+
+const DatabaseIcon: React.FC<{ className?: string }> = ({ className = "w-4 h-4" }) => (
+  <svg viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <ellipse cx="12" cy="5" rx="9" ry="3"/>
+    <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/>
+    <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/>
+  </svg>
+);
+
 interface IdeasTableProps {
 
   ideas: MicroSaasIdea[];
@@ -338,7 +359,7 @@ const IdeasTable: React.FC<IdeasTableProps> = memo(({ ideas, onRowClick }) => {
             <SortableHeader field="maintHours" className="text-center py-2 px-2 text-xs font-semibold text-slate-400 uppercase tracking-wider w-16">
               <Tooltip text="Monthly maintenance hours (goal ≤ 10)">
                 <div className="flex items-center gap-1 cursor-help justify-center">
-                  Maint
+                  Maintenance
                   <HelpCircle className="w-3 h-3 opacity-60" />
                 </div>
               </Tooltip>
@@ -351,6 +372,14 @@ const IdeasTable: React.FC<IdeasTableProps> = memo(({ ideas, onRowClick }) => {
                 </div>
               </Tooltip>
             </SortableHeader>
+            <th className="text-center py-2 px-2 text-xs font-semibold text-slate-400 uppercase tracking-wider w-24">
+              <Tooltip text="Infrastructure compatibility: Supabase-only, Edge Stack (Supabase + CF Workers), or Complex setup ✅">
+                <div className="flex items-center gap-1 cursor-help justify-center">
+                  Infrastructure ✅
+                  <HelpCircle className="w-3 h-3 opacity-60" />
+                </div>
+              </Tooltip>
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -497,6 +526,33 @@ const IdeasTable: React.FC<IdeasTableProps> = memo(({ ideas, onRowClick }) => {
                 <span className="text-slate-300 text-xs font-medium">
                   {idea.user}
                 </span>
+              </td>
+              <td className="text-center py-2 px-2">
+                <div className="flex items-center justify-center gap-1">
+                  {idea.canSupabaseOnly ? (
+                    <Tooltip text="Can run entirely on Supabase backend">
+                      <div className="flex items-center gap-1">
+                        <SupabaseIcon className="w-4 h-4 text-green-400" />
+                        <span className="text-green-400 text-xs font-medium">SB</span>
+                      </div>
+                    </Tooltip>
+                  ) : idea.canSupaEdgeStack ? (
+                    <Tooltip text="Can run on Supabase + Cloudflare Workers edge stack">
+                      <div className="flex items-center gap-1">
+                        <SupabaseIcon className="w-3 h-3 text-blue-400" />
+                        <CloudflareIcon className="w-3 h-3 text-orange-400" />
+                        <span className="text-blue-400 text-xs font-medium">Edge</span>
+                      </div>
+                    </Tooltip>
+                  ) : (
+                    <Tooltip text="Requires complex infrastructure setup">
+                      <div className="flex items-center gap-1">
+                        <DatabaseIcon className="w-4 h-4 text-red-400" />
+                        <span className="text-red-400 text-xs font-medium">Complex</span>
+                      </div>
+                    </Tooltip>
+                  )}
+                </div>
               </td>
             </tr>
             );

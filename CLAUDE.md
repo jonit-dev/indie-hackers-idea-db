@@ -23,7 +23,7 @@ This is a React-based micro-SaaS idea database application with advanced filteri
 ## Database Structure
 
 ### File Location
-`src/data/microSaasIdeas.json` - Main database file (currently 163 ideas)
+`src/data/microSaasIdeas.json` - Main database file (currently 132 ideas with infrastructure analysis ✅)
 
 ### Data Schema
 ```typescript
@@ -51,6 +51,10 @@ interface MicroSaasIdea {
   score: number;       // Overall score (0-100)
   rationale: string;   // Scoring rationale
   dateAdded: string;   // YYYY-MM-DD format
+  // Infrastructure compatibility fields ✅
+  canSupabaseOnly: boolean;     // Can run entirely on Supabase backend
+  canSupaEdgeStack: boolean;    // Can run on lean Supabase + Cloudflare Workers stack
+  infraExplanation: string;     // Explanation of infrastructure requirements
 }
 ```
 
@@ -102,7 +106,10 @@ grep -c "id.*:" src/data/microSaasIdeas.json
   "legalRisk": "Low",
   "score": 82,
   "rationale": "Brief explanation of scoring logic and market validation.",
-  "dateAdded": "2025-01-02"
+  "dateAdded": "2025-01-02",
+  "canSupabaseOnly": true,
+  "canSupaEdgeStack": true,
+  "infraExplanation": "Simple AI content tools can run entirely on Supabase with edge functions calling AI APIs. No complex infrastructure needed."
 }
 ```
 
@@ -151,11 +158,46 @@ setSearchTerm()       // Full-text search
 setFilterNiche()      // Multi-select niche filtering
 setFilterComp()       // Competition level filter
 setFilterAI()         // AI technology filter
+setFilterInfrastructure() // Infrastructure compatibility filter ✅
 
 // Pagination
 setCurrentPage()      // Page navigation
 setItemsPerPage()     // Items per page (10/25/50/100)
 ```
+
+## Infrastructure Analysis ✅
+
+### Overview
+Each idea now includes infrastructure compatibility analysis to help developers choose lean, cost-effective deployment stacks:
+
+### Categories
+1. **Supabase Only** (🟢 94 ideas - 77%)
+   - Can run entirely on Supabase backend
+   - Simple CRUD operations, basic AI tools, forms, calculators
+   - Examples: Content generators, simple trackers, form builders
+
+2. **Edge Stack** (🔵 105 ideas - 86%)  
+   - Can run on Supabase + Cloudflare Workers
+   - Includes scheduling, automation, API integrations
+   - Examples: Social media schedulers, automation tools, webhook processors
+
+3. **Complex Infrastructure** (🔴 17 ideas - 14%)
+   - Requires dedicated/specialized infrastructure
+   - High-performance computing, real-time processing, heavy data
+   - Examples: Analytics platforms, video processing, web scraping at scale
+
+### Evaluation Criteria
+- **Simple Tools**: Basic CRUD → Supabase Only
+- **AI Content Tools**: Simple AI API calls → Supabase Only  
+- **Schedulers/Automation**: Cron jobs, queues → Edge Stack
+- **Analytics**: Real-time data processing → Complex
+- **Video/Image Processing**: Compute-intensive → Complex
+- **Web Scraping**: Proxy management, anti-bot → Complex
+
+### Visual Indicators
+- 🟢 **SB**: Supabase icon - runs entirely on Supabase
+- 🔵 **Edge**: Supabase + Cloudflare icons - edge stack compatible
+- 🔴 **Complex**: Database icon - requires complex infrastructure
 
 ### Adding New Filter Types
 1. Add state to `MicroSaasState` interface

@@ -9,7 +9,7 @@ export interface MicroSaasIdea {
   channel: string; // Main acquisition channel (SEO, X, AppSumo, etc.)
   comp: 'Low' | 'Medium' | 'High'; // Competitive intensity
   platDep: 'None' | 'Low' | 'Medium' | 'High'; // Platform-dependence risk
-  complexity: number; // Build complexity (1-5: 1=Very Low, 2=Low, 3=Medium, 4=High, 5=Very High)
+  complexity: 'Very Low' | 'Low' | 'Medium' | 'High' | 'Very High'; // Build complexity
   mvpWk: number; // Days to build MVP (target ≤ 7)
   oneKMrrChance: 'High' | 'Medium' | 'Low'; // Likelihood to hit ≥ $1k MRR in 6-12 months
   maintHours: number; // Monthly maintenance hours (goal ≤ 10)
@@ -25,4 +25,8 @@ export interface MicroSaasIdea {
   description?: string; // Detailed description of the product/service
   productName?: string; // Actual name of the product
   founder?: string; // Founder's Twitter handle
+  // Infrastructure compatibility fields ✅
+  canSupabaseOnly: boolean; // Can run entirely on Supabase backend
+  canSupaEdgeStack: boolean; // Can run on lean Supabase + Cloudflare Workers stack
+  infraExplanation: string; // Explanation of infrastructure requirements
 }

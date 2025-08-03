@@ -63,6 +63,7 @@ interface MicroSaasState {
   filterOneKMrrChance: string;
   filterAI: string;
   filterFavorites: string;
+  filterInfrastructure: string;
   showAdvancedFilters: boolean;
   sortBy: string;
   sortOrder: 'asc' | 'desc';
@@ -79,6 +80,7 @@ interface MicroSaasState {
   setFilterOneKMrrChance: (chance: string) => void;
   setFilterAI: (ai: string) => void;
   setFilterFavorites: (filter: string) => void;
+  setFilterInfrastructure: (infrastructure: string) => void;
   setShowAdvancedFilters: (show: boolean) => void;
   setSortBy: (sortBy: string) => void;
   setSortOrder: (order: 'asc' | 'desc') => void;
@@ -122,6 +124,7 @@ export const useMicroSaasStore = create<MicroSaasState>()(
       filterOneKMrrChance: 'All',
       filterAI: 'All',
       filterFavorites: 'All',
+      filterInfrastructure: 'All',
       showAdvancedFilters: false,
       sortBy: 'score',
       sortOrder: 'desc',
@@ -140,6 +143,7 @@ export const useMicroSaasStore = create<MicroSaasState>()(
         set({ filterOneKMrrChance: chance, currentPage: 1 }),
       setFilterAI: (ai) => set({ filterAI: ai, currentPage: 1 }),
       setFilterFavorites: (filter) => set({ filterFavorites: filter, currentPage: 1 }),
+      setFilterInfrastructure: (infrastructure) => set({ filterInfrastructure: infrastructure, currentPage: 1 }),
       setShowAdvancedFilters: (show) => set({ showAdvancedFilters: show }),
       setSortBy: (sortBy) => set({ sortBy }),
       setSortOrder: (order) => set({ sortOrder: order }),
@@ -165,6 +169,7 @@ export const useMicroSaasStore = create<MicroSaasState>()(
           filterOneKMrrChance: 'All',
           filterAI: 'All',
           filterFavorites: 'All',
+          filterInfrastructure: 'All',
           sortBy: 'score',
           sortOrder: 'desc',
           currentPage: 1,
@@ -215,18 +220,7 @@ export const useMicroSaasStore = create<MicroSaasState>()(
             state.filterComp === 'All' || idea.comp === state.filterComp;
           const matchesComplexity = (() => {
             if (state.filterComplexity === 'All') return true;
-            
-            // Map string complexity to numeric values
-            const complexityMap: { [key: string]: number } = {
-              'Very Low': 1,
-              'Low': 2,
-              'Medium': 3,
-              'High': 4,
-              'Very High': 5
-            };
-            
-            const targetComplexity = complexityMap[state.filterComplexity];
-            return targetComplexity ? idea.complexity === targetComplexity : true;
+            return idea.complexity === state.filterComplexity;
           })();
           const matchesOneKMrrChance =
             state.filterOneKMrrChance === 'All' ||
@@ -242,6 +236,12 @@ export const useMicroSaasStore = create<MicroSaasState>()(
             (state.filterFavorites === 'Favorites' && state.favorites.includes(idea.id)) ||
             (state.filterFavorites === 'Non-Favorites' && !state.favorites.includes(idea.id));
 
+          const matchesInfrastructure =
+            state.filterInfrastructure === 'All' ||
+            (state.filterInfrastructure === 'Supabase Only' && idea.canSupabaseOnly) ||
+            (state.filterInfrastructure === 'Edge Stack' && idea.canSupaEdgeStack) ||
+            (state.filterInfrastructure === 'Complex' && !idea.canSupaEdgeStack);
+
           return (
             matchesSearch &&
             matchesNiche &&
@@ -249,7 +249,8 @@ export const useMicroSaasStore = create<MicroSaasState>()(
             matchesComplexity &&
             matchesOneKMrrChance &&
             matchesAI &&
-            matchesFavorites
+            matchesFavorites &&
+            matchesInfrastructure
           );
         });
 
@@ -326,7 +327,8 @@ export const useMicroSaasStore = create<MicroSaasState>()(
           state.filterComplexity !== 'All' ||
           state.filterOneKMrrChance !== 'All' ||
           state.filterAI !== 'All' ||
-          state.filterFavorites !== 'All'
+          state.filterFavorites !== 'All' ||
+          state.filterInfrastructure !== 'All'
         );
       },
 

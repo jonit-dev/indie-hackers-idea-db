@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect, memo, useCallback } from 'react';
+import { createPortal } from 'react-dom';
 import { useNavigate } from 'react-router-dom';
 import { Search, Plus, Database, TrendingUp, SlidersHorizontal, X, Tag, ChevronDown, Check, ChevronLeft, ChevronRight, Brain, Zap, Activity, Users, Heart } from 'lucide-react';
 import IdeasTable from '../components/IdeasTable';
@@ -12,10 +13,13 @@ const MultiSelectDropdown: React.FC<{
 }> = memo(({ options, selected, onChange, placeholder }) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const buttonRef = useRef<HTMLButtonElement>(null);
+  const [dropdownPosition, setDropdownPosition] = useState({ top: 0, left: 0, width: 0 });
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node) &&
+          buttonRef.current && !buttonRef.current.contains(event.target as Node)) {
         setIsOpen(false);
       }
     };
@@ -24,6 +28,17 @@ const MultiSelectDropdown: React.FC<{
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
+  useEffect(() => {
+    if (isOpen && buttonRef.current) {
+      const rect = buttonRef.current.getBoundingClientRect();
+      setDropdownPosition({
+        top: rect.bottom + window.scrollY + 4,
+        left: rect.left + window.scrollX,
+        width: rect.width
+      });
+    }
+  }, [isOpen]);
+
   const handleToggleOption = (option: string) => {
     const newSelected = selected.includes(option)
       ? selected.filter(item => item !== option)
@@ -31,9 +46,38 @@ const MultiSelectDropdown: React.FC<{
     onChange(newSelected);
   };
 
+  const dropdownContent = isOpen ? (
+    <div 
+      ref={dropdownRef}
+      className="fixed glass-card rounded-xl shadow-lg max-h-60 overflow-y-auto animate-slide-up"
+      style={{
+        top: dropdownPosition.top,
+        left: dropdownPosition.left,
+        width: dropdownPosition.width,
+        zIndex: 99999
+      }}
+    >
+      {options.map((option) => (
+        <div
+          key={option}
+          className="flex items-center px-3 py-2 text-sm text-white hover:bg-white/5 cursor-pointer rounded-lg mx-1 transition-colors"
+          onClick={() => handleToggleOption(option)}
+        >
+          <div className={`w-4 h-4 mr-3 border border-slate-500 rounded flex items-center justify-center ${
+            selected.includes(option) ? 'bg-purple-600 border-purple-500' : 'bg-transparent'
+          }`}>
+            {selected.includes(option) && <Check className="w-3 h-3 text-white" />}
+          </div>
+          <span className="truncate">{option}</span>
+        </div>
+      ))}
+    </div>
+  ) : null;
+
   return (
-    <div className="relative" ref={dropdownRef}>
+    <div className="relative">
       <button
+        ref={buttonRef}
         type="button"
         className="w-full input-modern flex items-center justify-between"
         onClick={() => setIsOpen(!isOpen)}
@@ -49,24 +93,7 @@ const MultiSelectDropdown: React.FC<{
         <ChevronDown className={`w-4 h-4 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
       </button>
 
-      {isOpen && (
-        <div className="absolute z-50 w-full mt-1 glass-card rounded-xl shadow-lg max-h-60 overflow-y-auto animate-slide-up">
-          {options.map((option) => (
-            <div
-              key={option}
-              className="flex items-center px-3 py-2 text-sm text-white hover:bg-white/5 cursor-pointer rounded-lg mx-1 transition-colors"
-              onClick={() => handleToggleOption(option)}
-            >
-              <div className={`w-4 h-4 mr-3 border border-slate-500 rounded flex items-center justify-center ${
-                selected.includes(option) ? 'bg-purple-600 border-purple-500' : 'bg-transparent'
-              }`}>
-                {selected.includes(option) && <Check className="w-3 h-3 text-white" />}
-              </div>
-              <span className="truncate">{option}</span>
-            </div>
-          ))}
-        </div>
-      )}
+      {createPortal(dropdownContent, document.body)}
     </div>
   );
 });
@@ -181,6 +208,7 @@ function Dashboard() {
     filterOneKMrrChance,
     filterAI,
     filterFavorites,
+    filterInfrastructure,
     showAdvancedFilters,
     sortBy,
     sortOrder,
@@ -193,6 +221,7 @@ function Dashboard() {
     setFilterOneKMrrChance,
     setFilterAI,
     setFilterFavorites,
+    setFilterInfrastructure,
     setShowAdvancedFilters,
     setSortBy,
     setSortOrder,
@@ -215,6 +244,7 @@ function Dashboard() {
   const oneKMrrChances = ['All', 'High', 'Medium', 'Low'];
   const aiOptions = ['All', 'AI', 'Non-AI'];
   const favoritesOptions = ['All', 'Favorites', 'Non-Favorites'];
+  const infrastructureOptions = ['All', 'Supabase Only', 'Edge Stack', 'Complex'];
 
   const filteredIdeas = getFilteredIdeas();
   const paginatedData = getPaginatedIdeas();
@@ -224,7 +254,7 @@ function Dashboard() {
     if (currentPage > paginatedData.totalPages && paginatedData.totalPages > 0) {
       setCurrentPage(1);
     }
-  }, [searchTerm, filterNiche, filterComp, filterComplexity, filterOneKMrrChance, filterAI, filterFavorites, currentPage, paginatedData.totalPages, setCurrentPage]);
+  }, [searchTerm, filterNiche, filterComp, filterComplexity, filterOneKMrrChance, filterAI, filterFavorites, filterInfrastructure, currentPage, paginatedData.totalPages, setCurrentPage]);
 
   const handleRowClick = useCallback((idea: any) => {
     navigate(`/idea/${idea.id}`);
@@ -332,6 +362,7 @@ function Dashboard() {
 
               {/* Competition Filter */}
               <div className="lg:col-span-2">
+                <label className="block text-xs font-medium text-slate-400 mb-1">Competition</label>
                 <select
                   className="w-full select-modern"
                   value={filterComp}
@@ -339,7 +370,7 @@ function Dashboard() {
                 >
                   {competitions.map(comp => (
                     <option key={comp} value={comp} className="bg-slate-800 text-white">
-                      {comp === 'All' ? 'Competition' : comp}
+                      {comp === 'All' ? 'All Competition' : comp}
                     </option>
                   ))}
                 </select>
@@ -347,32 +378,39 @@ function Dashboard() {
 
               {/* AI Filter */}
               <div className="lg:col-span-2">
+                <label className="block text-xs font-medium text-slate-400 mb-1">AI Filter</label>
                 <select
                   className="w-full select-modern"
                   value={filterAI}
                   onChange={(e) => setFilterAI(e.target.value)}
                 >
                   {aiOptions.map(option => (
-                    <option key={option} value={option} className="bg-slate-800 text-white">{option}</option>
+                    <option key={option} value={option} className="bg-slate-800 text-white">
+                      {option === 'All' ? 'All Tools' : option}
+                    </option>
                   ))}
                 </select>
               </div>
 
               {/* Favorites Filter */}
               <div className="lg:col-span-2">
+                <label className="block text-xs font-medium text-slate-400 mb-1">Favorites</label>
                 <select
                   className="w-full select-modern"
                   value={filterFavorites}
                   onChange={(e) => setFilterFavorites(e.target.value)}
                 >
                   {favoritesOptions.map(option => (
-                    <option key={option} value={option} className="bg-slate-800 text-white">{option}</option>
+                    <option key={option} value={option} className="bg-slate-800 text-white">
+                      {option === 'All' ? 'All Ideas' : option}
+                    </option>
                   ))}
                 </select>
               </div>
 
               {/* Sort */}
               <div className="lg:col-span-1">
+                <label className="block text-xs font-medium text-slate-400 mb-1">Sort By</label>
                 <select
                   className="w-full select-modern"
                   value={sortBy}
@@ -380,7 +418,7 @@ function Dashboard() {
                 >
                   <option value="score" className="bg-slate-800 text-white">Score</option>
                   <option value="mrr" className="bg-slate-800 text-white">MRR</option>
-                  <option value="mvpWk" className="bg-slate-800 text-white">MVP</option>
+                  <option value="mvpWk" className="bg-slate-800 text-white">MVP Time</option>
                   <option value="niche" className="bg-slate-800 text-white">Niche</option>
                 </select>
               </div>
@@ -416,7 +454,9 @@ function Dashboard() {
                       onChange={(e) => setFilterComplexity(e.target.value)}
                     >
                       {complexities.map(complexity => (
-                        <option key={complexity} value={complexity} className="bg-slate-800 text-white">{complexity}</option>
+                        <option key={complexity} value={complexity} className="bg-slate-800 text-white">
+                          {complexity === 'All' ? 'All Complexity' : complexity}
+                        </option>
                       ))}
                     </select>
                   </div>
@@ -429,7 +469,24 @@ function Dashboard() {
                       onChange={(e) => setFilterOneKMrrChance(e.target.value)}
                     >
                       {oneKMrrChances.map(chance => (
-                        <option key={chance} value={chance} className="bg-slate-800 text-white">{chance}</option>
+                        <option key={chance} value={chance} className="bg-slate-800 text-white">
+                          {chance === 'All' ? 'All Chances' : chance}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-medium text-slate-400 mb-1">Infrastructure ✅</label>
+                    <select
+                      className="w-full select-modern"
+                      value={filterInfrastructure}
+                      onChange={(e) => setFilterInfrastructure(e.target.value)}
+                    >
+                      {infrastructureOptions.map(option => (
+                        <option key={option} value={option} className="bg-slate-800 text-white">
+                          {option === 'All' ? 'All Infrastructure' : option}
+                        </option>
                       ))}
                     </select>
                   </div>
@@ -441,8 +498,8 @@ function Dashboard() {
                       value={sortOrder}
                       onChange={(e) => setSortOrder(e.target.value as 'asc' | 'desc')}
                     >
-                      <option value="desc" className="bg-slate-800 text-white">Descending</option>
-                      <option value="asc" className="bg-slate-800 text-white">Ascending</option>
+                      <option value="desc" className="bg-slate-800 text-white">High to Low</option>
+                      <option value="asc" className="bg-slate-800 text-white">Low to High</option>
                     </select>
                   </div>
                 </div>
