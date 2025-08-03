@@ -23,6 +23,6 @@ export interface MicroSaasIdea {
   rationale: string; // 1-2 sentences explaining the scores
   dateAdded?: string; // When added to database
   description?: string; // Detailed description of the product/service
-  product_name?: string; // Actual name of the product
+  productName?: string; // Actual name of the product
   founder?: string; // Founder's Twitter handle
 }

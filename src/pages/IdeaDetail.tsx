@@ -1,16 +1,16 @@
+import { ArrowLeft, BarChart3, Brain, ExternalLink, MessageCircle, Star } from 'lucide-react';
 import React from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { ArrowLeft, ExternalLink, Brain, Star, BarChart3, MessageCircle } from 'lucide-react';
-import { useMicroSaasStore } from '../stores/microSaasStore';
+import { useNavigate, useParams } from 'react-router-dom';
 import RadialChart from '../components/RadialChart';
+import { useMicroSaasStore } from '../stores/microSaasStore';
 
 const IdeaDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const { ideas } = useMicroSaasStore();
-  
+
   const idea = ideas.find(i => i.id === id);
-  
+
   if (!idea) {
     return (
       <div className="min-h-screen modern-typography" style={{ background: 'var(--bg-primary)' }}>
@@ -18,7 +18,7 @@ const IdeaDetail: React.FC = () => {
           <div className="glass-card rounded-xl p-8 text-center">
             <h1 className="text-2xl font-bold text-white mb-4">Idea Not Found</h1>
             <p className="text-slate-400 mb-6">The requested startup idea could not be found.</p>
-            <button 
+            <button
               onClick={() => navigate('/dashboard')}
               className="btn-modern flex items-center gap-2 mx-auto"
             >
@@ -57,7 +57,7 @@ const IdeaDetail: React.FC = () => {
         <div className="container mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
-              <button 
+              <button
                 onClick={() => navigate('/dashboard')}
                 className="p-2 glass-card rounded-lg hover:bg-white/10 transition-colors"
               >
@@ -96,8 +96,8 @@ const IdeaDetail: React.FC = () => {
           <div className="col-span-3">
             <div className="glass-card rounded-xl p-4 h-full">
               <div className="flex items-center gap-3 mb-3">
-                {idea.product_name ? (
-                  <h1 className="text-2xl font-bold text-white heading-font">{idea.product_name}</h1>
+                {idea.productName ? (
+                  <h1 className="text-2xl font-bold text-white heading-font">{idea.productName}</h1>
                 ) : (
                   <h1 className="text-2xl font-bold text-white heading-font">{idea.niche}</h1>
                 )}
@@ -110,22 +110,22 @@ const IdeaDetail: React.FC = () => {
                   </span>
                 )}
               </div>
-              
-              {idea.product_name && (
+
+              {idea.productName && (
                 <div className="mb-3">
                   <span className="px-2 py-1 bg-purple-600/20 border border-purple-500/30 text-purple-300 text-xs font-semibold rounded">
                     {idea.niche}
                   </span>
                 </div>
               )}
-              
+
               <p className="text-slate-300 text-sm leading-relaxed mb-3">
                 {idea.description || idea.rationale}
               </p>
-              
-              <a 
-                href={idea.url} 
-                target="_blank" 
+
+              <a
+                href={idea.url}
+                target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 rounded text-white font-medium transition-all text-sm"
               >
@@ -134,7 +134,7 @@ const IdeaDetail: React.FC = () => {
               </a>
             </div>
           </div>
-          
+
           {/* Performance Analysis - 25% (1 column) */}
           <div className="col-span-1">
             <div className="glass-card rounded-xl p-3 h-full">
@@ -185,7 +185,7 @@ const IdeaDetail: React.FC = () => {
                 </div>
               </div>
             </div>
-            
+
             {/* Build & Risk Assessment */}
             <div className="glass-card rounded-xl p-6">
               <h2 className="text-xl font-bold text-white mb-6">Build & Risk Assessment</h2>
@@ -217,7 +217,7 @@ const IdeaDetail: React.FC = () => {
               </div>
             </div>
           </div>
-          
+
           {/* Right Column - Analysis & Community */}
           <div className="space-y-6">
             {/* AI Analysis */}
@@ -233,7 +233,7 @@ const IdeaDetail: React.FC = () => {
                 </div>
               )}
             </div>
-            
+
             {/* Source Information */}
             <div className="glass-card rounded-xl p-6 border-2 border-blue-500/30">
               <div className="flex items-center gap-3 mb-6">
@@ -253,7 +253,7 @@ const IdeaDetail: React.FC = () => {
                 </div>
               </div>
             </div>
-            
+
             {/* Community Discussion */}
             <div className="glass-card rounded-xl p-6">
               <div className="flex items-center gap-3 mb-6">
@@ -264,7 +264,7 @@ const IdeaDetail: React.FC = () => {
                   <span className="text-sm text-green-300">8 active</span>
                 </div>
               </div>
-              
+
               <div className="space-y-4">
                 <div className="flex items-start gap-3">
                   <div className="w-10 h-10 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full flex items-center justify-center text-white font-bold shrink-0">
@@ -278,7 +278,7 @@ const IdeaDetail: React.FC = () => {
                     <p className="text-sm text-slate-300">Already at $2K MRR! The AI risk assessment was spot on.</p>
                   </div>
                 </div>
-                
+
                 <div className="flex items-start gap-3">
                   <div className="w-10 h-10 bg-gradient-to-r from-green-500 to-emerald-500 rounded-full flex items-center justify-center text-white font-bold shrink-0">
                     M
@@ -292,19 +292,19 @@ const IdeaDetail: React.FC = () => {
                   </div>
                 </div>
               </div>
-              
+
               <div className="mt-6 pt-4 border-t border-slate-700/50 space-y-3">
                 <button className="w-full px-4 py-3 bg-blue-600/20 hover:bg-blue-600/30 rounded-lg text-blue-400 font-semibold transition-colors">
                   Join Discussion
                 </button>
-                
+
                 <div className="bg-gradient-to-r from-purple-600/20 to-blue-600/20 rounded-lg p-4 border border-purple-500/30">
                   <div className="flex items-center justify-between">
                     <div>
                       <div className="text-sm text-purple-300 font-semibold">Unlock Full Community</div>
                       <div className="text-sm text-slate-400">Private channels, expert mentorship</div>
                     </div>
-                    <button 
+                    <button
                       onClick={() => navigate('/pricing')}
                       className="px-4 py-2 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 rounded-lg text-white font-semibold transition-all"
                     >

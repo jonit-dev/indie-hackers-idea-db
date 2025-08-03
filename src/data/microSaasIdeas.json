@@ -24,7 +24,7 @@
     "rationale": "Simple AI content tool with proven demand in creator economy; low build complexity and high passive potential make it highly cloneable with quick path to revenue.",
     "dateAdded": "2024-01-15",
     "description": "EasyGen is an AI-powered tool for generating LinkedIn posts, bootstrapped to $42,110 MRR in 182 days using community feedback, WhatsApp beta testing, and AI for naming, logo, and pricing.",
-    "product_name": "EasyGen",
+    "productName": "EasyGen",
     "founder": "@RubenHssd"
   },
   {
@@ -52,7 +52,7 @@
     "rationale": "AI study aid with strong organic growth via content; educational niche has validated peers and low risks, offering solid chance for 1k MRR.",
     "dateAdded": "2024-01-16",
     "description": "Notewave is an AI study note tool with 260k users, $19.7K/month MRR, grown organically through content on X, Reddit, TikTok, LinkedIn, smooth onboarding, in-app upsells, SEO, referrals, and integrations.",
-    "product_name": "Notewave",
+    "productName": "Notewave",
     "founder": "@alexcooldev"
   },
   {
@@ -80,7 +80,7 @@
     "rationale": "Open-source analytics alternative to GA; privacy-focused model has multiple high-MRR peers, low dependence via self-hosting.",
     "dateAdded": "2024-01-19",
     "description": "Senja is a bootstrapped SaaS at $60,000 MRR, donating 3% of revenue to charity, focused on testimonial management.",
-    "product_name": "Senja",
+    "productName": "Senja",
     "founder": "@helloitsolly"
   },
   {
@@ -108,7 +108,7 @@
     "rationale": "Privacy-respecting analytics with open-source appeal; similar to peers like Plausible, offering passive income potential post-MVP.",
     "dateAdded": "2024-01-20",
     "description": "Swetrix is an analytics SaaS at $1.1K MRR, focusing on redesign and new AI SaaS, aiming for $5K MRR.",
-    "product_name": "Swetrix",
+    "productName": "Swetrix",
     "founder": "@andrii_rom"
   },
   {
@@ -136,7 +136,7 @@
     "rationale": "Affordable scheduler with AI features; highly competitive but indie-friendly distribution via X, suitable for quick MVP cloning.",
     "dateAdded": "2024-01-22",
     "description": "PostPlanify is a social media scheduler with AI captions, Canva integration, and post previews, at $71.94 in 21 days with 11 free trials.",
-    "product_name": "PostPlanify",
+    "productName": "PostPlanify",
     "founder": "@HsanC_"
   },
   {
@@ -164,7 +164,7 @@
     "rationale": "AI video shorts generator with affiliate-driven growth; higher complexity and maintenance reduce attractiveness despite revenue proof.",
     "dateAdded": "2024-01-23",
     "description": "AutoShorts.ai is an AI video shorts generator at $138K revenue ($97K MRR), solo bootstrapped, using affiliates for growth.",
-    "product_name": "AutoShorts.ai",
+    "productName": "AutoShorts.ai",
     "founder": "@ericsmith1302"
   },
   {
@@ -192,7 +192,7 @@
     "rationale": "Testimonial tool; proven niche ($30k peers); integration-friendly; steady growth potential.",
     "dateAdded": "2024-01-24",
     "description": "Senja is a testimonial management SaaS at $70,000 MRR, bootstrapped and built in public.",
-    "product_name": "Senja",
+    "productName": "Senja",
     "founder": "@helloitsolly"
   },
   {
@@ -220,7 +220,7 @@
     "rationale": "AI chatbots; enterprise focus with $64k peers; multi-channel distribution; high revenue potential.",
     "dateAdded": "2024-01-24",
     "description": "Chatbase is an AI chatbot SaaS at $495K MRR, grown with SEO, paid ads, and social media, focusing on enterprise AI agents.",
-    "product_name": "Chatbase",
+    "productName": "Chatbase",
     "founder": "@TakoTreba"
   },
   {
@@ -248,7 +248,7 @@
     "rationale": "SMS marketing; $30k peers; Shopify dependencies; strong ROI for users.",
     "dateAdded": "2024-01-24",
     "description": "TxtCart is an AI + SMS marketing tool for Shopify brands, bootstrapped to $100K MRR, with a free playbook for growth.",
-    "product_name": "TxtCart",
+    "productName": "TxtCart",
     "founder": "@kylebigley"
   },
   {
@@ -276,7 +276,7 @@
     "rationale": "Travel social app; promising but no $30k peers; app dependencies; lower chance.",
     "dateAdded": "2024-01-24",
     "description": "NomadTable is a social app for travelers making $10K MRR with 100K downloads in 3 months, solo bootstrapped.",
-    "product_name": "NomadTable",
+    "productName": "NomadTable",
     "founder": "@jayvraavi"
   },
   {
@@ -304,7 +304,7 @@
     "rationale": "Screenshot API; developer tools niche; high complexity; good distribution.",
     "dateAdded": "2024-01-24",
     "description": "Screenshotone is a screenshot API SaaS at $20K MRR, discussed on a podcast.",
-    "product_name": "Screenshotone",
+    "productName": "Screenshotone",
     "founder": "@DmytroKrasun"
   },
   {
@@ -332,7 +332,7 @@
     "rationale": "AI prompt optimization; AI niche with $30k peers; moderate complexity.",
     "dateAdded": "2024-01-24",
     "description": "PrompTessor is an AI prompt analysis tool at $569 MRR with 10,773 users in 30 days, solo bootstrapped.",
-    "product_name": "PrompTessor",
+    "productName": "PrompTessor",
     "founder": "@mrizkimurtadha"
   },
   {
@@ -360,7 +360,7 @@
     "rationale": "Simple analytics; privacy focus; moderate chance.",
     "dateAdded": "2024-01-24",
     "description": "Seline is a privacy-focused analytics SaaS at $500 MRR, bootstrapped, with lessons on validation and persistence.",
-    "product_name": "Seline",
+    "productName": "Seline",
     "founder": "@nstkostya"
   },
   {
@@ -388,7 +388,7 @@
     "rationale": "AI interview coder; high demand niche; fast MVP; good proof.",
     "dateAdded": "2024-01-24",
     "description": "InterviewCoder is an AI tool for job seekers, at $30k MRR, acquired by Amazon, with a focus on coding interviews.",
-    "product_name": "InterviewCoder",
+    "productName": "InterviewCoder",
     "founder": "@ItzSuds"
   },
   {
@@ -416,7 +416,7 @@
     "rationale": "TikTok tracking; marketing niche; moderate potential.",
     "dateAdded": "2024-01-24",
     "description": "Catchr is a tracking tool for TikTok/Reel marketing, bootstrapped to $40K MRR with 65K downloads and 35M views.",
-    "product_name": "Catchr",
+    "productName": "Catchr",
     "founder": "@iamgdsa"
   },
   {
@@ -444,7 +444,7 @@
     "rationale": "WP plugins; proven niche; SEO-friendly; likely $1k fast.",
     "dateAdded": "2024-01-24",
     "description": "A WordPress plugins empire at $1.5M/year with 19 plugins, each ~$6.5K MRR, 33K customers.",
-    "product_name": "WP Plugins Empire",
+    "productName": "WP Plugins Empire",
     "founder": "Unnamed"
   },
   {
@@ -472,7 +472,7 @@
     "rationale": "Form builder; $3M ARR peer; good distribution.",
     "dateAdded": "2024-01-24",
     "description": "Tally is a form builder SaaS at $3M ARR, bootstrapped with a stack including Slack, Notion, Figma, Stripe, and AI tools.",
-    "product_name": "Tally",
+    "productName": "Tally",
     "founder": "@MarieMartens"
   },
   {
@@ -500,7 +500,7 @@
     "rationale": "Twitter thread tool; proven niche; viral potential.",
     "dateAdded": "2024-01-24",
     "description": "Typefully is a Twitter scheduler SaaS at $1.6M ARR, bootstrapped by founders who met on Twitter.",
-    "product_name": "Typefully",
+    "productName": "Typefully",
     "founder": "@marc_louvion"
   },
   {
@@ -528,7 +528,7 @@
     "rationale": "Waitless app; promising but no peers; simple MVP.",
     "dateAdded": "2024-01-24",
     "description": "Waitless is a waitlist management tool at $1,000 MRR after Product Hunt launch.",
-    "product_name": "Waitless",
+    "productName": "Waitless",
     "founder": "@PietTerheyden"
   },
   {
@@ -556,7 +556,7 @@
     "rationale": "Testimonial tool; consistent growth; proven.",
     "dateAdded": "2024-01-24",
     "description": "Senja is a testimonial management tool at $55,300 MRR.",
-    "product_name": "Senja",
+    "productName": "Senja",
     "founder": "@helloitsolly"
   },
   {
@@ -584,7 +584,7 @@
     "rationale": "MicroSaaS bundle; unproven; low complexity.",
     "dateAdded": "2024-01-24",
     "description": "A portfolio of microSaaS at $129 MRR, including database, link shortener, and tools.",
-    "product_name": "MicroSaaS Portfolio",
+    "productName": "MicroSaaS Portfolio",
     "founder": "@ugur2nd"
   },
   {
@@ -612,7 +612,7 @@
     "rationale": "YouTube A/B tool; sold; good potential.",
     "dateAdded": "2024-01-24",
     "description": "ThumbnailTest is an A/B testing tool for YouTube thumbnails, sold at $16K MRR.",
-    "product_name": "ThumbnailTest",
+    "productName": "ThumbnailTest",
     "founder": "@thepatwalls"
   },
   {
@@ -640,7 +640,7 @@
     "rationale": "Trivial analytics tool with proven demand among founders; excellent distribution fit for indies; very high chance to hit $1k fast with minimal maintenance.",
     "dateAdded": "2024-01-25",
     "description": "DataFast is an analytics tool for founders at $4,000/m, subscription-based, launched in 2024.",
-    "product_name": "DataFast",
+    "productName": "DataFast",
     "founder": "@marc_louvion"
   },
   {
@@ -668,7 +668,7 @@
     "rationale": "Simplified hosting solution with validated market; good indie fit; high $1k chance but some platform dependence.",
     "dateAdded": "2024-01-25",
     "description": "Tiiny.host is a web hosting tool at $500k+ ARR, bootstrapped, with key learnings on validation and distribution.",
-    "product_name": "Tiiny.host",
+    "productName": "Tiiny.host",
     "founder": "@_baretto"
   },
   {
@@ -696,7 +696,7 @@
     "rationale": "User-focused scheduler with solid proof; good for clones; high potential despite medium risks.",
     "dateAdded": "2024-01-25",
     "description": "Postbridge is a scheduler at $11K MRR, solo-built.",
-    "product_name": "Postbridge",
+    "productName": "Postbridge",
     "founder": "@d_sourav156"
   },
   {
@@ -724,7 +724,7 @@
     "rationale": "Growth-focused tool with organic potential; average distribution; high $1k chance in viral niches.",
     "dateAdded": "2024-01-25",
     "description": "MediaFast is a Reddit and LinkedIn growth tool at $1,500/m.",
-    "product_name": "MediaFast",
+    "productName": "MediaFast",
     "founder": "@arthuryuzbashew"
   },
   {
@@ -752,7 +752,7 @@
     "rationale": "AI tools leveraging X; high potential; but platform risk affects score.",
     "dateAdded": "2024-01-25",
     "description": "A prediction that 1000+ $25k MRR+ apps will be built from X and AI in 18 months, with a strategy for building via reply guy method.",
-    "product_name": "X AI Apps"
+    "productName": "X AI Apps"
   },
   {
     "id": "28",
@@ -779,7 +779,7 @@
     "rationale": "Straightforward growth tool; moderate chance due to saturation; low maint passive.",
     "dateAdded": "2024-01-25",
     "description": "SuperX is an X growth tool at $2,300/m, subscription-based, launched in 2024.",
-    "product_name": "SuperX",
+    "productName": "SuperX",
     "founder": "@tibo_maker"
   },
   {
@@ -807,7 +807,7 @@
     "rationale": "High-MRR AI video; affiliate channel strong; high revenue upside.",
     "dateAdded": "2024-01-25",
     "description": "AutoShorts.ai is an AI video tool at $97K MRR, solo bootstrapped.",
-    "product_name": "AutoShorts.ai",
+    "productName": "AutoShorts.ai",
     "founder": "@eric_smith1302"
   },
   {
@@ -835,7 +835,7 @@
     "rationale": "Dev starter; lifetime model; moderate growth chance.",
     "dateAdded": "2024-01-25",
     "description": "SuperSaaS is a Nuxt starter kit at $30,000 total revenue.",
-    "product_name": "SuperSaaS",
+    "productName": "SuperSaaS",
     "founder": "@fayazara"
   },
   {
@@ -863,7 +863,7 @@
     "rationale": "Feedback mgmt; higher complexity; but strong market.",
     "dateAdded": "2024-01-25",
     "description": "A feedback platform at $55k/month, started after job loss.",
-    "product_name": "Upvoty",
+    "productName": "Upvoty",
     "founder": "@mikestrives"
   },
   {
@@ -891,7 +891,7 @@
     "rationale": "AI for students; low cost build; high chance low revenue pot.",
     "dateAdded": "2024-01-25",
     "description": "RealTouch AI is an AI touch tool for students at $6.7k/month.",
-    "product_name": "RealTouch AI",
+    "productName": "RealTouch AI",
     "founder": "@andresmendezdev"
   },
   {
@@ -919,7 +919,7 @@
     "rationale": "Infrastructure; high MRR; but complex.",
     "dateAdded": "2024-01-25",
     "description": "Sidekiq is a job queue tool at $2.9M/year, solo empire.",
-    "product_name": "Sidekiq",
+    "productName": "Sidekiq",
     "founder": "@Jesse8868"
   },
   {
@@ -947,7 +947,7 @@
     "rationale": "AI comment generator; vibe-coded with AI tools; good fit for social distribution.",
     "dateAdded": "2024-01-26",
     "description": "An AI comments generator for CEOs at $7,000/month.",
-    "product_name": "Zyki",
+    "productName": "Zyki",
     "founder": "@mikestrives"
   },
   {
@@ -975,7 +975,7 @@
     "rationale": "Full-stack roadmap generator complex but high potential; DevTools indies hit 30k+ MRR with strong community distribution.",
     "dateAdded": "2024-01-27",
     "description": "FullStackRoadmap is a full-stack roadmap generator for developers.",
-    "product_name": "FullStackRoadmap",
+    "productName": "FullStackRoadmap",
     "founder": "@tinkerersanky"
   },
   {
@@ -1003,7 +1003,7 @@
     "rationale": "Crypto portfolio analyzer has legal risks and unproven indie successes at scale; medium chance in volatile market.",
     "dateAdded": "2024-01-27",
     "description": "CryptoAI is an AI-powered crypto portfolio analyzer.",
-    "product_name": "CryptoAI"
+    "productName": "CryptoAI"
   },
   {
     "id": "37",
@@ -1030,7 +1030,7 @@
     "rationale": "Micro SaaS AI Builder no-code; automation tools have strong indie proofs.",
     "dateAdded": "2024-01-27",
     "description": "Micro SaaS AI Builder for creating AI businesses no-code, powered by $MSAI.",
-    "product_name": "Micro SaaS AI Builder"
+    "productName": "Micro SaaS AI Builder"
   },
   {
     "id": "38",
@@ -1057,7 +1057,7 @@
     "rationale": "Similar to above, AI-powered Micro SaaS automation.",
     "dateAdded": "2024-01-27",
     "description": "Micro SaaS AI Builder for AI automation, powered by $MSAI.",
-    "product_name": "Micro SaaS AI Builder"
+    "productName": "Micro SaaS AI Builder"
   },
   {
     "id": "39",
@@ -1084,7 +1084,7 @@
     "rationale": "Techstack.co website detection simple and passive; DevTools success abundant.",
     "dateAdded": "2024-01-27",
     "description": "Techstack.co is a website technology detection tool.",
-    "product_name": "Techstack.co"
+    "productName": "Techstack.co"
   },
   {
     "id": "40",
@@ -1111,7 +1111,7 @@
     "rationale": "Massive but not micro; for clone reference.",
     "dateAdded": "2025-01-02",
     "description": "Anthropic at $4B ARR, enterprise AI revenue rocket.",
-    "product_name": "Anthropic"
+    "productName": "Anthropic"
   },
   {
     "id": "41",
@@ -1138,7 +1138,7 @@
     "rationale": "Fast growth; moats matter.",
     "dateAdded": "2025-01-02",
     "description": "AI companies principles for enterprise: demos easy, products hard; faster growth; build costs collapsing; speed compounds; moats matter.",
-    "product_name": "AI Native"
+    "productName": "AI Native"
   },
   {
     "id": "42",
@@ -1165,7 +1165,7 @@
     "rationale": "Framework; unproven revenue.",
     "dateAdded": "2025-01-02",
     "description": "A 6-system framework for micro SaaS with 80-90% margins.",
-    "product_name": "AI GTM Framework"
+    "productName": "AI GTM Framework"
   },
   {
     "id": "43",
@@ -1192,7 +1192,7 @@
     "rationale": "Free toolkit; low monetization.",
     "dateAdded": "2025-01-02",
     "description": "AI Founder's Kit with $50K in free tools, 2,000 investors, 50 pitch decks.",
-    "product_name": "AI Founder's Kit"
+    "productName": "AI Founder's Kit"
   },
   {
     "id": "44",
@@ -1219,7 +1219,7 @@
     "rationale": "Massive run-rate; complex build.",
     "dateAdded": "2025-01-02",
     "description": "Micro1 is an AI hiring platform at $34M run-rate, profitable.",
-    "product_name": "Micro1"
+    "productName": "Micro1"
   },
   {
     "id": "45",
@@ -1246,7 +1246,7 @@
     "rationale": "AI data enrichment; strong B2B proof; platform dep on LinkedIn.",
     "dateAdded": "2025-01-02",
     "description": "ScrapingDog is a scraping tool at $1M ARR, bootstrapped during COVID.",
-    "product_name": "ScrapingDog"
+    "productName": "ScrapingDog"
   },
   {
     "id": "46",
@@ -1273,7 +1273,7 @@
     "rationale": "Explosive growth in AI builders; market proof from acquisitions; competitive but high potential.",
     "dateAdded": "2025-01-02",
     "description": "Base44 is an AI app builder sold for $80M to Wix, 300k users, $3.5M ARR in 5 months.",
-    "product_name": "Base44"
+    "productName": "Base44"
   },
   {
     "id": "47",
@@ -1300,7 +1300,7 @@
     "rationale": "BannerBear's image gen API proven; multiple AI image tools exceed 30k MRR; API dep risk.",
     "dateAdded": "2025-01-02",
     "description": "BannerBear is an AI image generation API at $50,000/month.",
-    "product_name": "BannerBear"
+    "productName": "BannerBear"
   },
   {
     "id": "48",
@@ -1327,7 +1327,7 @@
     "rationale": "Early AI research tool; unproven but promising niche.",
     "dateAdded": "2025-01-02",
     "description": "Videmak Research AI is a research platform at $1,000/month, bootstrapped in Uganda.",
-    "product_name": "Videmak Research AI"
+    "productName": "Videmak Research AI"
   },
   {
     "id": "49",
@@ -1354,7 +1354,7 @@
     "rationale": "AI SQL optimizer with steady growth; peers in dev tools.",
     "dateAdded": "2025-01-02",
     "description": "AI2sql is an AI SQL tool that grew to $100K ARR, with a journey from zero.",
-    "product_name": "AI2sql",
+    "productName": "AI2sql",
     "founder": "Unnamed",
     "key_features": [
       "AI SQL generation",

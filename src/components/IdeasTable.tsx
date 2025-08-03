@@ -362,10 +362,10 @@ const IdeasTable: React.FC<IdeasTableProps> = memo(({ ideas, onRowClick }) => {
                     <ExternalLink className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0 text-slate-400" />
                   </div>
                   {/* Product Name */}
-                  {idea.product_name && (
+                  {idea.productName && (
                     <div className="mb-1">
                       <span className="text-sm font-semibold text-white">
-                        {idea.product_name}
+                        {idea.productName}
                       </span>
                       {idea.founder && (
                         <span className="ml-2 text-xs text-slate-400">
