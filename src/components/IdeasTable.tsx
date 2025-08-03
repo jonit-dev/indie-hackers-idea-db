@@ -14,7 +14,8 @@ const SupabaseIcon: React.FC<{ className?: string }> = ({ className = "w-4 h-4" 
 
 const CloudflareIcon: React.FC<{ className?: string }> = ({ className = "w-4 h-4" }) => (
   <svg viewBox="0 0 24 24" className={className} fill="currentColor">
-    <path d="M17.815 10.043h-.054c-.052 0-.095.02-.134.051a.135.135 0 0 0-.054.11v.011c0 .061.033.116.087.134.042.015.096.024.147.024h.008c.051 0 .105-.009.147-.024a.157.157 0 0 0 .087-.134v-.011a.135.135 0 0 0-.054-.11.152.152 0 0 0-.134-.051h-.046zM23.999 15.724s-.01.021-.027.051c-.118.303-.408.513-.737.513H5.347c-.33 0-.62-.21-.738-.513-.016-.03-.026-.051-.026-.051l-.001-.004c-.01-.024-.015-.05-.015-.077 0-.027.005-.053.015-.077l.001-.004s.01-.021.026-.051c.118-.303.408-.513.738-.513h17.888c.329 0 .619.21.737.513.017.03.027.051.027.051l.001.004c.01.024.015.05.015.077 0 .027-.005.053-.015.077l-.001.004z"/>
+    <path d="M19.9 11.5c-.4-1.5-1.7-2.6-3.3-2.6s-3 1.1-3.3 2.6h-.6c-1.8 0-3.3 1.5-3.3 3.3s1.5 3.3 3.3 3.3h6.6c1.3 0 2.4-1.1 2.4-2.4 0-1-.6-1.9-1.5-2.2zm-5.3 0c0-.9.7-1.6 1.6-1.6s1.6.7 1.6 1.6h-3.2z"/>
+    <path d="M8.7 10.2c-.7-.7-1.7-1.1-2.7-1.1-2.1 0-3.8 1.7-3.8 3.8s1.7 3.8 3.8 3.8h1.1c-.1-.4-.1-.8-.1-1.2 0-1.8 1.5-3.3 3.3-3.3h.6c0-.5.2-1 .5-1.4l-2.7-0.6z"/>
   </svg>
 );
 
@@ -292,6 +293,14 @@ const IdeasTable: React.FC<IdeasTableProps> = memo(({ ideas, onRowClick }) => {
                 </div>
               </Tooltip>
             </SortableHeader>
+            <th className="text-center py-2 px-2 text-xs font-semibold text-slate-400 uppercase tracking-wider w-24">
+              <Tooltip text="Infrastructure compatibility: Supabase-only, Edge Stack (Supabase + CF Workers), or Complex setup">
+                <div className="flex items-center gap-1 cursor-help justify-center">
+                  Infrastructure
+                  <HelpCircle className="w-3 h-3 opacity-60" />
+                </div>
+              </Tooltip>
+            </th>
             <SortableHeader field="complexity" className="text-center py-3 px-3 text-xs font-semibold text-slate-400 uppercase tracking-wider w-20">
               <Tooltip text="Build complexity (1 = trivial, 5 = hard R&D)">
                 <div className="flex items-center gap-1 cursor-help justify-center">
@@ -372,14 +381,6 @@ const IdeasTable: React.FC<IdeasTableProps> = memo(({ ideas, onRowClick }) => {
                 </div>
               </Tooltip>
             </SortableHeader>
-            <th className="text-center py-2 px-2 text-xs font-semibold text-slate-400 uppercase tracking-wider w-24">
-              <Tooltip text="Infrastructure compatibility: Supabase-only, Edge Stack (Supabase + CF Workers), or Complex setup">
-                <div className="flex items-center gap-1 cursor-help justify-center">
-                  Infrastructure
-                  <HelpCircle className="w-3 h-3 opacity-60" />
-                </div>
-              </Tooltip>
-            </th>
           </tr>
         </thead>
         <tbody>
@@ -466,6 +467,33 @@ const IdeasTable: React.FC<IdeasTableProps> = memo(({ ideas, onRowClick }) => {
                 </div>
               </td>
               <td className="text-center py-2 px-2">
+                <div className="flex items-center justify-center gap-1">
+                  {idea.canSupabaseOnly ? (
+                    <Tooltip text="Can run entirely on Supabase backend">
+                      <div className="flex items-center gap-1">
+                        <SupabaseIcon className="w-4 h-4 text-green-400" />
+                        <span className="text-green-400 text-xs font-medium">SB</span>
+                      </div>
+                    </Tooltip>
+                  ) : idea.canSupaEdgeStack ? (
+                    <Tooltip text="Can run on Supabase + Cloudflare Workers edge stack">
+                      <div className="flex items-center gap-1">
+                        <SupabaseIcon className="w-3 h-3 text-blue-400" />
+                        <CloudflareIcon className="w-3 h-3 text-orange-400" />
+                        <span className="text-blue-400 text-xs font-medium">Edge</span>
+                      </div>
+                    </Tooltip>
+                  ) : (
+                    <Tooltip text="Requires complex infrastructure setup">
+                      <div className="flex items-center gap-1">
+                        <DatabaseIcon className="w-4 h-4 text-red-400" />
+                        <span className="text-red-400 text-xs font-medium">Complex</span>
+                      </div>
+                    </Tooltip>
+                  )}
+                </div>
+              </td>
+              <td className="text-center py-2 px-2">
                 <span className={`px-1.5 py-0.5 rounded text-xs font-medium border ${getComplexityColor(idea.complexity)}`}>
                   {idea.complexity}
                 </span>
@@ -526,33 +554,6 @@ const IdeasTable: React.FC<IdeasTableProps> = memo(({ ideas, onRowClick }) => {
                 <span className="text-slate-300 text-xs font-medium">
                   {idea.user}
                 </span>
-              </td>
-              <td className="text-center py-2 px-2">
-                <div className="flex items-center justify-center gap-1">
-                  {idea.canSupabaseOnly ? (
-                    <Tooltip text="Can run entirely on Supabase backend">
-                      <div className="flex items-center gap-1">
-                        <SupabaseIcon className="w-4 h-4 text-green-400" />
-                        <span className="text-green-400 text-xs font-medium">SB</span>
-                      </div>
-                    </Tooltip>
-                  ) : idea.canSupaEdgeStack ? (
-                    <Tooltip text="Can run on Supabase + Cloudflare Workers edge stack">
-                      <div className="flex items-center gap-1">
-                        <SupabaseIcon className="w-3 h-3 text-blue-400" />
-                        <CloudflareIcon className="w-3 h-3 text-orange-400" />
-                        <span className="text-blue-400 text-xs font-medium">Edge</span>
-                      </div>
-                    </Tooltip>
-                  ) : (
-                    <Tooltip text="Requires complex infrastructure setup">
-                      <div className="flex items-center gap-1">
-                        <DatabaseIcon className="w-4 h-4 text-red-400" />
-                        <span className="text-red-400 text-xs font-medium">Complex</span>
-                      </div>
-                    </Tooltip>
-                  )}
-                </div>
               </td>
             </tr>
             );
