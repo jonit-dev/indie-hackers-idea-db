@@ -203,7 +203,10 @@ export const useMicroSaasStore = create<MicroSaasState>()(
               .toLowerCase()
               .includes(state.searchTerm.toLowerCase()) ||
             idea.user.toLowerCase().includes(state.searchTerm.toLowerCase()) ||
-            idea.channel.toLowerCase().includes(state.searchTerm.toLowerCase());
+            idea.channel.toLowerCase().includes(state.searchTerm.toLowerCase()) ||
+            (idea.productName && idea.productName.toLowerCase().includes(state.searchTerm.toLowerCase())) ||
+            (idea.description && idea.description.toLowerCase().includes(state.searchTerm.toLowerCase())) ||
+            (idea.founder && idea.founder.toLowerCase().includes(state.searchTerm.toLowerCase()));
 
           const matchesNiche =
             state.filterNiche.length === 0 ||
