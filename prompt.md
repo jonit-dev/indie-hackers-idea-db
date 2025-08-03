@@ -69,6 +69,7 @@ If **any** of the above is missing → **discard the tweet**.
 | dateAdded        | Tweet date in **YYYY-MM-DD**.                                                                                          |
 | description      | One-line, plain-language what-it-does summary.                                                                         |
 | productName      | Actual name. If none provided but description is clear → `"Unnamed <niche>"`.                                          |
+| technicalImplementation | Technical stack and implementation details (frontend, backend, database, APIs, deployment).                     |
 
 ────────────────────────────────────────────────────────────────────────────
 3 Scoring Guidelines (Weighted Rubric → 0-100 score)
@@ -120,7 +121,8 @@ If **any** of the above is missing → **discard the tweet**.
     "rationale": "Agency + SaaS hybrid; strong build-in-public momentum.",
     "dateAdded": "2025-01-02",
     "description": "AI MVP agency & community doing $30k MRR.",
-    "productName": "SampleName"
+    "productName": "SampleName",
+    "technicalImplementation": "Next.js frontend, Supabase backend, OpenAI/Claude APIs, PostgreSQL database, Stripe payments, Vercel deployment"
   }
   // … nine more objects …
 ]

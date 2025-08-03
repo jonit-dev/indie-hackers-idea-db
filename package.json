@@ -4,10 +4,11 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "node scripts/remove-duplicates.js && vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "remove-duplicates": "node scripts/remove-duplicates.js"
   },
   "dependencies": {
     "chart.js": "^4.5.0",
