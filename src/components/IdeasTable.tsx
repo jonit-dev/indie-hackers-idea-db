@@ -3,14 +3,13 @@ import { createPortal } from 'react-dom';
 import { MicroSaasIdea } from '../types/idea';
 import { TrendingUp, Clock, Users, Zap, Target, ExternalLink, DollarSign, Shield, TrendingDown, CheckCircle, Activity, HelpCircle, ChevronUp, ChevronDown, Brain } from 'lucide-react';
 import ScoreRing from './ScoreRing';
+import { useMicroSaasStore } from '../stores/microSaasStore';
 
 interface IdeasTableProps {
   ideas: MicroSaasIdea[];
   onRowClick: (idea: MicroSaasIdea) => void;
 }
 
-type SortField = keyof MicroSaasIdea;
-type SortDirection = 'asc' | 'desc' | null;
 
 const Tooltip: React.FC<{ text: string; children: React.ReactNode }> = ({ text, children }) => {
   const [isVisible, setIsVisible] = useState(false);
@@ -78,51 +77,18 @@ const Tooltip: React.FC<{ text: string; children: React.ReactNode }> = ({ text, 
 };
 
 const IdeasTable: React.FC<IdeasTableProps> = memo(({ ideas, onRowClick }) => {
-  const [sortField, setSortField] = useState<SortField | null>(null);
-  const [sortDirection, setSortDirection] = useState<SortDirection>(null);
+  const { sortBy, sortOrder, setSortBy, setSortOrder } = useMicroSaasStore();
 
-  const handleSort = (field: SortField) => {
-    if (sortField === field) {
-      if (sortDirection === 'asc') {
-        setSortDirection('desc');
-      } else if (sortDirection === 'desc') {
-        setSortDirection(null);
-        setSortField(null);
-      } else {
-        setSortDirection('asc');
-      }
+  const handleSort = (field: string) => {
+    if (sortBy === field) {
+      // Toggle sort order if same field
+      setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
     } else {
-      setSortField(field);
-      setSortDirection('asc');
+      // Set new field with descending order (default for most fields)
+      setSortBy(field);
+      setSortOrder('desc');
     }
   };
-
-  const sortedIdeas = useMemo(() => {
-    if (!sortField || !sortDirection) return ideas;
-
-    return [...ideas].sort((a, b) => {
-      const aValue = a[sortField];
-      const bValue = b[sortField];
-
-      // Handle null/undefined values
-      if (aValue == null && bValue == null) return 0;
-      if (aValue == null) return sortDirection === 'asc' ? 1 : -1;
-      if (bValue == null) return sortDirection === 'asc' ? -1 : 1;
-
-      // Handle numeric values
-      if (typeof aValue === 'number' && typeof bValue === 'number') {
-        return sortDirection === 'asc' ? aValue - bValue : bValue - aValue;
-      }
-
-      // Handle string values
-      const aStr = String(aValue).toLowerCase();
-      const bStr = String(bValue).toLowerCase();
-      
-      if (aStr < bStr) return sortDirection === 'asc' ? -1 : 1;
-      if (aStr > bStr) return sortDirection === 'asc' ? 1 : -1;
-      return 0;
-    });
-  }, [ideas, sortField, sortDirection]);
 
   const memoizedIsAIRelated = useMemo(() => {
     const cache = new Map<string, boolean>();
@@ -149,14 +115,14 @@ const IdeasTable: React.FC<IdeasTableProps> = memo(({ ideas, onRowClick }) => {
     };
   }, []);
 
-  const getSortIcon = (field: SortField) => {
-    if (sortField !== field) return null;
-    if (sortDirection === 'asc') return <ChevronUp className="w-3 h-3" />;
-    if (sortDirection === 'desc') return <ChevronDown className="w-3 h-3" />;
+  const getSortIcon = (field: string) => {
+    if (sortBy !== field) return null;
+    if (sortOrder === 'asc') return <ChevronUp className="w-3 h-3" />;
+    if (sortOrder === 'desc') return <ChevronDown className="w-3 h-3" />;
     return null;
   };
 
-  const SortableHeader: React.FC<{ field: SortField; children: React.ReactNode; className?: string }> = ({ 
+  const SortableHeader: React.FC<{ field: string; children: React.ReactNode; className?: string }> = ({ 
     field, 
     children, 
     className = "text-center py-3 px-3 text-xs font-semibold text-slate-400 uppercase tracking-wider" 
@@ -246,7 +212,7 @@ const IdeasTable: React.FC<IdeasTableProps> = memo(({ ideas, onRowClick }) => {
   };
 
 
-  if (sortedIdeas.length === 0) {
+  if (ideas.length === 0) {
     return (
       <div className="bg-slate-800 border border-slate-700 rounded-lg p-12 text-center">
         <div className="max-w-md mx-auto">
@@ -374,7 +340,7 @@ const IdeasTable: React.FC<IdeasTableProps> = memo(({ ideas, onRowClick }) => {
             </tr>
           </thead>
           <tbody>
-            {sortedIdeas.map((idea) => (
+            {ideas.map((idea) => (
               <tr 
                 key={idea.id} 
                 className="table-row-modern group"
