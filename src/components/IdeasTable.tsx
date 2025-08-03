@@ -373,9 +373,9 @@ const IdeasTable: React.FC<IdeasTableProps> = memo(({ ideas, onRowClick }) => {
               </Tooltip>
             </SortableHeader>
             <th className="text-center py-2 px-2 text-xs font-semibold text-slate-400 uppercase tracking-wider w-24">
-              <Tooltip text="Infrastructure compatibility: Supabase-only, Edge Stack (Supabase + CF Workers), or Complex setup ✅">
+              <Tooltip text="Infrastructure compatibility: Supabase-only, Edge Stack (Supabase + CF Workers), or Complex setup">
                 <div className="flex items-center gap-1 cursor-help justify-center">
-                  Infrastructure ✅
+                  Infrastructure
                   <HelpCircle className="w-3 h-3 opacity-60" />
                 </div>
               </Tooltip>

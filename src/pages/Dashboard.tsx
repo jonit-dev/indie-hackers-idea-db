@@ -477,7 +477,7 @@ function Dashboard() {
                   </div>
 
                   <div>
-                    <label className="block text-xs font-medium text-slate-400 mb-1">Infrastructure ✅</label>
+                    <label className="block text-xs font-medium text-slate-400 mb-1">Infrastructure</label>
                     <select
                       className="w-full select-modern"
                       value={filterInfrastructure}
