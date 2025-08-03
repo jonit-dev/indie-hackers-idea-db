@@ -1631,5 +1631,32 @@
     "dateAdded": "2024-08-27",
     "description": "Drag-and-drop site builder that feels like writing in Notion.",
     "productName": "Typedream"
+  },
+  {
+    "id": "bsc-20250803",
+    "source": "Web",
+    "url": "https://bankstatementconverter.com/",
+    "niche": "FinTech – PDF bank-to-CSV converter",
+    "mrr": 16000,
+    "pricing": "$30–$99/mo",
+    "user": "Accountants",
+    "channel": "SEO",
+    "comp": "Medium",
+    "platDep": "Low",
+    "complexity": "Medium",
+    "mvpWk": 10,
+    "oneKMrrChance": "H",
+    "maintHours": 10,
+    "marketProof": "Yes",
+    "distFit": "Good",
+    "churn": "?",
+    "passiveness": "High",
+    "revenuePotential": "High",
+    "legalRisk": "Low",
+    "score": 82,
+    "rationale": "Solo-founder SaaS doing ~16 k MRR (Apr 2025) serving accountants via SEO; simple file-conversion backend keeps maintenance low while demand is clearly validated.",
+    "dateAdded": "2025-04-05",
+    "description": "Web tool that converts PDF bank statements into clean CSV/Excel files for quick import into accounting software.",
+    "productName": "Bank Statement Converter"
   }
 ]
