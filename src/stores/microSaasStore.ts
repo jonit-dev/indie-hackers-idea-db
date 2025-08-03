@@ -129,7 +129,6 @@ export const useMicroSaasStore = create<MicroSaasState>()(
             idea.channel.toLowerCase().includes(state.searchTerm.toLowerCase());
           
           const matchesNiche = state.filterNiche.length === 0 || state.filterNiche.includes(idea.niche);
-          const meetsMrrThreshold = idea.mrr >= 100;
           const matchesComp = state.filterComp === 'All' || idea.comp === state.filterComp;
           const matchesComplexity = state.filterComplexity === 'All' || idea.complexity === state.filterComplexity;
           const matchesOneKMrrChance = state.filterOneKMrrChance === 'All' || idea.oneKMrrChance === state.filterOneKMrrChance;
@@ -138,7 +137,7 @@ export const useMicroSaasStore = create<MicroSaasState>()(
             (state.filterAI === 'AI' && isAIRelated(idea)) ||
             (state.filterAI === 'Non-AI' && !isAIRelated(idea));
           
-          return matchesSearch && matchesNiche && meetsMrrThreshold && matchesComp && matchesComplexity && matchesOneKMrrChance && matchesAI;
+          return matchesSearch && matchesNiche && matchesComp && matchesComplexity && matchesOneKMrrChance && matchesAI;
         });
 
         // Sort the filtered results

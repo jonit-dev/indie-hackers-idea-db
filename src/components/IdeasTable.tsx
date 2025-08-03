@@ -1,11 +1,12 @@
-import React, { useState, useRef, useEffect, memo, useMemo } from 'react';
+import { Activity, Brain, CheckCircle, ChevronDown, ChevronUp, Clock, DollarSign, ExternalLink, HelpCircle, TrendingUp, Users } from 'lucide-react';
+import React, { memo, useEffect, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { MicroSaasIdea } from '../types/idea';
-import { TrendingUp, Clock, Users, Zap, Target, ExternalLink, DollarSign, Shield, TrendingDown, CheckCircle, Activity, HelpCircle, ChevronUp, ChevronDown, Brain } from 'lucide-react';
-import ScoreRing from './ScoreRing';
 import { useMicroSaasStore } from '../stores/microSaasStore';
+import { MicroSaasIdea } from '../types/idea';
+import ScoreRing from './ScoreRing';
 
 interface IdeasTableProps {
+
   ideas: MicroSaasIdea[];
   onRowClick: (idea: MicroSaasIdea) => void;
 }
@@ -50,7 +51,7 @@ const Tooltip: React.FC<{ text: string; children: React.ReactNode }> = ({ text, 
       }}
     >
       {text}
-      <div 
+      <div
         className="absolute border-4 border-transparent border-t-slate-900"
         style={{
           left: '50%',
@@ -96,19 +97,19 @@ const IdeasTable: React.FC<IdeasTableProps> = memo(({ ideas, onRowClick }) => {
       const key = `${idea.niche}-${idea.rationale}`;
       if (!cache.has(key)) {
         const searchText = `${idea.niche} ${idea.rationale}`.toLowerCase();
-        const result = searchText.includes('ai ') || 
-               searchText.includes('artificial intelligence') ||
-               searchText.includes('machine learning') ||
-               searchText.includes('ml ') ||
-               searchText.includes('chatbot') ||
-               searchText.includes('gpt') ||
-               searchText.includes('llm') ||
-               searchText.includes('ai-') ||
-               searchText.includes('automation') ||
-               searchText.includes('intelligent') ||
-               searchText.includes('smart ') ||
-               searchText.includes('neural') ||
-               searchText.includes('deep learning');
+        const result = searchText.includes('ai ') ||
+          searchText.includes('artificial intelligence') ||
+          searchText.includes('machine learning') ||
+          searchText.includes('ml ') ||
+          searchText.includes('chatbot') ||
+          searchText.includes('gpt') ||
+          searchText.includes('llm') ||
+          searchText.includes('ai-') ||
+          searchText.includes('automation') ||
+          searchText.includes('intelligent') ||
+          searchText.includes('smart ') ||
+          searchText.includes('neural') ||
+          searchText.includes('deep learning');
         cache.set(key, result);
       }
       return cache.get(key)!;
@@ -122,12 +123,12 @@ const IdeasTable: React.FC<IdeasTableProps> = memo(({ ideas, onRowClick }) => {
     return null;
   };
 
-  const SortableHeader: React.FC<{ field: string; children: React.ReactNode; className?: string }> = ({ 
-    field, 
-    children, 
-    className = "text-center py-3 px-3 text-xs font-semibold text-slate-400 uppercase tracking-wider" 
+  const SortableHeader: React.FC<{ field: string; children: React.ReactNode; className?: string }> = ({
+    field,
+    children,
+    className = "text-center py-3 px-3 text-xs font-semibold text-slate-400 uppercase tracking-wider"
   }) => (
-    <th 
+    <th
       className={`${className} cursor-pointer hover:text-slate-300 transition-colors select-none`}
       onClick={() => handleSort(field)}
     >
@@ -174,7 +175,7 @@ const IdeasTable: React.FC<IdeasTableProps> = memo(({ ideas, onRowClick }) => {
 
   const getPlatformRiskColor = (risk: string) => {
     switch (risk) {
-      case 'None': 
+      case 'None':
       case 'Low': return 'text-green-400 bg-green-500/20 border-green-500/30';
       case 'Medium': return 'text-orange-400 bg-orange-500/20 border-orange-500/30';
       case 'High': return 'text-red-400 bg-red-500/20 border-red-500/30';
@@ -231,240 +232,240 @@ const IdeasTable: React.FC<IdeasTableProps> = memo(({ ideas, onRowClick }) => {
   return (
     <div className="overflow-x-auto">
       <table className="w-full min-w-[1200px] table-modern">
-          <thead>
-            <tr className="border-b border-slate-700/50">
-              <SortableHeader field="niche" className="text-left py-3 px-4 text-xs font-semibold text-slate-400 uppercase tracking-wider w-80">
-                <Tooltip text="Product domain/market niche (e.g. SEO, HR, DevTools)">
-                  <div className="flex items-center gap-1 cursor-help">
-                    Niche
-                    <HelpCircle className="w-3 h-3 opacity-60" />
-                  </div>
-                </Tooltip>
-              </SortableHeader>
-              <SortableHeader field="mrr" className="text-center py-3 px-3 text-xs font-semibold text-slate-400 uppercase tracking-wider w-24">
-                <Tooltip text="Monthly Recurring Revenue in USD">
-                  <div className="flex items-center gap-1 cursor-help justify-center">
-                    MRR
-                    <HelpCircle className="w-3 h-3 opacity-60" />
-                  </div>
-                </Tooltip>
-              </SortableHeader>
-              <SortableHeader field="complexity" className="text-center py-3 px-3 text-xs font-semibold text-slate-400 uppercase tracking-wider w-20">
-                <Tooltip text="Build complexity (1 = trivial, 5 = hard R&D)">
-                  <div className="flex items-center gap-1 cursor-help justify-center">
-                    Complexity
-                    <HelpCircle className="w-3 h-3 opacity-60" />
-                  </div>
-                </Tooltip>
-              </SortableHeader>
-              <SortableHeader field="mvpWk" className="text-center py-3 px-3 text-xs font-semibold text-slate-400 uppercase tracking-wider w-20">
-                <Tooltip text="Weeks to build MVP (target ≤ 7)">
-                  <div className="flex items-center gap-1 cursor-help justify-center">
-                    MVP Weeks
-                    <HelpCircle className="w-3 h-3 opacity-60" />
-                  </div>
-                </Tooltip>
-              </SortableHeader>
-              <SortableHeader field="oneKMrrChance" className="text-center py-3 px-3 text-xs font-semibold text-slate-400 uppercase tracking-wider w-20">
-                <Tooltip text="Likelihood to hit ≥ $1k MRR in 6-12 months (H/M/L)">
-                  <div className="flex items-center gap-1 cursor-help justify-center">
-                    1k MRR Chance
-                    <HelpCircle className="w-3 h-3 opacity-60" />
-                  </div>
-                </Tooltip>
-              </SortableHeader>
-              <SortableHeader field="comp" className="text-center py-3 px-3 text-xs font-semibold text-slate-400 uppercase tracking-wider w-24">
-                <Tooltip text="Competitive intensity in the market">
-                  <div className="flex items-center gap-1 cursor-help justify-center">
-                    Competition
-                    <HelpCircle className="w-3 h-3 opacity-60" />
-                  </div>
-                </Tooltip>
-              </SortableHeader>
-              <SortableHeader field="platDep" className="text-center py-3 px-3 text-xs font-semibold text-slate-400 uppercase tracking-wider w-24">
-                <Tooltip text="Platform-dependence risk (None/Low/Med/High)">
-                  <div className="flex items-center gap-1 cursor-help justify-center">
-                    Platform Risk
-                    <HelpCircle className="w-3 h-3 opacity-60" />
-                  </div>
-                </Tooltip>
-              </SortableHeader>
-              <SortableHeader field="revenuePotential" className="text-center py-3 px-3 text-xs font-semibold text-slate-400 uppercase tracking-wider w-24">
-                <Tooltip text="Revenue potential assessment (High/Medium/Low)">
-                  <div className="flex items-center gap-1 cursor-help justify-center">
-                    Rev. Potential
-                    <HelpCircle className="w-3 h-3 opacity-60" />
-                  </div>
-                </Tooltip>
-              </SortableHeader>
-              <SortableHeader field="marketProof" className="text-center py-3 px-3 text-xs font-semibold text-slate-400 uppercase tracking-wider w-24">
-                <Tooltip text="At least one indie hits ≥ 30k MRR in same niche">
-                  <div className="flex items-center gap-1 cursor-help justify-center">
-                    Market Validation
-                    <HelpCircle className="w-3 h-3 opacity-60" />
-                  </div>
-                </Tooltip>
-              </SortableHeader>
-              <SortableHeader field="passiveness" className="text-center py-3 px-3 text-xs font-semibold text-slate-400 uppercase tracking-wider w-20">
-                <Tooltip text="Passiveness grade (Very High = highly passive, Low = hands-on)">
-                  <div className="flex items-center gap-1 cursor-help justify-center">
-                    Passiveness
-                    <HelpCircle className="w-3 h-3 opacity-60" />
-                  </div>
-                </Tooltip>
-              </SortableHeader>
-              <SortableHeader field="maintHours" className="text-center py-3 px-3 text-xs font-semibold text-slate-400 uppercase tracking-wider w-24">
-                <Tooltip text="Monthly maintenance hours (goal ≤ 10)">
-                  <div className="flex items-center gap-1 cursor-help justify-center">
-                    Maint (h/mo)
-                    <HelpCircle className="w-3 h-3 opacity-60" />
-                  </div>
-                </Tooltip>
-              </SortableHeader>
-              <SortableHeader field="score" className="text-center py-3 px-3 text-xs font-semibold text-slate-400 uppercase tracking-wider w-20">
-                <Tooltip text="Overall attractiveness score (0-100)">
-                  <div className="flex items-center gap-1 cursor-help justify-center">
-                    Score
-                    <HelpCircle className="w-3 h-3 opacity-60" />
-                  </div>
-                </Tooltip>
-              </SortableHeader>
-              <SortableHeader field="user" className="text-center py-3 px-3 text-xs font-semibold text-slate-400 uppercase tracking-wider w-24">
-                <Tooltip text="Primary target market/user persona">
-                  <div className="flex items-center gap-1 cursor-help justify-center">
-                    Target Mkt
-                    <HelpCircle className="w-3 h-3 opacity-60" />
-                  </div>
-                </Tooltip>
-              </SortableHeader>
-            </tr>
-          </thead>
-          <tbody>
-            {ideas.map((idea) => (
-              <tr 
-                key={idea.id} 
-                className="table-row-modern group"
-                onClick={() => onRowClick(idea)}
-              >
-                <td className="py-3 px-4 w-80">
-                  <div className="flex flex-col">
-                    <div className="flex items-center gap-2 mb-2">
-                      <span className="px-2 py-1 bg-purple-600/20 border border-purple-500/30 text-purple-300 text-xs font-semibold rounded-md truncate">
-                        {idea.niche}
+        <thead>
+          <tr className="border-b border-slate-700/50">
+            <SortableHeader field="niche" className="text-left py-3 px-4 text-xs font-semibold text-slate-400 uppercase tracking-wider w-80">
+              <Tooltip text="Product domain/market niche (e.g. SEO, HR, DevTools)">
+                <div className="flex items-center gap-1 cursor-help">
+                  Niche
+                  <HelpCircle className="w-3 h-3 opacity-60" />
+                </div>
+              </Tooltip>
+            </SortableHeader>
+            <SortableHeader field="mrr" className="text-center py-3 px-3 text-xs font-semibold text-slate-400 uppercase tracking-wider w-24">
+              <Tooltip text="Monthly Recurring Revenue in USD">
+                <div className="flex items-center gap-1 cursor-help justify-center">
+                  MRR
+                  <HelpCircle className="w-3 h-3 opacity-60" />
+                </div>
+              </Tooltip>
+            </SortableHeader>
+            <SortableHeader field="complexity" className="text-center py-3 px-3 text-xs font-semibold text-slate-400 uppercase tracking-wider w-20">
+              <Tooltip text="Build complexity (1 = trivial, 5 = hard R&D)">
+                <div className="flex items-center gap-1 cursor-help justify-center">
+                  Complexity
+                  <HelpCircle className="w-3 h-3 opacity-60" />
+                </div>
+              </Tooltip>
+            </SortableHeader>
+            <SortableHeader field="mvpWk" className="text-center py-3 px-3 text-xs font-semibold text-slate-400 uppercase tracking-wider w-20">
+              <Tooltip text="Weeks to build MVP (target ≤ 7)">
+                <div className="flex items-center gap-1 cursor-help justify-center">
+                  MVP Weeks
+                  <HelpCircle className="w-3 h-3 opacity-60" />
+                </div>
+              </Tooltip>
+            </SortableHeader>
+            <SortableHeader field="oneKMrrChance" className="text-center py-3 px-3 text-xs font-semibold text-slate-400 uppercase tracking-wider w-20">
+              <Tooltip text="Likelihood to hit ≥ $1k MRR in 6-12 months (H/M/L)">
+                <div className="flex items-center gap-1 cursor-help justify-center">
+                  1k MRR Chance
+                  <HelpCircle className="w-3 h-3 opacity-60" />
+                </div>
+              </Tooltip>
+            </SortableHeader>
+            <SortableHeader field="comp" className="text-center py-3 px-3 text-xs font-semibold text-slate-400 uppercase tracking-wider w-24">
+              <Tooltip text="Competitive intensity in the market">
+                <div className="flex items-center gap-1 cursor-help justify-center">
+                  Competition
+                  <HelpCircle className="w-3 h-3 opacity-60" />
+                </div>
+              </Tooltip>
+            </SortableHeader>
+            <SortableHeader field="platDep" className="text-center py-3 px-3 text-xs font-semibold text-slate-400 uppercase tracking-wider w-24">
+              <Tooltip text="Platform-dependence risk (None/Low/Med/High)">
+                <div className="flex items-center gap-1 cursor-help justify-center">
+                  Platform Risk
+                  <HelpCircle className="w-3 h-3 opacity-60" />
+                </div>
+              </Tooltip>
+            </SortableHeader>
+            <SortableHeader field="revenuePotential" className="text-center py-3 px-3 text-xs font-semibold text-slate-400 uppercase tracking-wider w-24">
+              <Tooltip text="Revenue potential assessment (High/Medium/Low)">
+                <div className="flex items-center gap-1 cursor-help justify-center">
+                  Rev. Potential
+                  <HelpCircle className="w-3 h-3 opacity-60" />
+                </div>
+              </Tooltip>
+            </SortableHeader>
+            <SortableHeader field="marketProof" className="text-center py-3 px-3 text-xs font-semibold text-slate-400 uppercase tracking-wider w-24">
+              <Tooltip text="At least one indie hits ≥ 30k MRR in same niche">
+                <div className="flex items-center gap-1 cursor-help justify-center">
+                  Market Validation
+                  <HelpCircle className="w-3 h-3 opacity-60" />
+                </div>
+              </Tooltip>
+            </SortableHeader>
+            <SortableHeader field="passiveness" className="text-center py-3 px-3 text-xs font-semibold text-slate-400 uppercase tracking-wider w-20">
+              <Tooltip text="Passiveness grade (Very High = highly passive, Low = hands-on)">
+                <div className="flex items-center gap-1 cursor-help justify-center">
+                  Passiveness
+                  <HelpCircle className="w-3 h-3 opacity-60" />
+                </div>
+              </Tooltip>
+            </SortableHeader>
+            <SortableHeader field="maintHours" className="text-center py-3 px-3 text-xs font-semibold text-slate-400 uppercase tracking-wider w-24">
+              <Tooltip text="Monthly maintenance hours (goal ≤ 10)">
+                <div className="flex items-center gap-1 cursor-help justify-center">
+                  Maint (h/mo)
+                  <HelpCircle className="w-3 h-3 opacity-60" />
+                </div>
+              </Tooltip>
+            </SortableHeader>
+            <SortableHeader field="score" className="text-center py-3 px-3 text-xs font-semibold text-slate-400 uppercase tracking-wider w-20">
+              <Tooltip text="Overall attractiveness score (0-100)">
+                <div className="flex items-center gap-1 cursor-help justify-center">
+                  Score
+                  <HelpCircle className="w-3 h-3 opacity-60" />
+                </div>
+              </Tooltip>
+            </SortableHeader>
+            <SortableHeader field="user" className="text-center py-3 px-3 text-xs font-semibold text-slate-400 uppercase tracking-wider w-24">
+              <Tooltip text="Primary target market/user persona">
+                <div className="flex items-center gap-1 cursor-help justify-center">
+                  Target Mkt
+                  <HelpCircle className="w-3 h-3 opacity-60" />
+                </div>
+              </Tooltip>
+            </SortableHeader>
+          </tr>
+        </thead>
+        <tbody>
+          {ideas.map((idea) => (
+            <tr
+              key={idea.id}
+              className="table-row-modern group"
+              onClick={() => onRowClick(idea)}
+            >
+              <td className="py-3 px-4 w-80">
+                <div className="flex flex-col">
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="px-2 py-1 bg-purple-600/20 border border-purple-500/30 text-purple-300 text-xs font-semibold rounded-md truncate">
+                      {idea.niche}
+                    </span>
+                    {memoizedIsAIRelated(idea) && (
+                      <span className="px-1.5 py-0.5 bg-cyan-600/20 border border-cyan-500/30 text-cyan-300 text-xs font-bold rounded flex items-center gap-1">
+                        <Brain className="w-3 h-3" />
+                        AI
                       </span>
-                      {memoizedIsAIRelated(idea) && (
-                        <span className="px-1.5 py-0.5 bg-cyan-600/20 border border-cyan-500/30 text-cyan-300 text-xs font-bold rounded flex items-center gap-1">
-                          <Brain className="w-3 h-3" />
-                          AI
+                    )}
+                    <ExternalLink className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0 text-slate-400" />
+                  </div>
+                  {/* Product Name */}
+                  {idea.product_name && (
+                    <div className="mb-1">
+                      <span className="text-sm font-semibold text-white">
+                        {idea.product_name}
+                      </span>
+                      {idea.founder && (
+                        <span className="ml-2 text-xs text-slate-400">
+                          by {idea.founder}
                         </span>
                       )}
-                      <ExternalLink className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0 text-slate-400" />
                     </div>
-                    {/* Product Name */}
-                    {idea.product_name && (
-                      <div className="mb-1">
-                        <span className="text-sm font-semibold text-white">
-                          {idea.product_name}
-                        </span>
-                        {idea.founder && (
-                          <span className="ml-2 text-xs text-slate-400">
-                            by {idea.founder}
-                          </span>
-                        )}
-                      </div>
-                    )}
-                    {/* Description or Rationale */}
-                    <div className="text-xs text-slate-300 line-clamp-2 mb-2 leading-relaxed">
-                      {idea.description || idea.rationale}
-                    </div>
-                    <div className="flex items-center gap-2 text-xs">
-                      <span className="px-2 py-0.5 bg-green-600/20 border border-green-500/30 text-green-300 rounded font-medium">
-                        {idea.pricing || '?'}
-                      </span>
-                      <span className="text-slate-600">•</span>
-                      <span className="text-slate-400 font-medium">{idea.channel}</span>
-                    </div>
+                  )}
+                  {/* Description or Rationale */}
+                  <div className="text-xs text-slate-300 line-clamp-2 mb-2 leading-relaxed">
+                    {idea.description || idea.rationale}
                   </div>
-                </td>
-                <td className="text-center py-3 px-3">
-                  <div className="flex items-center justify-center gap-1">
-                    <DollarSign className="w-3 h-3 text-green-400" />
-                    <span className="score-badge">
-                      ${idea.mrr.toLocaleString()}
+                  <div className="flex items-center gap-2 text-xs">
+                    <span className="px-2 py-0.5 bg-green-600/20 border border-green-500/30 text-green-300 rounded font-medium">
+                      {idea.pricing || '?'}
                     </span>
+                    <span className="text-slate-600">•</span>
+                    <span className="text-slate-400 font-medium">{idea.channel}</span>
                   </div>
-                </td>
-                <td className="text-center py-3 px-3">
-                  <span className={`px-2 py-1 rounded text-xs font-medium border ${getComplexityColor(idea.complexity)}`}>
-                    {idea.complexity}
+                </div>
+              </td>
+              <td className="text-center py-3 px-3">
+                <div className="flex items-center justify-center gap-1">
+                  <DollarSign className="w-3 h-3 text-green-400" />
+                  <span className="score-badge">
+                    ${idea.mrr.toLocaleString()}
                   </span>
-                </td>
-                <td className="text-center py-3 px-3">
-                  <div className="flex items-center justify-center gap-1">
-                    <Clock className="w-3 h-3 text-orange-400" />
-                    <span className="score-badge warning">
-                      {idea.mvpWk}w
-                    </span>
-                  </div>
-                </td>
-                <td className="text-center py-3 px-3">
-                  <span className={`px-2 py-1 rounded text-xs font-medium border ${getOneKMrrChanceColor(idea.oneKMrrChance)}`}>
-                    {idea.oneKMrrChance}
+                </div>
+              </td>
+              <td className="text-center py-3 px-3">
+                <span className={`px-2 py-1 rounded text-xs font-medium border ${getComplexityColor(idea.complexity)}`}>
+                  {idea.complexity}
+                </span>
+              </td>
+              <td className="text-center py-3 px-3">
+                <div className="flex items-center justify-center gap-1">
+                  <Clock className="w-3 h-3 text-orange-400" />
+                  <span className="score-badge warning">
+                    {idea.mvpWk}w
                   </span>
-                </td>
-                <td className="text-center py-3 px-3">
-                  <div className="flex items-center justify-center gap-1">
-                    <Users className={`w-3 h-3 ${getCompetitionColor(idea.comp)}`} />
-                    <span className={`font-semibold text-sm ${getCompetitionColor(idea.comp)}`}>
-                      {idea.comp}
-                    </span>
-                  </div>
-                </td>
-                <td className="text-center py-3 px-3">
-                  <span className={`px-2 py-1 rounded text-xs font-medium border ${getPlatformRiskColor(idea.platDep)}`}>
-                    {idea.platDep}
+                </div>
+              </td>
+              <td className="text-center py-3 px-3">
+                <span className={`px-2 py-1 rounded text-xs font-medium border ${getOneKMrrChanceColor(idea.oneKMrrChance)}`}>
+                  {idea.oneKMrrChance}
+                </span>
+              </td>
+              <td className="text-center py-3 px-3">
+                <div className="flex items-center justify-center gap-1">
+                  <Users className={`w-3 h-3 ${getCompetitionColor(idea.comp)}`} />
+                  <span className={`font-semibold text-sm ${getCompetitionColor(idea.comp)}`}>
+                    {idea.comp}
                   </span>
-                </td>
-                <td className="text-center py-3 px-3">
-                  <span className={`px-2 py-1 rounded text-xs font-medium border ${getRevenuePotentialColor(idea.revenuePotential)}`}>
-                    {idea.revenuePotential}
+                </div>
+              </td>
+              <td className="text-center py-3 px-3">
+                <span className={`px-2 py-1 rounded text-xs font-medium border ${getPlatformRiskColor(idea.platDep)}`}>
+                  {idea.platDep}
+                </span>
+              </td>
+              <td className="text-center py-3 px-3">
+                <span className={`px-2 py-1 rounded text-xs font-medium border ${getRevenuePotentialColor(idea.revenuePotential)}`}>
+                  {idea.revenuePotential}
+                </span>
+              </td>
+              <td className="text-center py-3 px-3">
+                <div className="flex items-center justify-center gap-1">
+                  <CheckCircle className={`w-3 h-3 ${getMarketProofColor(idea.marketProof)}`} />
+                  <span className={`font-semibold text-sm ${getMarketProofColor(idea.marketProof)}`}>
+                    {idea.marketProof}
                   </span>
-                </td>
-                <td className="text-center py-3 px-3">
-                  <div className="flex items-center justify-center gap-1">
-                    <CheckCircle className={`w-3 h-3 ${getMarketProofColor(idea.marketProof)}`} />
-                    <span className={`font-semibold text-sm ${getMarketProofColor(idea.marketProof)}`}>
-                      {idea.marketProof}
-                    </span>
-                  </div>
-                </td>
-                <td className="text-center py-3 px-3">
-                  <span className={`px-2 py-1 rounded text-xs font-medium border ${getPassivenessColor(idea.passiveness)}`}>
-                    {idea.passiveness}
+                </div>
+              </td>
+              <td className="text-center py-3 px-3">
+                <span className={`px-2 py-1 rounded text-xs font-medium border ${getPassivenessColor(idea.passiveness)}`}>
+                  {idea.passiveness}
+                </span>
+              </td>
+              <td className="text-center py-3 px-3">
+                <div className="flex items-center justify-center gap-1">
+                  <Activity className={`w-3 h-3 ${getMaintenanceColor(idea.maintHours)}`} />
+                  <span className={`font-semibold text-sm ${getMaintenanceColor(idea.maintHours)}`}>
+                    {idea.maintHours}
                   </span>
-                </td>
-                <td className="text-center py-3 px-3">
-                  <div className="flex items-center justify-center gap-1">
-                    <Activity className={`w-3 h-3 ${getMaintenanceColor(idea.maintHours)}`} />
-                    <span className={`font-semibold text-sm ${getMaintenanceColor(idea.maintHours)}`}>
-                      {idea.maintHours}
-                    </span>
-                  </div>
-                </td>
-                <td className="text-center py-3 px-3">
-                  <div className="flex items-center justify-center">
-                    <ScoreRing score={idea.score} size={50} className="animate-scale-in" />
-                  </div>
-                </td>
-                <td className="text-center py-3 px-3">
-                  <span className="text-slate-300 text-xs font-medium">
-                    {idea.user}
-                  </span>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+                </div>
+              </td>
+              <td className="text-center py-3 px-3">
+                <div className="flex items-center justify-center">
+                  <ScoreRing score={idea.score} size={50} className="animate-scale-in" />
+                </div>
+              </td>
+              <td className="text-center py-3 px-3">
+                <span className="text-slate-300 text-xs font-medium">
+                  {idea.user}
+                </span>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 });
