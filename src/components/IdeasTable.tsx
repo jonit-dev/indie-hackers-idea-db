@@ -161,21 +161,23 @@ const IdeasTable: React.FC<IdeasTableProps> = memo(({ ideas, onRowClick }) => {
       </div>
     </th>
   );
-  const getComplexityColor = (complexity: string | number) => {
-    const complexityStr = complexity.toString();
-    switch (complexityStr) {
-      case '1':
-      case 'Very Low':
-      case 'Low': return 'text-green-400 bg-green-500/20 border-green-500/30';
-      case '2':
-      case '3':
-      case 'Medium': return 'text-orange-400 bg-orange-500/20 border-orange-500/30';
-      case '4':
-      case '5':
-      case 'High':
-      case 'Very High': return 'text-red-400 bg-red-500/20 border-red-500/30';
-      default: return 'text-slate-400 bg-slate-500/20 border-slate-500/30';
+  const getComplexityDisplay = (complexity: number) => {
+    switch (complexity) {
+      case 1: return 'Very Low';
+      case 2: return 'Low';
+      case 3: return 'Medium';
+      case 4: return 'High';
+      case 5: return 'Very High';
+      default: return `Level ${complexity}`;
     }
+  };
+
+  const getComplexityColor = (complexity: string | number) => {
+    const complexityNum = typeof complexity === 'string' ? parseInt(complexity) : complexity;
+    if (complexityNum <= 2) return 'text-green-400 bg-green-500/20 border-green-500/30';
+    if (complexityNum === 3) return 'text-orange-400 bg-orange-500/20 border-orange-500/30';
+    if (complexityNum >= 4) return 'text-red-400 bg-red-500/20 border-red-500/30';
+    return 'text-slate-400 bg-slate-500/20 border-slate-500/30';
   };
 
   const getOneKMrrChanceColor = (chance: string) => {
@@ -325,14 +327,6 @@ const IdeasTable: React.FC<IdeasTableProps> = memo(({ ideas, onRowClick }) => {
                 </div>
               </Tooltip>
             </SortableHeader>
-            <th className="text-center py-2 px-2 text-xs font-semibold text-slate-400 uppercase tracking-wider w-24">
-              <Tooltip text="Infrastructure compatibility: Supabase-only, Edge Stack (Supabase + CF Workers), or Complex setup">
-                <div className="flex items-center gap-1 cursor-help justify-center">
-                  Infrastructure
-                  <HelpCircle className="w-3 h-3 opacity-60" />
-                </div>
-              </Tooltip>
-            </th>
             <SortableHeader field="complexity" className="text-center py-3 px-3 text-xs font-semibold text-slate-400 uppercase tracking-wider w-20">
               <Tooltip text="Build complexity (1 = trivial, 5 = hard R&D)">
                 <div className="flex items-center gap-1 cursor-help justify-center">
@@ -445,6 +439,14 @@ const IdeasTable: React.FC<IdeasTableProps> = memo(({ ideas, onRowClick }) => {
                 </div>
               </Tooltip>
             </SortableHeader>
+            <th className="text-center py-2 px-2 text-xs font-semibold text-slate-400 uppercase tracking-wider w-24">
+              <Tooltip text="Infrastructure compatibility: Supabase-only, Edge Stack (Supabase + CF Workers), or Complex setup">
+                <div className="flex items-center gap-1 cursor-help justify-center">
+                  Infrastructure
+                  <HelpCircle className="w-3 h-3 opacity-60" />
+                </div>
+              </Tooltip>
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -529,35 +531,8 @@ const IdeasTable: React.FC<IdeasTableProps> = memo(({ ideas, onRowClick }) => {
                   </div>
                 </td>
                 <td className="text-center py-2 px-2">
-                  <div className="flex items-center justify-center gap-1">
-                    {idea.canSupabaseOnly ? (
-                      <Tooltip text="Can run entirely on Supabase backend">
-                        <div className="flex items-center gap-1">
-                          <SupabaseIcon className="w-4 h-4 text-green-400" />
-                          <span className="text-green-400 text-xs font-medium">SB</span>
-                        </div>
-                      </Tooltip>
-                    ) : idea.canSupaEdgeStack ? (
-                      <Tooltip text="Can run on Supabase + Cloudflare Workers edge stack">
-                        <div className="flex items-center gap-1">
-                          <SupabaseIcon className="w-3 h-3 text-blue-400" />
-                          <CloudflareIcon className="w-3 h-3 text-orange-400" />
-                          <span className="text-blue-400 text-xs font-medium">Edge</span>
-                        </div>
-                      </Tooltip>
-                    ) : (
-                      <Tooltip text="Requires complex infrastructure setup">
-                        <div className="flex items-center gap-1">
-                          <DatabaseIcon className="w-4 h-4 text-red-400" />
-                          <span className="text-red-400 text-xs font-medium">Complex</span>
-                        </div>
-                      </Tooltip>
-                    )}
-                  </div>
-                </td>
-                <td className="text-center py-2 px-2">
                   <span className={`px-1.5 py-0.5 rounded text-xs font-medium border ${getComplexityColor(idea.complexity)}`}>
-                    {idea.complexity}
+                    {getComplexityDisplay(idea.complexity)}
                   </span>
                 </td>
                 <td className="text-center py-2 px-2">
@@ -639,6 +614,33 @@ const IdeasTable: React.FC<IdeasTableProps> = memo(({ ideas, onRowClick }) => {
                   <span className="text-slate-300 text-xs font-medium">
                     {idea.user}
                   </span>
+                </td>
+                <td className="text-center py-2 px-2">
+                  <div className="flex items-center justify-center gap-1">
+                    {idea.canSupabaseOnly ? (
+                      <Tooltip text="Can run entirely on Supabase backend">
+                        <div className="flex items-center gap-1">
+                          <SupabaseIcon className="w-4 h-4 text-green-400" />
+                          <span className="text-green-400 text-xs font-medium">SB</span>
+                        </div>
+                      </Tooltip>
+                    ) : idea.canSupaEdgeStack ? (
+                      <Tooltip text="Can run on Supabase + Cloudflare Workers edge stack">
+                        <div className="flex items-center gap-1">
+                          <SupabaseIcon className="w-3 h-3 text-blue-400" />
+                          <CloudflareIcon className="w-3 h-3 text-orange-400" />
+                          <span className="text-blue-400 text-xs font-medium">Edge</span>
+                        </div>
+                      </Tooltip>
+                    ) : (
+                      <Tooltip text="Requires complex infrastructure setup">
+                        <div className="flex items-center gap-1">
+                          <DatabaseIcon className="w-4 h-4 text-red-400" />
+                          <span className="text-red-400 text-xs font-medium">Complex</span>
+                        </div>
+                      </Tooltip>
+                    )}
+                  </div>
                 </td>
               </tr>
             );

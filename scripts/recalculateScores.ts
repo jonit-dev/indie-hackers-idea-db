@@ -20,7 +20,15 @@ function recalculateAllScores() {
     id: string;
     oldScore: number;
     newScore: number;
-    breakdown: any;
+    breakdown: {
+      revenue: number;
+      market: number;
+      execution: number;
+      speed: number;
+      growth: number;
+      operational: number;
+      total: number;
+    };
   }> = [];
 
   ideas.forEach((idea, index) => {

@@ -9,21 +9,41 @@ import {
   PointElement,
   RadialLinearScale,
   Title,
-  Tooltip
+  Tooltip as ChartTooltip
 } from 'chart.js';
-import { Clock, DollarSign, ExternalLink, Heart, Target, TrendingUp, Users, X, Zap } from 'lucide-react';
+import { 
+  Clock, 
+  DollarSign, 
+  ExternalLink, 
+  Heart, 
+  Target, 
+  TrendingUp, 
+  Users, 
+  X, 
+  Zap,
+  Code,
+  Megaphone,
+  Server,
+  Calendar,
+  Search,
+  Share2,
+  User,
+  AlertTriangle,
+  CheckCircle2
+} from 'lucide-react';
 import React from 'react';
 import { Bar, Radar } from 'react-chartjs-2';
 import { MicroSaasIdea } from '../types/idea';
 import { calculateDeterministicScore } from '../utils/scoring';
 import { useMicroSaasStore } from '../stores/microSaasStore';
+import Tooltip from './Tooltip';
 
 ChartJS.register(
   CategoryScale,
   LinearScale,
   BarElement,
   Title,
-  Tooltip,
+  ChartTooltip,
   Legend,
   RadialLinearScale,
   PointElement,
@@ -256,15 +276,29 @@ const InsightsModal: React.FC<InsightsModalProps> = ({ idea, isOpen, onClose }) 
         {/* Header */}
         <div className="flex justify-between items-start p-6 border-b border-slate-700">
           <div className="flex-1 min-w-0">
-            <h3 className="font-bold text-xl text-white mb-2">{idea.niche}</h3>
-            <p className="text-slate-300 text-sm leading-relaxed mb-3">{idea.rationale}</p>
-            <div className="flex items-center gap-2 mb-2">
+            <div className="flex items-center gap-3 mb-2">
+              <h3 className="font-bold text-xl text-white">{idea.productName || idea.niche}</h3>
+              {idea.productName && idea.productName !== idea.niche && (
+                <span className="text-slate-400 text-sm">({idea.niche})</span>
+              )}
+            </div>
+            {idea.description && (
+              <p className="text-slate-300 text-sm leading-relaxed mb-3">{idea.description}</p>
+            )}
+            <p className="text-slate-400 text-xs leading-relaxed mb-3 italic">{idea.rationale}</p>
+            <div className="flex items-center gap-2 mb-2 flex-wrap">
               <span className="px-2 py-1 rounded text-xs font-medium bg-purple-500/20 text-purple-300 border border-purple-500/30">
                 {idea.user}
               </span>
               <span className="px-2 py-1 rounded text-xs font-medium bg-blue-500/20 text-blue-300 border border-blue-500/30">
                 {idea.channel}
               </span>
+              {idea.founder && (
+                <span className="px-2 py-1 rounded text-xs font-medium bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 flex items-center gap-1">
+                  <User className="w-3 h-3" />
+                  {idea.founder}
+                </span>
+              )}
               <span className="text-slate-500 text-xs">
                 {idea.dateAdded && new Date(idea.dateAdded).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
               </span>
@@ -352,6 +386,81 @@ const InsightsModal: React.FC<InsightsModalProps> = ({ idea, isOpen, onClose }) 
             </div>
           </div>
 
+          {/* Marketing & Growth Metrics */}
+          <div className="mb-6">
+            <div className="flex items-center gap-2 mb-4">
+              <Megaphone className="w-5 h-5 text-indigo-400" />
+              <h4 className="text-lg font-bold text-white">Marketing & Growth</h4>
+            </div>
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+              {idea.firstDollarDays && (
+                <div className="bg-slate-700 border border-slate-600 rounded-lg p-4">
+                  <div className="flex items-center gap-2 mb-2">
+                    <Calendar className="w-4 h-4 text-emerald-400" />
+                    <span className="text-xs text-slate-400 font-medium">First Revenue</span>
+                    <Tooltip content="Time from launch to earning the first dollar. Shorter times indicate faster market validation and customer acquisition." />
+                  </div>
+                  <div className="text-white font-bold text-lg">{idea.firstDollarDays} days</div>
+                  <div className="text-xs text-slate-500">To first $1</div>
+                </div>
+              )}
+              
+              {idea.marketingEase && (
+                <div className="bg-slate-700 border border-slate-600 rounded-lg p-4">
+                  <div className="flex items-center gap-2 mb-2">
+                    <Megaphone className={`w-4 h-4 ${idea.marketingEase === 'Easy' ? 'text-green-400' :
+                        idea.marketingEase === 'Medium' ? 'text-orange-400' : 'text-red-400'
+                      }`} />
+                    <span className="text-xs text-slate-400 font-medium">Marketing Ease</span>
+                    <Tooltip content="How easy it is to market this product. Easy means clear target audience and distribution channels. Hard means complex sales cycles or niche markets." />
+                  </div>
+                  <div className={`font-bold text-lg ${idea.marketingEase === 'Easy' ? 'text-green-400' :
+                      idea.marketingEase === 'Medium' ? 'text-orange-400' : 'text-red-400'
+                    }`}>
+                    {idea.marketingEase}
+                  </div>
+                  <div className="text-xs text-slate-500">To acquire customers</div>
+                </div>
+              )}
+
+              {idea.seoDep && (
+                <div className="bg-slate-700 border border-slate-600 rounded-lg p-4">
+                  <div className="flex items-center gap-2 mb-2">
+                    <Search className={`w-4 h-4 ${idea.seoDep === 'High' ? 'text-green-400' :
+                        idea.seoDep === 'Medium' ? 'text-orange-400' : 'text-red-400'
+                      }`} />
+                    <span className="text-xs text-slate-400 font-medium">SEO Dependency</span>
+                    <Tooltip content="How much the business relies on search engine optimization for growth. High SEO dependency means organic search is a primary growth channel." />
+                  </div>
+                  <div className={`font-bold text-lg ${idea.seoDep === 'High' ? 'text-green-400' :
+                      idea.seoDep === 'Medium' ? 'text-orange-400' : 'text-red-400'
+                    }`}>
+                    {idea.seoDep}
+                  </div>
+                  <div className="text-xs text-slate-500">SEO reliance</div>
+                </div>
+              )}
+
+              {idea.networkEffects && (
+                <div className="bg-slate-700 border border-slate-600 rounded-lg p-4">
+                  <div className="flex items-center gap-2 mb-2">
+                    <Share2 className={`w-4 h-4 ${idea.networkEffects === 'Strong' ? 'text-green-400' :
+                        idea.networkEffects === 'Medium' ? 'text-orange-400' : 'text-slate-400'
+                      }`} />
+                    <span className="text-xs text-slate-400 font-medium">Network Effects</span>
+                    <Tooltip content="How much the product becomes more valuable as more users join. Strong network effects create competitive moats and viral growth." />
+                  </div>
+                  <div className={`font-bold text-lg ${idea.networkEffects === 'Strong' ? 'text-green-400' :
+                      idea.networkEffects === 'Medium' ? 'text-orange-400' : 'text-slate-400'
+                    }`}>
+                    {idea.networkEffects}
+                  </div>
+                  <div className="text-xs text-slate-500">User growth effect</div>
+                </div>
+              )}
+            </div>
+          </div>
+
           {/* Charts */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
             <div className="bg-slate-700 border border-slate-600 rounded-lg p-4">
@@ -375,6 +484,84 @@ const InsightsModal: React.FC<InsightsModalProps> = ({ idea, isOpen, onClose }) 
             </div>
           </div>
 
+          {/* Infrastructure Compatibility */}
+          <div className="mb-6">
+            <div className="flex items-center gap-2 mb-4">
+              <Server className="w-5 h-5 text-cyan-400" />
+              <h4 className="text-lg font-bold text-white">Infrastructure & Technical</h4>
+            </div>
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-4">
+              <div className="bg-slate-700 border border-slate-600 rounded-lg p-4">
+                <div className="flex items-center gap-2 mb-2">
+                  <div className="flex items-center gap-1">
+                    {idea.canSupabaseOnly ? (
+                      <CheckCircle2 className="w-4 h-4 text-green-400" />
+                    ) : (
+                      <AlertTriangle className="w-4 h-4 text-red-400" />
+                    )}
+                    <span className="text-xs text-slate-400 font-medium">Supabase Only</span>
+                  </div>
+                  <Tooltip content="Can this product run entirely on Supabase backend? This means simple CRUD operations, basic auth, and minimal external dependencies." />
+                </div>
+                <div className={`font-bold text-lg ${idea.canSupabaseOnly ? 'text-green-400' : 'text-red-400'}`}>
+                  {idea.canSupabaseOnly ? 'Yes' : 'No'}
+                </div>
+                <div className="text-xs text-slate-500">Simple backend needs</div>
+              </div>
+
+              <div className="bg-slate-700 border border-slate-600 rounded-lg p-4">
+                <div className="flex items-center gap-2 mb-2">
+                  <div className="flex items-center gap-1">
+                    {idea.canSupaEdgeStack ? (
+                      <CheckCircle2 className="w-4 h-4 text-blue-400" />
+                    ) : (
+                      <AlertTriangle className="w-4 h-4 text-red-400" />
+                    )}
+                    <span className="text-xs text-slate-400 font-medium">Edge Stack</span>
+                  </div>
+                  <Tooltip content="Can run on lean edge stack (Supabase + Cloudflare Workers). Suitable for automation, scheduling, and moderate complexity features." />
+                </div>
+                <div className={`font-bold text-lg ${idea.canSupaEdgeStack ? 'text-blue-400' : 'text-red-400'}`}>
+                  {idea.canSupaEdgeStack ? 'Yes' : 'No'}
+                </div>
+                <div className="text-xs text-slate-500">Edge-compatible</div>
+              </div>
+
+              <div className="bg-slate-700 border border-slate-600 rounded-lg p-4">
+                <div className="flex items-center gap-2 mb-2">
+                  <Code className={`w-4 h-4 ${(!idea.canSupabaseOnly && !idea.canSupaEdgeStack) ? 'text-purple-400' : 'text-slate-400'}`} />
+                  <span className="text-xs text-slate-400 font-medium">Complex Infra</span>
+                  <Tooltip content="Requires dedicated or specialized infrastructure for high-performance computing, real-time processing, or heavy data workloads." />
+                </div>
+                <div className={`font-bold text-lg ${(!idea.canSupabaseOnly && !idea.canSupaEdgeStack) ? 'text-purple-400' : 'text-slate-400'}`}>
+                  {(!idea.canSupabaseOnly && !idea.canSupaEdgeStack) ? 'Required' : 'Not needed'}
+                </div>
+                <div className="text-xs text-slate-500">Dedicated servers</div>
+              </div>
+            </div>
+            
+            {idea.infraExplanation && (
+              <div className="bg-slate-700 border border-slate-600 rounded-lg p-4">
+                <div className="flex items-center gap-2 mb-2">
+                  <Server className="w-4 h-4 text-cyan-400" />
+                  <span className="text-sm font-medium text-white">Infrastructure Requirements</span>
+                </div>
+                <p className="text-slate-300 text-sm">{idea.infraExplanation}</p>
+              </div>
+            )}
+
+            {idea.technicalImplementation && (
+              <div className="bg-slate-700 border border-slate-600 rounded-lg p-4 mt-4">
+                <div className="flex items-center gap-2 mb-2">
+                  <Code className="w-4 h-4 text-purple-400" />
+                  <span className="text-sm font-medium text-white">Technical Stack</span>
+                  <Tooltip content="Recommended technology stack and implementation approach for building this product." />
+                </div>
+                <p className="text-slate-300 text-sm">{idea.technicalImplementation}</p>
+              </div>
+            )}
+          </div>
+
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {/* Additional Metrics */}
             <div>
@@ -383,26 +570,38 @@ const InsightsModal: React.FC<InsightsModalProps> = ({ idea, isOpen, onClose }) 
                 <h4 className="text-lg font-bold text-white">Additional Details</h4>
               </div>
               <div className="space-y-3">
-                <div className="flex justify-between">
-                  <span className="text-slate-400">1k MRR Chance:</span>
+                <div className="flex justify-between items-center">
+                  <div className="flex items-center gap-2">
+                    <span className="text-slate-400">1k MRR Chance:</span>
+                    <Tooltip content="Probability of reaching $1,000 monthly recurring revenue based on market size, competition, and execution difficulty." />
+                  </div>
                   <span className={`font-medium ${idea.oneKMrrChance === 'H' ? 'text-green-400' :
                       idea.oneKMrrChance === 'M' ? 'text-orange-400' : 'text-red-400'
                     }`}>{idea.oneKMrrChance === 'H' ? 'High' : idea.oneKMrrChance === 'M' ? 'Medium' : 'Low'}</span>
                 </div>
-                <div className="flex justify-between">
-                  <span className="text-slate-400">Market Proof:</span>
+                <div className="flex justify-between items-center">
+                  <div className="flex items-center gap-2">
+                    <span className="text-slate-400">Market Proof:</span>
+                    <Tooltip content="Whether there's evidence of existing demand for this type of product. 'Yes' means similar products exist and are successful." />
+                  </div>
                   <span className={`font-medium ${idea.marketProof === 'Yes' ? 'text-green-400' : 'text-red-400'}`}>
                     {idea.marketProof}
                   </span>
                 </div>
-                <div className="flex justify-between">
-                  <span className="text-slate-400">Distribution Fit:</span>
+                <div className="flex justify-between items-center">
+                  <div className="flex items-center gap-2">
+                    <span className="text-slate-400">Distribution Fit:</span>
+                    <Tooltip content="How well the product matches its primary distribution channel. Good fit means the channel naturally reaches the target audience." />
+                  </div>
                   <span className={`font-medium ${idea.distFit === 'Good' ? 'text-green-400' :
                       idea.distFit === 'Avg' ? 'text-orange-400' : 'text-red-400'
                     }`}>{idea.distFit}</span>
                 </div>
-                <div className="flex justify-between">
-                  <span className="text-slate-400">Maintenance:</span>
+                <div className="flex justify-between items-center">
+                  <div className="flex items-center gap-2">
+                    <span className="text-slate-400">Maintenance:</span>
+                    <Tooltip content="Estimated monthly hours needed to maintain, update, and support the product after launch." />
+                  </div>
                   <span className="text-white font-medium">{idea.maintHours}h/mo</span>
                 </div>
               </div>
@@ -415,26 +614,38 @@ const InsightsModal: React.FC<InsightsModalProps> = ({ idea, isOpen, onClose }) 
                 <h4 className="text-lg font-bold text-white">Risk Assessment</h4>
               </div>
               <div className="space-y-3">
-                <div className="flex justify-between">
-                  <span className="text-slate-400">Platform Dependency:</span>
+                <div className="flex justify-between items-center">
+                  <div className="flex items-center gap-2">
+                    <span className="text-slate-400">Platform Dependency:</span>
+                    <Tooltip content="Risk of being dependent on external platforms (APIs, app stores, etc.). High dependency means platform changes could break the business." />
+                  </div>
                   <span className={`font-medium ${idea.platDep === 'None' || idea.platDep === 'Low' ? 'text-green-400' :
                       idea.platDep === 'Med' ? 'text-orange-400' : 'text-red-400'
                     }`}>{idea.platDep}</span>
                 </div>
-                <div className="flex justify-between">
-                  <span className="text-slate-400">Legal Risk:</span>
+                <div className="flex justify-between items-center">
+                  <div className="flex items-center gap-2">
+                    <span className="text-slate-400">Legal Risk:</span>
+                    <Tooltip content="Potential legal challenges including regulations, compliance requirements, or liability issues that could affect the business." />
+                  </div>
                   <span className={`font-medium ${idea.legalRisk === 'None' || idea.legalRisk === 'Low' ? 'text-green-400' :
                       idea.legalRisk === 'Med' ? 'text-orange-400' : 'text-red-400'
                     }`}>{idea.legalRisk}</span>
                 </div>
-                <div className="flex justify-between">
-                  <span className="text-slate-400">Revenue Potential:</span>
+                <div className="flex justify-between items-center">
+                  <div className="flex items-center gap-2">
+                    <span className="text-slate-400">Revenue Potential:</span>
+                    <Tooltip content="Maximum revenue potential based on market size, pricing model, and scalability. High means potential for significant revenue growth." />
+                  </div>
                   <span className={`font-medium ${idea.revenuePotential === 'H' ? 'text-green-400' :
                       idea.revenuePotential === 'M' ? 'text-orange-400' : 'text-red-400'
                     }`}>{idea.revenuePotential === 'H' ? 'High' : idea.revenuePotential === 'M' ? 'Medium' : 'Low'}</span>
                 </div>
-                <div className="flex justify-between">
-                  <span className="text-slate-400">Passiveness:</span>
+                <div className="flex justify-between items-center">
+                  <div className="flex items-center gap-2">
+                    <span className="text-slate-400">Passiveness:</span>
+                    <Tooltip content="How much ongoing work is required after launch. Grade A means highly passive income, Grade D means constant hands-on management needed." />
+                  </div>
                   <span className={`font-medium ${idea.passiveness === 'A' ? 'text-green-400' :
                       idea.passiveness === 'B' ? 'text-blue-400' :
                         idea.passiveness === 'C' ? 'text-orange-400' : 'text-red-400'

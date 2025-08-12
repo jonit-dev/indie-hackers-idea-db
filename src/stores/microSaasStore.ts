@@ -184,7 +184,7 @@ export const useMicroSaasStore = create<MicroSaasState>()(
         const state = get();
 
         const isAIRelated = (idea: MicroSaasIdea) => {
-          const searchText = `${idea.niche} ${idea.rationale}`.toLowerCase();
+          const searchText = `${idea.niche || ''} ${idea.rationale || ''}`.toLowerCase();
           return (
             searchText.includes('ai ') ||
             searchText.includes('artificial intelligence') ||
@@ -204,19 +204,19 @@ export const useMicroSaasStore = create<MicroSaasState>()(
 
         const filtered = state.ideas.filter((idea) => {
           const matchesSearch =
-            idea.niche.toLowerCase().includes(state.searchTerm.toLowerCase()) ||
-            idea.rationale
+            (idea.niche && idea.niche.toLowerCase().includes(state.searchTerm.toLowerCase())) ||
+            (idea.rationale && idea.rationale
               .toLowerCase()
-              .includes(state.searchTerm.toLowerCase()) ||
-            idea.user.toLowerCase().includes(state.searchTerm.toLowerCase()) ||
-            idea.channel.toLowerCase().includes(state.searchTerm.toLowerCase()) ||
+              .includes(state.searchTerm.toLowerCase())) ||
+            (idea.user && idea.user.toLowerCase().includes(state.searchTerm.toLowerCase())) ||
+            (idea.channel && idea.channel.toLowerCase().includes(state.searchTerm.toLowerCase())) ||
             (idea.productName && idea.productName.toLowerCase().includes(state.searchTerm.toLowerCase())) ||
             (idea.description && idea.description.toLowerCase().includes(state.searchTerm.toLowerCase())) ||
             (idea.founder && idea.founder.toLowerCase().includes(state.searchTerm.toLowerCase()));
 
           const matchesNiche =
             state.filterNiche.length === 0 ||
-            state.filterNiche.includes(idea.niche);
+            (idea.niche && state.filterNiche.includes(idea.niche));
           const matchesComp =
             state.filterComp === 'All' || idea.comp === state.filterComp;
           const matchesComplexity = (() => {
@@ -347,7 +347,7 @@ export const useMicroSaasStore = create<MicroSaasState>()(
 
       getNiches: () => {
         const niches = Array.from(
-          new Set(get().ideas.map((idea) => idea.niche))
+          new Set(get().ideas.map((idea) => idea.niche).filter(Boolean))
         );
         return niches.sort();
       },

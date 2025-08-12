@@ -7,22 +7,22 @@ export interface MicroSaasIdea {
   pricing: string; // Short model description (e.g. "$19/mo freemium", "$99/seat")
   user: string; // Primary persona (e.g. SaaS founders, marketers, devs)
   channel: string; // Main acquisition channel (SEO, X, AppSumo, etc.)
-  comp: 'Low' | 'Medium' | 'High'; // Competitive intensity
-  platDep: 'None' | 'Low' | 'Medium' | 'High'; // Platform-dependence risk
+  comp: 'Low' | 'Med' | 'Medium' | 'High'; // Competitive intensity
+  platDep: 'None' | 'Low' | 'Med' | 'Medium' | 'High'; // Platform-dependence risk
   complexity: number; // Build complexity (1-5, where 1 = very low, 5 = very high)
   mvpWk: number; // Days to build MVP (target ≤ 7)
-  oneKMrrChance: 'High' | 'Medium' | 'Low'; // Likelihood to hit ≥ $1k MRR in 6-12 months
+  oneKMrrChance: 'H' | 'M' | 'L' | 'High' | 'Medium' | 'Low'; // Likelihood to hit ≥ $1k MRR in 6-12 months
   maintHours: number; // Monthly maintenance hours (goal ≤ 10)
   marketProof: 'Yes' | 'No'; // At least one indie hits ≥ 30k MRR in same niche
-  distFit: 'Good' | 'Average' | 'Poor'; // Distribution alignment with proven indie channels
+  distFit: 'Good' | 'Avg' | 'Average' | 'Poor'; // Distribution alignment with proven indie channels
   churn: string; // Churn rate if available, else "?"
-  passiveness: 'Very High' | 'High' | 'Medium' | 'Low'; // Passiveness grade (Very High = highly passive)
-  revenuePotential: 'High' | 'Medium' | 'Low'; // Revenue potential
-  legalRisk: 'None' | 'Low' | 'Medium' | 'High'; // Legal risk assessment
-  seoDep: 'None' | 'Low' | 'Medium' | 'High'; // SEO dependency for customer acquisition
-  firstDollarDays: number; // Days to earn first revenue (lower is better)
-  marketingEase: 'Hard' | 'Medium' | 'Easy'; // How easy it is to market and explain
-  networkEffects: 'None' | 'Weak' | 'Strong'; // Whether product gets more valuable with more users
+  passiveness: 'A' | 'B' | 'C' | 'D' | 'Very High' | 'High' | 'Medium' | 'Low'; // Passiveness grade (Very High = highly passive)
+  revenuePotential: 'H' | 'M' | 'L' | 'High' | 'Medium' | 'Low'; // Revenue potential
+  legalRisk: 'None' | 'Low' | 'Med' | 'Medium' | 'High'; // Legal risk assessment
+  seoDep: 'None' | 'Low' | 'Med' | 'Medium' | 'High'; // SEO dependency for customer acquisition
+  firstDollarDays?: number; // Days to earn first revenue (lower is better)
+  marketingEase?: 'Hard' | 'Medium' | 'Easy'; // How easy it is to market and explain
+  networkEffects?: 'None' | 'Weak' | 'Medium' | 'Strong'; // Whether product gets more valuable with more users
   dateAdded?: string; // When added to database
   description?: string; // Detailed description of the product/service
   productName?: string; // Actual name of the product
@@ -31,4 +31,6 @@ export interface MicroSaasIdea {
   canSupabaseOnly: boolean; // Can run entirely on Supabase backend
   canSupaEdgeStack: boolean; // Can run on lean Supabase + Cloudflare Workers stack
   infraExplanation: string; // Explanation of infrastructure requirements
+  technicalImplementation?: string; // Technical stack and implementation details
+  rationale?: string; // Scoring rationale and analysis
 }

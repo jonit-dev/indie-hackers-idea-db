@@ -594,75 +594,158 @@ const IdeaDetail: React.FC = () => {
                 </div>
               )}
 
+              {/* Technical Implementation Details */}
+              {idea.technicalImplementation && (
+                <div className="glass-card rounded-xl p-6 border border-white/10">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="p-2 bg-gradient-to-br from-purple-500/10 to-blue-500/10 rounded-lg">
+                      <Code className="w-5 h-5 text-purple-400" />
+                    </div>
+                    <h3 className="text-lg font-bold text-white">Technical Stack & Implementation</h3>
+                  </div>
+                  <p className="text-slate-300 leading-relaxed">{idea.technicalImplementation}</p>
+                </div>
+              )}
+
             </div>
           )}
 
           {activeTab === 'market' && (
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              {/* Growth Potential Analysis */}
-              <div className="glass-card rounded-xl p-6 border border-white/10">
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="p-2 bg-gradient-to-br from-green-500/10 to-blue-500/10 rounded-lg">
-                    <Rocket className="w-5 h-5 text-green-400" />
+            <div className="space-y-6">
+              {/* Marketing & Growth Metrics */}
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                {/* Growth Potential Analysis */}
+                <div className="glass-card rounded-xl p-6 border border-white/10">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="p-2 bg-gradient-to-br from-green-500/10 to-blue-500/10 rounded-lg">
+                      <Rocket className="w-5 h-5 text-green-400" />
+                    </div>
+                    <h3 className="text-lg font-bold text-white">Growth Potential</h3>
                   </div>
-                  <h3 className="text-lg font-bold text-white">Growth Potential</h3>
-                </div>
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="glass-card rounded-lg p-4 hover:scale-105 transition-transform">
-                    <div className="text-xs text-slate-400 mb-2 uppercase tracking-wider">Revenue</div>
-                    <div className={`text-2xl font-bold ${getChanceColor(idea.revenuePotential)}`}>
-                      {idea.revenuePotential}
+                  <div className="space-y-4">
+                    <div className="glass-card rounded-lg p-4 hover:scale-105 transition-transform">
+                      <div className="text-xs text-slate-400 mb-2 uppercase tracking-wider">Revenue</div>
+                      <div className={`text-2xl font-bold ${getChanceColor(idea.revenuePotential)}`}>
+                        {idea.revenuePotential}
+                      </div>
+                    </div>
+                    <div className="glass-card rounded-lg p-4 hover:scale-105 transition-transform">
+                      <div className="text-xs text-slate-400 mb-2 uppercase tracking-wider">$1K MRR</div>
+                      <div className={`text-2xl font-bold ${getChanceColor(idea.oneKMrrChance)}`}>
+                        {idea.oneKMrrChance}
+                      </div>
                     </div>
                   </div>
-                  <div className="glass-card rounded-lg p-4 hover:scale-105 transition-transform">
-                    <div className="text-xs text-slate-400 mb-2 uppercase tracking-wider">$1K MRR</div>
-                    <div className={`text-2xl font-bold ${getChanceColor(idea.oneKMrrChance)}`}>
-                      {idea.oneKMrrChance}
+                </div>
+
+                {/* Marketing Metrics */}
+                <div className="glass-card rounded-xl p-6 border border-white/10">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="p-2 bg-gradient-to-br from-purple-500/10 to-pink-500/10 rounded-lg">
+                      <TrendingUp className="w-5 h-5 text-purple-400" />
                     </div>
+                    <h3 className="text-lg font-bold text-white">Marketing</h3>
+                  </div>
+                  <div className="space-y-4">
+                    {idea.firstDollarDays && (
+                      <div className="glass-card rounded-lg p-4 hover:scale-105 transition-transform">
+                        <div className="text-xs text-slate-400 mb-2 uppercase tracking-wider">First Revenue</div>
+                        <div className="text-2xl font-bold text-green-400">
+                          <AnimatedCounter value={idea.firstDollarDays} suffix=" days" />
+                        </div>
+                      </div>
+                    )}
+                    {idea.marketingEase && (
+                      <div className="glass-card rounded-lg p-4 hover:scale-105 transition-transform">
+                        <div className="text-xs text-slate-400 mb-2 uppercase tracking-wider">Marketing Ease</div>
+                        <div className={`text-2xl font-bold ${
+                          idea.marketingEase === 'Easy' ? 'text-green-400' :
+                          idea.marketingEase === 'Medium' ? 'text-orange-400' : 'text-red-400'
+                        }`}>
+                          {idea.marketingEase}
+                        </div>
+                      </div>
+                    )}
+                    {idea.seoDep && (
+                      <div className="glass-card rounded-lg p-4 hover:scale-105 transition-transform">
+                        <div className="text-xs text-slate-400 mb-2 uppercase tracking-wider">SEO Dependency</div>
+                        <div className={`text-2xl font-bold ${
+                          idea.seoDep === 'High' ? 'text-green-400' :
+                          idea.seoDep === 'Medium' || idea.seoDep === 'Med' ? 'text-orange-400' : 'text-red-400'
+                        }`}>
+                          {idea.seoDep}
+                        </div>
+                      </div>
+                    )}
                   </div>
                 </div>
-                <div className="mt-4 p-4 bg-gradient-to-r from-slate-800/30 to-slate-700/30 rounded-lg">
-                  <div className="text-xs text-slate-400 mb-2 uppercase tracking-wider">Monthly Maintenance</div>
-                  <div className="flex items-end gap-2">
-                    <span className="text-3xl font-bold text-white">
-                      <AnimatedCounter value={idea.maintHours} />
-                    </span>
-                    <span className="text-lg text-slate-400 mb-1">hours/month</span>
+
+                {/* Network Effects */}
+                <div className="glass-card rounded-xl p-6 border border-white/10">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="p-2 bg-gradient-to-br from-blue-500/10 to-cyan-500/10 rounded-lg">
+                      <Share2 className="w-5 h-5 text-blue-400" />
+                    </div>
+                    <h3 className="text-lg font-bold text-white">Network Effects</h3>
+                  </div>
+                  <div className="space-y-4">
+                    {idea.networkEffects && (
+                      <div className="glass-card rounded-lg p-4 hover:scale-105 transition-transform">
+                        <div className="text-xs text-slate-400 mb-2 uppercase tracking-wider">User Growth Effect</div>
+                        <div className={`text-2xl font-bold ${
+                          idea.networkEffects === 'Strong' ? 'text-green-400' :
+                          idea.networkEffects === 'Medium' ? 'text-orange-400' : 'text-slate-400'
+                        }`}>
+                          {idea.networkEffects}
+                        </div>
+                      </div>
+                    )}
+                    <div className="glass-card rounded-lg p-4 hover:scale-105 transition-transform">
+                      <div className="text-xs text-slate-400 mb-2 uppercase tracking-wider">Monthly Maintenance</div>
+                      <div className="flex items-end gap-2">
+                        <span className="text-2xl font-bold text-white">
+                          <AnimatedCounter value={idea.maintHours} />
+                        </span>
+                        <span className="text-sm text-slate-400 mb-1">hours</span>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
 
-              {/* Success Indicators */}
-              <div className="glass-card rounded-xl p-6 border border-white/10">
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="p-2 bg-gradient-to-br from-purple-500/10 to-pink-500/10 rounded-lg">
-                    <Award className="w-5 h-5 text-purple-400" />
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                {/* Success Indicators */}
+                <div className="glass-card rounded-xl p-6 border border-white/10">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="p-2 bg-gradient-to-br from-purple-500/10 to-pink-500/10 rounded-lg">
+                      <Award className="w-5 h-5 text-purple-400" />
+                    </div>
+                    <h3 className="text-lg font-bold text-white">Success Indicators</h3>
                   </div>
-                  <h3 className="text-lg font-bold text-white">Success Indicators</h3>
-                </div>
-                <div className="space-y-3">
-                  <div className="flex items-center justify-between p-3 bg-gradient-to-r from-slate-800/30 to-slate-700/30 rounded-lg hover:scale-105 transition-transform">
-                    <span className="text-sm text-slate-300">Market Proof</span>
-                    <span className={`font-bold flex items-center gap-1 ${idea.marketProof === 'Yes' ? 'text-green-400' : 'text-orange-400'}`}>
-                      {idea.marketProof === 'Yes' ? <CheckCircle2 className="w-4 h-4" /> : <XCircle className="w-4 h-4" />}
-                      {idea.marketProof === 'Yes' ? 'Validated' : 'Unvalidated'}
-                    </span>
-                  </div>
-                  <div className="flex items-center justify-between p-3 bg-gradient-to-r from-slate-800/30 to-slate-700/30 rounded-lg hover:scale-105 transition-transform">
-                    <span className="text-sm text-slate-300">Distribution Fit</span>
-                    <span className={`font-bold ${
-                      idea.distFit === 'Good' ? 'text-green-400' :
-                      idea.distFit === 'Avg' ? 'text-orange-400' : 'text-red-400'
-                    }`}>
-                      {idea.distFit}
-                    </span>
-                  </div>
-                  <div className="flex items-center justify-between p-3 bg-gradient-to-r from-slate-800/30 to-slate-700/30 rounded-lg hover:scale-105 transition-transform">
-                    <span className="text-sm text-slate-300">AI-Powered</span>
-                    <span className={`font-bold flex items-center gap-1 ${isAiPowered ? 'text-purple-400' : 'text-slate-400'}`}>
-                      {isAiPowered ? <Bot className="w-4 h-4" /> : null}
-                      {isAiPowered ? 'Yes' : 'No'}
-                    </span>
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between p-3 bg-gradient-to-r from-slate-800/30 to-slate-700/30 rounded-lg hover:scale-105 transition-transform">
+                      <span className="text-sm text-slate-300">Market Proof</span>
+                      <span className={`font-bold flex items-center gap-1 ${idea.marketProof === 'Yes' ? 'text-green-400' : 'text-orange-400'}`}>
+                        {idea.marketProof === 'Yes' ? <CheckCircle2 className="w-4 h-4" /> : <XCircle className="w-4 h-4" />}
+                        {idea.marketProof === 'Yes' ? 'Validated' : 'Unvalidated'}
+                      </span>
+                    </div>
+                    <div className="flex items-center justify-between p-3 bg-gradient-to-r from-slate-800/30 to-slate-700/30 rounded-lg hover:scale-105 transition-transform">
+                      <span className="text-sm text-slate-300">Distribution Fit</span>
+                      <span className={`font-bold ${
+                        idea.distFit === 'Good' ? 'text-green-400' :
+                        idea.distFit === 'Avg' ? 'text-orange-400' : 'text-red-400'
+                      }`}>
+                        {idea.distFit}
+                      </span>
+                    </div>
+                    <div className="flex items-center justify-between p-3 bg-gradient-to-r from-slate-800/30 to-slate-700/30 rounded-lg hover:scale-105 transition-transform">
+                      <span className="text-sm text-slate-300">AI-Powered</span>
+                      <span className={`font-bold flex items-center gap-1 ${isAiPowered ? 'text-purple-400' : 'text-slate-400'}`}>
+                        {isAiPowered ? <Bot className="w-4 h-4" /> : null}
+                        {isAiPowered ? 'Yes' : 'No'}
+                      </span>
+                    </div>
                   </div>
                 </div>
               </div>
