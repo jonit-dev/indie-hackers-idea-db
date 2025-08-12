@@ -19,6 +19,10 @@ export interface MicroSaasIdea {
   passiveness: 'Very High' | 'High' | 'Medium' | 'Low'; // Passiveness grade (Very High = highly passive)
   revenuePotential: 'High' | 'Medium' | 'Low'; // Revenue potential
   legalRisk: 'None' | 'Low' | 'Medium' | 'High'; // Legal risk assessment
+  seoDep: 'None' | 'Low' | 'Medium' | 'High'; // SEO dependency for customer acquisition
+  firstDollarDays: number; // Days to earn first revenue (lower is better)
+  marketingEase: 'Hard' | 'Medium' | 'Easy'; // How easy it is to market and explain
+  networkEffects: 'None' | 'Weak' | 'Strong'; // Whether product gets more valuable with more users
   score: number; // Overall attractiveness 0-100
   rationale: string; // 1-2 sentences explaining the scores
   dateAdded?: string; // When added to database
