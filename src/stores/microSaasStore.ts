@@ -2,6 +2,7 @@ import { create } from 'zustand';
 import { devtools } from 'zustand/middleware';
 import microSaasIdeasData from '../data/microSaasIdeas.json';
 import { MicroSaasIdea } from '../types/idea';
+import { calculateDeterministicScore } from '../utils/scoring';
 
 // Helper function to get favorites from localStorage
 const getFavoritesFromStorage = (): string[] => {
@@ -280,16 +281,16 @@ export const useMicroSaasStore = create<MicroSaasState>()(
               bValue = b.mvpWk;
               break;
             case 'score':
-              aValue = a.score;
-              bValue = b.score;
+              aValue = calculateDeterministicScore(a);
+              bValue = calculateDeterministicScore(b);
               break;
             case 'dateAdded':
               aValue = a.dateAdded ? new Date(a.dateAdded).getTime() : 0;
               bValue = b.dateAdded ? new Date(b.dateAdded).getTime() : 0;
               break;
             default:
-              aValue = a.score;
-              bValue = b.score;
+              aValue = calculateDeterministicScore(a);
+              bValue = calculateDeterministicScore(b);
           }
 
           if (typeof aValue === 'string') {
@@ -335,12 +336,12 @@ export const useMicroSaasStore = create<MicroSaasState>()(
       getTotalIdeas: () => get().ideas.length,
 
       getHighScoreIdeas: () =>
-        get().ideas.filter((idea) => idea.score >= 80).length,
+        get().ideas.filter((idea) => calculateDeterministicScore(idea) >= 80).length,
 
       getAvgScore: () => {
         const ideas = get().ideas;
         return Math.round(
-          ideas.reduce((sum, idea) => sum + idea.score, 0) / ideas.length
+          ideas.reduce((sum, idea) => sum + calculateDeterministicScore(idea), 0) / ideas.length
         );
       },
 

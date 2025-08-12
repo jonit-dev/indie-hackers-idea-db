@@ -3,6 +3,7 @@ import React, { memo, useEffect, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { useMicroSaasStore } from '../stores/microSaasStore';
 import { MicroSaasIdea } from '../types/idea';
+import { calculateDeterministicScore } from '../utils/scoring';
 import ScoreRing from './ScoreRing';
 
 // Infrastructure SVG Icons
@@ -516,7 +517,7 @@ const IdeasTable: React.FC<IdeasTableProps> = memo(({ ideas, onRowClick }) => {
                 </td>
                 <td className="text-center py-2 px-2">
                   <div className="flex items-center justify-center">
-                    <ScoreRing score={idea.score} size={40} className="animate-scale-in" />
+                    <ScoreRing score={calculateDeterministicScore(idea)} size={40} className="animate-scale-in" />
                   </div>
                 </td>
                 <td className="text-center py-2 px-2">

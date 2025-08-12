@@ -23,8 +23,6 @@ export interface MicroSaasIdea {
   firstDollarDays: number; // Days to earn first revenue (lower is better)
   marketingEase: 'Hard' | 'Medium' | 'Easy'; // How easy it is to market and explain
   networkEffects: 'None' | 'Weak' | 'Strong'; // Whether product gets more valuable with more users
-  score: number; // Overall attractiveness 0-100
-  rationale: string; // 1-2 sentences explaining the scores
   dateAdded?: string; // When added to database
   description?: string; // Detailed description of the product/service
   productName?: string; // Actual name of the product

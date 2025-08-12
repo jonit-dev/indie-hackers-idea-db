@@ -15,6 +15,7 @@ import { Clock, DollarSign, ExternalLink, Heart, Target, TrendingUp, Users, X, Z
 import React from 'react';
 import { Bar, Radar } from 'react-chartjs-2';
 import { MicroSaasIdea } from '../types/idea';
+import { calculateDeterministicScore } from '../utils/scoring';
 import { useMicroSaasStore } from '../stores/microSaasStore';
 
 ChartJS.register(
@@ -63,7 +64,7 @@ const InsightsModal: React.FC<InsightsModalProps> = ({ idea, isOpen, onClose }) 
 
   // Calculate overall quality score for color interpolation
   const qualityScore = (
-    idea.score +
+    calculateDeterministicScore(idea) +
     getOneKMrrChanceScore(idea.oneKMrrChance) +
     getRevenuePotentialScore(idea.revenuePotential) +
     (idea.marketProof === 'Yes' ? 80 : 30)
@@ -82,7 +83,7 @@ const InsightsModal: React.FC<InsightsModalProps> = ({ idea, isOpen, onClose }) 
       {
         label: 'Analysis Metrics',
         data: [
-          idea.score,
+          calculateDeterministicScore(idea),
           getOneKMrrChanceScore(idea.oneKMrrChance),
           getRevenuePotentialScore(idea.revenuePotential),
           idea.marketProof === 'Yes' ? 80 : 30,
@@ -110,19 +111,19 @@ const InsightsModal: React.FC<InsightsModalProps> = ({ idea, isOpen, onClose }) 
         data: [
           Math.min(100, (idea.mrr / 1000) * 10), // Normalize MRR to 0-100 scale
           Math.max(0, 100 - (idea.mvpWk / 7) * 10), // Invert MVP weeks (less time = higher score)
-          idea.score, // Direct score
+          calculateDeterministicScore(idea), // Direct score
           Math.max(0, 100 - (idea.complexity * 20)), // Invert complexity (lower complexity = higher score)
         ],
         backgroundColor: [
           getQualityColor(Math.min(100, (idea.mrr / 1000) * 10), 0.8),
           getQualityColor(Math.max(0, 100 - (idea.mvpWk / 7) * 10), 0.8),
-          getQualityColor(idea.score, 0.8),
+          getQualityColor(calculateDeterministicScore(idea), 0.8),
           getQualityColor(Math.max(0, 100 - (idea.complexity * 20)), 0.8),
         ],
         borderColor: [
           getQualityColor(Math.min(100, (idea.mrr / 1000) * 10), 1),
           getQualityColor(Math.max(0, 100 - (idea.mvpWk / 7) * 10), 1),
-          getQualityColor(idea.score, 1),
+          getQualityColor(calculateDeterministicScore(idea), 1),
           getQualityColor(Math.max(0, 100 - (idea.complexity * 20)), 1),
         ],
         borderWidth: 2,
@@ -450,7 +451,7 @@ const InsightsModal: React.FC<InsightsModalProps> = ({ idea, isOpen, onClose }) 
             <div className="flex items-center gap-4">
               <div className="flex items-center gap-1">
                 <Target className="w-4 h-4 text-purple-400" />
-                <span className="text-white font-semibold">{idea.score}/100</span>
+                <span className="text-white font-semibold">{calculateDeterministicScore(idea)}/100</span>
                 <span className="text-slate-400 text-sm">Overall Score</span>
               </div>
               <div className="flex items-center gap-1">

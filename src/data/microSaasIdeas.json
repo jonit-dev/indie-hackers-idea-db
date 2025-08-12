@@ -20,8 +20,8 @@
     "passiveness": "Very High",
     "revenuePotential": "High",
     "legalRisk": "Low",
-    "score": 86,
-    "rationale": "Deterministically calculated: Revenue (23/25) + Market (12/20) + Execution (19/20) + Speed (12/15) + Growth (10/10) + Operations (10/10) = 86/100",
+    
+    
     "dateAdded": "2024-01-15",
     "description": "EasyGen is an AI-powered tool for generating LinkedIn posts, bootstrapped to $42,110 MRR in 182 days using community feedback, WhatsApp beta testing, and AI for naming, logo, and pricing.",
     "productName": "EasyGen",
@@ -56,8 +56,8 @@
     "passiveness": "High",
     "revenuePotential": "Medium",
     "legalRisk": "Low",
-    "score": 74,
-    "rationale": "Deterministically calculated: Revenue (17/25) + Market (16/20) + Execution (16/20) + Speed (11/15) + Growth (5/10) + Operations (9/10) = 74/100",
+    
+    
     "dateAdded": "2024-01-16",
     "description": "Notewave is an AI study note tool with 260k users, $19.7K/month MRR, grown organically through content on X, Reddit, TikTok, LinkedIn, smooth onboarding, in-app upsells, SEO, referrals, and integrations.",
     "productName": "Notewave",
@@ -92,8 +92,8 @@
     "passiveness": "Very High",
     "revenuePotential": "High",
     "legalRisk": "None",
-    "score": 58,
-    "rationale": "Deterministically calculated: Revenue (15/25) + Market (16/20) + Execution (13/20) + Speed (5/15) + Growth (1/10) + Operations (8/10) = 58/100",
+    
+    
     "dateAdded": "2024-01-20",
     "description": "Swetrix is an analytics SaaS at $1.1K MRR, focusing on redesign and new AI SaaS, aiming for $5K MRR.",
     "productName": "Swetrix",
@@ -128,8 +128,8 @@
     "passiveness": "High",
     "revenuePotential": "Medium",
     "legalRisk": "Low",
-    "score": 60,
-    "rationale": "Deterministically calculated: Revenue (7/25) + Market (12/20) + Execution (12/20) + Speed (11/15) + Growth (10/10) + Operations (8/10) = 60/100",
+    
+    
     "dateAdded": "2024-01-22",
     "description": "PostPlanify is a social media scheduler with AI captions, Canva integration, and post previews, at $71.94 in 21 days with 11 free trials.",
     "productName": "PostPlanify",
@@ -164,8 +164,8 @@
     "passiveness": "High",
     "revenuePotential": "High",
     "legalRisk": "Low",
-    "score": 67,
-    "rationale": "Deterministically calculated: Revenue (25/25) + Market (12/20) + Execution (11/20) + Speed (7/15) + Growth (5/10) + Operations (7/10) = 67/100",
+    
+    
     "dateAdded": "2024-01-23",
     "description": "AutoShorts.ai is an AI video shorts generator at $138K revenue ($97K MRR), solo bootstrapped, using affiliates for growth.",
     "productName": "AutoShorts.ai",
@@ -200,8 +200,8 @@
     "passiveness": "Medium",
     "revenuePotential": "High",
     "legalRisk": "Low",
-    "score": 69,
-    "rationale": "Deterministically calculated: Revenue (25/25) + Market (12/20) + Execution (12/20) + Speed (9/15) + Growth (5/10) + Operations (6/10) = 69/100",
+    
+    
     "dateAdded": "2024-01-24",
     "description": "Senja is a testimonial management SaaS at $70,000 MRR, bootstrapped and built in public.",
     "productName": "Senja",
@@ -236,8 +236,8 @@
     "passiveness": "High",
     "revenuePotential": "High",
     "legalRisk": "Medium",
-    "score": 70,
-    "rationale": "Deterministically calculated: Revenue (25/25) + Market (12/20) + Execution (12/20) + Speed (9/15) + Growth (5/10) + Operations (7/10) = 70/100",
+    
+    
     "dateAdded": "2024-01-24",
     "description": "TxtCart is an AI + SMS marketing tool for Shopify brands, bootstrapped to $100K MRR, with a free playbook for growth.",
     "productName": "TxtCart",
@@ -272,8 +272,8 @@
     "passiveness": "Medium",
     "revenuePotential": "Medium",
     "legalRisk": "Low",
-    "score": 59,
-    "rationale": "Deterministically calculated: Revenue (17/25) + Market (6/20) + Execution (16/20) + Speed (6/15) + Growth (8/10) + Operations (6/10) = 59/100",
+    
+    
     "dateAdded": "2024-01-24",
     "description": "NomadTable is a social app for travelers making $10K MRR with 100K downloads in 3 months, solo bootstrapped.",
     "productName": "NomadTable",
@@ -308,8 +308,8 @@
     "passiveness": "High",
     "revenuePotential": "High",
     "legalRisk": "Low",
-    "score": 53,
-    "rationale": "Deterministically calculated: Revenue (23/25) + Market (2/20) + Execution (13/20) + Speed (5/15) + Growth (3/10) + Operations (7/10) = 53/100",
+    
+    
     "dateAdded": "2024-01-24",
     "description": "Screenshotone is a screenshot API SaaS at $20K MRR, discussed on a podcast.",
     "productName": "Screenshotone",
@@ -344,8 +344,8 @@
     "passiveness": "High",
     "revenuePotential": "Medium",
     "legalRisk": "Low",
-    "score": 65,
-    "rationale": "Deterministically calculated: Revenue (9/25) + Market (16/20) + Execution (16/20) + Speed (11/15) + Growth (5/10) + Operations (8/10) = 65/100",
+    
+    
     "dateAdded": "2024-01-24",
     "description": "PrompTessor is an AI prompt analysis tool at $569 MRR with 10,773 users in 30 days, solo bootstrapped.",
     "productName": "PrompTessor",
@@ -380,8 +380,8 @@
     "passiveness": "High",
     "revenuePotential": "Medium",
     "legalRisk": "Low",
-    "score": 50,
-    "rationale": "Deterministically calculated: Revenue (9/25) + Market (12/20) + Execution (16/20) + Speed (5/15) + Growth (1/10) + Operations (7/10) = 50/100",
+    
+    
     "dateAdded": "2024-01-24",
     "description": "Seline is a privacy-focused analytics SaaS at $500 MRR, bootstrapped, with lessons on validation and persistence.",
     "productName": "Seline",
@@ -416,8 +416,8 @@
     "passiveness": "High",
     "revenuePotential": "High",
     "legalRisk": "Medium",
-    "score": 79,
-    "rationale": "Deterministically calculated: Revenue (23/25) + Market (16/20) + Execution (16/20) + Speed (11/15) + Growth (5/10) + Operations (8/10) = 79/100",
+    
+    
     "dateAdded": "2024-01-24",
     "description": "InterviewCoder is an AI tool for job seekers, at $30k MRR, acquired by Amazon, with a focus on coding interviews.",
     "productName": "InterviewCoder",
@@ -452,8 +452,8 @@
     "passiveness": "High",
     "revenuePotential": "Medium",
     "legalRisk": "Low",
-    "score": 71,
-    "rationale": "Deterministically calculated: Revenue (19/25) + Market (16/20) + Execution (16/20) + Speed (7/15) + Growth (5/10) + Operations (8/10) = 71/100",
+    
+    
     "dateAdded": "2024-01-24",
     "description": "Catchr is a tracking tool for TikTok/Reel marketing, bootstrapped to $40K MRR with 65K downloads and 35M views.",
     "productName": "Catchr",
@@ -488,8 +488,8 @@
     "passiveness": "High",
     "revenuePotential": "Medium",
     "legalRisk": "Low",
-    "score": 76,
-    "rationale": "Deterministically calculated: Revenue (21/25) + Market (16/20) + Execution (15/20) + Speed (11/15) + Growth (5/10) + Operations (8/10) = 76/100",
+    
+    
     "dateAdded": "2024-01-24",
     "description": "A WordPress plugins empire at $1.5M/year with 19 plugins, each ~$6.5K MRR, 33K customers.",
     "productName": "WP Plugins Empire",
@@ -524,8 +524,8 @@
     "passiveness": "High",
     "revenuePotential": "High",
     "legalRisk": "Low",
-    "score": 81,
-    "rationale": "Deterministically calculated: Revenue (25/25) + Market (16/20) + Execution (19/20) + Speed (10/15) + Growth (3/10) + Operations (8/10) = 81/100",
+    
+    
     "dateAdded": "2024-01-24",
     "description": "Tally is a form builder SaaS at $3M ARR, bootstrapped with a stack including Slack, Notion, Figma, Stripe, and AI tools.",
     "productName": "Tally",
@@ -560,8 +560,8 @@
     "passiveness": "High",
     "revenuePotential": "Medium",
     "legalRisk": "Low",
-    "score": 65,
-    "rationale": "Deterministically calculated: Revenue (11/25) + Market (10/20) + Execution (19/20) + Speed (11/15) + Growth (5/10) + Operations (9/10) = 65/100",
+    
+    
     "dateAdded": "2024-01-24",
     "description": "Waitless is a waitlist management tool at $1,000 MRR after Product Hunt launch.",
     "productName": "Waitless",
@@ -596,8 +596,8 @@
     "passiveness": "Very High",
     "revenuePotential": "Low",
     "legalRisk": "Low",
-    "score": 54,
-    "rationale": "Deterministically calculated: Revenue (3/25) + Market (10/20) + Execution (16/20) + Speed (12/15) + Growth (3/10) + Operations (10/10) = 54/100",
+    
+    
     "dateAdded": "2024-01-24",
     "description": "A portfolio of microSaaS at $129 MRR, including database, link shortener, and tools.",
     "productName": "MicroSaaS Portfolio",
@@ -632,8 +632,8 @@
     "passiveness": "High",
     "revenuePotential": "Medium",
     "legalRisk": "Low",
-    "score": 66,
-    "rationale": "Deterministically calculated: Revenue (17/25) + Market (16/20) + Execution (14/20) + Speed (7/15) + Growth (5/10) + Operations (7/10) = 66/100",
+    
+    
     "dateAdded": "2024-01-24",
     "description": "ThumbnailTest is an A/B testing tool for YouTube thumbnails, sold at $16K MRR.",
     "productName": "ThumbnailTest",
@@ -668,8 +668,8 @@
     "passiveness": "Medium",
     "revenuePotential": "High",
     "legalRisk": "None",
-    "score": 63,
-    "rationale": "Deterministically calculated: Revenue (17/25) + Market (20/20) + Execution (14/20) + Speed (5/15) + Growth (1/10) + Operations (6/10) = 63/100",
+    
+    
     "dateAdded": "2024-01-25",
     "description": "DataFast is an analytics tool for founders at $4,000/m, subscription-based, launched in 2024.",
     "productName": "DataFast",
@@ -704,8 +704,8 @@
     "passiveness": "High",
     "revenuePotential": "Medium",
     "legalRisk": "Low",
-    "score": 77,
-    "rationale": "Deterministically calculated: Revenue (19/25) + Market (20/20) + Execution (14/20) + Speed (11/15) + Growth (5/10) + Operations (8/10) = 77/100",
+    
+    
     "dateAdded": "2024-01-25",
     "description": "Tiiny.host is a web hosting tool at $500k+ ARR, bootstrapped, with key learnings on validation and distribution.",
     "productName": "Tiiny.host",
@@ -740,8 +740,8 @@
     "passiveness": "High",
     "revenuePotential": "High",
     "legalRisk": "Low",
-    "score": 80,
-    "rationale": "Deterministically calculated: Revenue (21/25) + Market (16/20) + Execution (14/20) + Speed (11/15) + Growth (10/10) + Operations (8/10) = 80/100",
+    
+    
     "dateAdded": "2024-01-25",
     "description": "Postbridge is a scheduler at $11K MRR, solo-built.",
     "productName": "Postbridge",
@@ -776,8 +776,8 @@
     "passiveness": "High",
     "revenuePotential": "Medium",
     "legalRisk": "Low",
-    "score": 77,
-    "rationale": "Deterministically calculated: Revenue (11/25) + Market (16/20) + Execution (19/20) + Speed (13/15) + Growth (10/10) + Operations (8/10) = 77/100",
+    
+    
     "dateAdded": "2024-01-25",
     "description": "MediaFast is a Reddit and LinkedIn growth tool at $1,500/m.",
     "productName": "MediaFast",
@@ -812,8 +812,8 @@
     "passiveness": "Very High",
     "revenuePotential": "Medium",
     "legalRisk": "Low",
-    "score": 81,
-    "rationale": "Deterministically calculated: Revenue (13/25) + Market (20/20) + Execution (17/20) + Speed (11/15) + Growth (10/10) + Operations (10/10) = 81/100",
+    
+    
     "dateAdded": "2024-01-25",
     "description": "SuperX is an X growth tool at $2,300/m, subscription-based, launched in 2024.",
     "productName": "SuperX",
@@ -848,8 +848,8 @@
     "passiveness": "Very High",
     "revenuePotential": "Medium",
     "legalRisk": "None",
-    "score": 75,
-    "rationale": "Deterministically calculated: Revenue (13/25) + Market (20/20) + Execution (19/20) + Speed (10/15) + Growth (3/10) + Operations (10/10) = 75/100",
+    
+    
     "dateAdded": "2024-01-25",
     "description": "SuperSaaS is a Nuxt starter kit at $30,000 total revenue.",
     "productName": "SuperSaaS",
@@ -884,8 +884,8 @@
     "passiveness": "High",
     "revenuePotential": "High",
     "legalRisk": "Low",
-    "score": 80,
-    "rationale": "Deterministically calculated: Revenue (25/25) + Market (16/20) + Execution (16/20) + Speed (7/15) + Growth (8/10) + Operations (8/10) = 80/100",
+    
+    
     "dateAdded": "2024-01-25",
     "description": "A feedback platform at $55k/month, started after job loss.",
     "productName": "Upvoty",
@@ -920,8 +920,8 @@
     "passiveness": "Very High",
     "revenuePotential": "Low",
     "legalRisk": "Low",
-    "score": 76,
-    "rationale": "Deterministically calculated: Revenue (11/25) + Market (20/20) + Execution (17/20) + Speed (13/15) + Growth (5/10) + Operations (10/10) = 76/100",
+    
+    
     "dateAdded": "2024-01-25",
     "description": "RealTouch AI is an AI touch tool for students at $6.7k/month.",
     "productName": "RealTouch AI",
@@ -956,8 +956,8 @@
     "passiveness": "High",
     "revenuePotential": "High",
     "legalRisk": "Low",
-    "score": 76,
-    "rationale": "Deterministically calculated: Revenue (25/25) + Market (20/20) + Execution (13/20) + Speed (7/15) + Growth (3/10) + Operations (8/10) = 76/100",
+    
+    
     "dateAdded": "2024-01-25",
     "description": "Sidekiq is a job queue tool at $2.9M/year, solo empire.",
     "productName": "Sidekiq",
@@ -992,8 +992,8 @@
     "passiveness": "High",
     "revenuePotential": "Medium",
     "legalRisk": "Low",
-    "score": 69,
-    "rationale": "Deterministically calculated: Revenue (15/25) + Market (16/20) + Execution (14/20) + Speed (11/15) + Growth (5/10) + Operations (8/10) = 69/100",
+    
+    
     "dateAdded": "2024-01-26",
     "description": "An AI comments generator for CEOs at $7,000/month.",
     "productName": "Zyki",
@@ -1028,8 +1028,8 @@
     "passiveness": "Medium",
     "revenuePotential": "High",
     "legalRisk": "Low",
-    "score": 52,
-    "rationale": "Deterministically calculated: Revenue (11/25) + Market (12/20) + Execution (13/20) + Speed (7/15) + Growth (3/10) + Operations (6/10) = 52/100",
+    
+    
     "dateAdded": "2024-01-27",
     "description": "FullStackRoadmap is a full-stack roadmap generator for developers.",
     "productName": "FullStackRoadmap",
@@ -1064,8 +1064,8 @@
     "passiveness": "Medium",
     "revenuePotential": "Medium",
     "legalRisk": "High",
-    "score": 43,
-    "rationale": "Deterministically calculated: Revenue (7/25) + Market (2/20) + Execution (14/20) + Speed (10/15) + Growth (3/10) + Operations (7/10) = 43/100",
+    
+    
     "dateAdded": "2024-01-27",
     "description": "CryptoAI is an AI-powered crypto portfolio analyzer.",
     "productName": "CryptoAI",
@@ -1099,8 +1099,8 @@
     "passiveness": "High",
     "revenuePotential": "High",
     "legalRisk": "Medium",
-    "score": 65,
-    "rationale": "Deterministically calculated: Revenue (11/25) + Market (16/20) + Execution (14/20) + Speed (11/15) + Growth (5/10) + Operations (8/10) = 65/100",
+    
+    
     "dateAdded": "2024-01-27",
     "description": "Micro SaaS AI Builder for creating AI businesses no-code, powered by $MSAI.",
     "productName": "Micro SaaS AI Builder",
@@ -1134,8 +1134,8 @@
     "passiveness": "Very High",
     "revenuePotential": "Medium",
     "legalRisk": "Low",
-    "score": 69,
-    "rationale": "Deterministically calculated: Revenue (9/25) + Market (16/20) + Execution (19/20) + Speed (11/15) + Growth (5/10) + Operations (9/10) = 69/100",
+    
+    
     "dateAdded": "2024-01-27",
     "description": "Techstack.co is a website technology detection tool.",
     "productName": "Techstack.co",
@@ -1169,8 +1169,8 @@
     "passiveness": "Very High",
     "revenuePotential": "Low",
     "legalRisk": "None",
-    "score": 59,
-    "rationale": "Deterministically calculated: Revenue (3/25) + Market (10/20) + Execution (16/20) + Speed (15/15) + Growth (5/10) + Operations (10/10) = 59/100",
+    
+    
     "dateAdded": "2025-01-02",
     "description": "AI Founder's Kit with $50K in free tools, 2,000 investors, 50 pitch decks.",
     "productName": "AI Founder's Kit",
@@ -1204,8 +1204,8 @@
     "passiveness": "Low",
     "revenuePotential": "High",
     "legalRisk": "High",
-    "score": 55,
-    "rationale": "Deterministically calculated: Revenue (25/25) + Market (12/20) + Execution (6/20) + Speed (6/15) + Growth (1/10) + Operations (5/10) = 55/100",
+    
+    
     "dateAdded": "2025-01-02",
     "description": "Micro1 is an AI hiring platform at $34M run-rate, profitable.",
     "productName": "Micro1",
@@ -1239,8 +1239,8 @@
     "passiveness": "Medium",
     "revenuePotential": "High",
     "legalRisk": "Medium",
-    "score": 69,
-    "rationale": "Deterministically calculated: Revenue (25/25) + Market (16/20) + Execution (13/20) + Speed (6/15) + Growth (3/10) + Operations (6/10) = 69/100",
+    
+    
     "dateAdded": "2025-01-02",
     "description": "ScrapingDog is a scraping tool at $1M ARR, bootstrapped during COVID.",
     "productName": "ScrapingDog",
@@ -1274,8 +1274,8 @@
     "passiveness": "Medium",
     "revenuePotential": "High",
     "legalRisk": "Medium",
-    "score": 65,
-    "rationale": "Deterministically calculated: Revenue (25/25) + Market (12/20) + Execution (11/20) + Speed (8/15) + Growth (3/10) + Operations (6/10) = 65/100",
+    
+    
     "dateAdded": "2025-01-02",
     "description": "Base44 is an AI app builder sold for $80M to Wix, 300k users, $3.5M ARR in 5 months.",
     "productName": "Base44",
@@ -1309,8 +1309,8 @@
     "passiveness": "High",
     "revenuePotential": "High",
     "legalRisk": "Medium",
-    "score": 79,
-    "rationale": "Deterministically calculated: Revenue (25/25) + Market (16/20) + Execution (14/20) + Speed (11/15) + Growth (5/10) + Operations (8/10) = 79/100",
+    
+    
     "dateAdded": "2025-01-02",
     "description": "BannerBear is an AI image generation API at $50,000/month.",
     "productName": "BannerBear",
@@ -1344,8 +1344,8 @@
     "passiveness": "High",
     "revenuePotential": "Low",
     "legalRisk": "Low",
-    "score": 60,
-    "rationale": "Deterministically calculated: Revenue (7/25) + Market (10/20) + Execution (19/20) + Speed (11/15) + Growth (5/10) + Operations (8/10) = 60/100",
+    
+    
     "dateAdded": "2025-01-02",
     "description": "Videmak Research AI is a research platform at $1,000/month, bootstrapped in Uganda.",
     "productName": "Videmak Research AI",
@@ -1379,8 +1379,8 @@
     "passiveness": "High",
     "revenuePotential": "Medium",
     "legalRisk": "Low",
-    "score": 71,
-    "rationale": "Deterministically calculated: Revenue (15/25) + Market (16/20) + Execution (16/20) + Speed (11/15) + Growth (5/10) + Operations (8/10) = 71/100",
+    
+    
     "dateAdded": "2025-01-02",
     "description": "AI2sql is an AI SQL tool that grew to $100K ARR, with a journey from zero.",
     "productName": "AI2sql",
@@ -1420,8 +1420,8 @@
     "passiveness": "High",
     "revenuePotential": "High",
     "legalRisk": "Low",
-    "score": 79,
-    "rationale": "Deterministically calculated: Revenue (25/25) + Market (16/20) + Execution (16/20) + Speed (9/15) + Growth (5/10) + Operations (8/10) = 79/100",
+    
+    
     "dateAdded": "2024-12-27",
     "description": "API for generating PDFs from HTML templates and data.",
     "productName": "CraftMyPDF",
@@ -1455,8 +1455,8 @@
     "passiveness": "Medium",
     "revenuePotential": "High",
     "legalRisk": "Medium",
-    "score": 71,
-    "rationale": "Deterministically calculated: Revenue (21/25) + Market (12/20) + Execution (15/20) + Speed (11/15) + Growth (5/10) + Operations (7/10) = 71/100",
+    
+    
     "dateAdded": "2025-04-09",
     "description": "Automation and analytics suite to grow and monetise LinkedIn audiences.",
     "productName": "Supergrow",
@@ -1490,8 +1490,8 @@
     "passiveness": "Medium",
     "revenuePotential": "High",
     "legalRisk": "Medium",
-    "score": 67,
-    "rationale": "Deterministically calculated: Revenue (25/25) + Market (12/20) + Execution (12/20) + Speed (7/15) + Growth (5/10) + Operations (6/10) = 67/100",
+    
+    
     "dateAdded": "2025-02-14",
     "description": "Tool that surfaces viral topics and automates X posting for growth.",
     "productName": "TweetHunter",
@@ -1525,8 +1525,8 @@
     "passiveness": "Medium",
     "revenuePotential": "High",
     "legalRisk": "Low",
-    "score": 60,
-    "rationale": "Deterministically calculated: Revenue (25/25) + Market (12/20) + Execution (13/20) + Speed (3/15) + Growth (1/10) + Operations (6/10) = 60/100",
+    
+    
     "dateAdded": "2024-11-03",
     "description": "Cookie-free, lightweight web analytics SaaS.",
     "productName": "Plausible",
@@ -1560,8 +1560,8 @@
     "passiveness": "Medium",
     "revenuePotential": "High",
     "legalRisk": "Low",
-    "score": 70,
-    "rationale": "Deterministically calculated: Revenue (25/25) + Market (16/20) + Execution (13/20) + Speed (7/15) + Growth (3/10) + Operations (6/10) = 70/100",
+    
+    
     "dateAdded": "2024-10-20",
     "description": "API to autogenerate images, videos and PDFs for marketing assets.",
     "productName": "Bannerbear",
@@ -1595,8 +1595,8 @@
     "passiveness": "High",
     "revenuePotential": "High",
     "legalRisk": "Medium",
-    "score": 77,
-    "rationale": "Deterministically calculated: Revenue (23/25) + Market (16/20) + Execution (16/20) + Speed (9/15) + Growth (5/10) + Operations (8/10) = 77/100",
+    
+    
     "dateAdded": "2024-10-05",
     "description": "No-code web-scraping and API plumber for structured data.",
     "productName": "SimpleScraper",
@@ -1630,8 +1630,8 @@
     "passiveness": "Medium",
     "revenuePotential": "Medium",
     "legalRisk": "Medium",
-    "score": 66,
-    "rationale": "Deterministically calculated: Revenue (19/25) + Market (12/20) + Execution (12/20) + Speed (7/15) + Growth (10/10) + Operations (6/10) = 66/100",
+    
+    
     "dateAdded": "2025-01-08",
     "description": "Plan, write and auto-publish content across X and LinkedIn.",
     "productName": "FeedHive",
@@ -1665,8 +1665,8 @@
     "passiveness": "Low",
     "revenuePotential": "High",
     "legalRisk": "Low",
-    "score": 63,
-    "rationale": "Deterministically calculated: Revenue (21/25) + Market (12/20) + Execution (14/20) + Speed (8/15) + Growth (3/10) + Operations (5/10) = 63/100",
+    
+    
     "dateAdded": "2024-08-27",
     "description": "Drag-and-drop site builder that feels like writing in Notion.",
     "productName": "Typedream",
@@ -1700,8 +1700,8 @@
     "passiveness": "High",
     "revenuePotential": "High",
     "legalRisk": "Low",
-    "score": 72,
-    "rationale": "Deterministically calculated: Revenue (21/25) + Market (16/20) + Execution (16/20) + Speed (8/15) + Growth (3/10) + Operations (8/10) = 72/100",
+    
+    
     "dateAdded": "2025-04-05",
     "description": "Web tool that converts PDF bank statements into clean CSV/Excel files for quick import into accounting software.",
     "productName": "Bank Statement Converter",
@@ -1735,8 +1735,8 @@
     "passiveness": "High",
     "revenuePotential": "High",
     "legalRisk": "Low",
-    "score": 87,
-    "rationale": "Deterministically calculated: Revenue (25/25) + Market (16/20) + Execution (19/20) + Speed (13/15) + Growth (5/10) + Operations (9/10) = 87/100",
+    
+    
     "dateAdded": "2025-08-01",
     "description": "AI tool that creates and publishes SEO-optimized articles automatically to grow organic traffic.",
     "productName": "Outrank",
@@ -1770,8 +1770,8 @@
     "passiveness": "High",
     "revenuePotential": "Very High",
     "legalRisk": "Low",
-    "score": 67,
-    "rationale": "Deterministically calculated: Revenue (15/25) + Market (12/20) + Execution (16/20) + Speed (11/15) + Growth (5/10) + Operations (8/10) = 67/100",
+    
+    
     "dateAdded": "2025-04-15",
     "description": "Platform for building and deploying AI support agents that handle queries, take actions, and escalate issues.",
     "productName": "Chatbase",
@@ -1805,8 +1805,8 @@
     "passiveness": "High",
     "revenuePotential": "Medium",
     "legalRisk": "Low",
-    "score": 86,
-    "rationale": "Deterministically calculated: Revenue (19/25) + Market (16/20) + Execution (19/20) + Speed (13/15) + Growth (10/10) + Operations (9/10) = 86/100",
+    
+    
     "dateAdded": "2025-06-11",
     "description": "AI tool trained on your X posts to generate content in your style.",
     "productName": "CreatorBuddy",
@@ -1840,8 +1840,8 @@
     "passiveness": "Very High",
     "revenuePotential": "High",
     "legalRisk": "Very Low",
-    "score": 79,
-    "rationale": "Deterministically calculated: Revenue (23/25) + Market (16/20) + Execution (15/20) + Speed (11/15) + Growth (5/10) + Operations (9/10) = 79/100",
+    
+    
     "dateAdded": "2025-05-12",
     "description": "Quick hosting for static sites by uploading zip files.",
     "productName": "Tiiny Host",
@@ -1875,8 +1875,8 @@
     "passiveness": "High",
     "revenuePotential": "Medium",
     "legalRisk": "High",
-    "score": 72,
-    "rationale": "Deterministically calculated: Revenue (7/25) + Market (20/20) + Execution (15/20) + Speed (11/15) + Growth (10/10) + Operations (9/10) = 72/100",
+    
+    
     "dateAdded": "2025-05-19",
     "description": "Tool that automatically schedules and publishes posts to Reddit subreddits for increased engagement.",
     "productName": "Post Content",
@@ -1910,8 +1910,8 @@
     "passiveness": "Medium",
     "revenuePotential": "Very High",
     "legalRisk": "Medium",
-    "score": 60,
-    "rationale": "Deterministically calculated: Revenue (15/25) + Market (20/20) + Execution (11/20) + Speed (5/15) + Growth (3/10) + Operations (6/10) = 60/100",
+    
+    
     "dateAdded": "2025-03-30",
     "description": "Search engine for finding award flights using points with alerts and instant results.",
     "productName": "Seats.aero",
@@ -1945,8 +1945,8 @@
     "passiveness": "Medium",
     "revenuePotential": "Very High",
     "legalRisk": "Medium",
-    "score": 63,
-    "rationale": "Deterministically calculated: Revenue (15/25) + Market (12/20) + Execution (16/20) + Speed (9/15) + Growth (5/10) + Operations (6/10) = 63/100",
+    
+    
     "dateAdded": "2025-06-14",
     "description": "Provides verified B2B leads and cold email setup for outreach campaigns.",
     "productName": "ListKit",
@@ -1980,8 +1980,8 @@
     "passiveness": "High",
     "revenuePotential": "High",
     "legalRisk": "Low",
-    "score": 79,
-    "rationale": "Deterministically calculated: Revenue (25/25) + Market (16/20) + Execution (16/20) + Speed (9/15) + Growth (5/10) + Operations (8/10) = 79/100",
+    
+    
     "dateAdded": "2025-04-13",
     "description": "Tool for getting marketing attribution data into CRM for reporting on lead sources.",
     "productName": "Attributer",
@@ -2015,8 +2015,8 @@
     "passiveness": "Very High",
     "revenuePotential": "Medium",
     "legalRisk": "Low",
-    "score": 78,
-    "rationale": "Deterministically calculated: Revenue (17/25) + Market (20/20) + Execution (15/20) + Speed (11/15) + Growth (5/10) + Operations (10/10) = 78/100",
+    
+    
     "dateAdded": "2024-11-14",
     "description": "Google Sheets add-on that syncs Notion databases with spreadsheets.",
     "productName": "Sync2Sheets",
@@ -2050,8 +2050,8 @@
     "passiveness": "High",
     "revenuePotential": "High",
     "legalRisk": "Low",
-    "score": 84,
-    "rationale": "Deterministically calculated: Revenue (25/25) + Market (16/20) + Execution (14/20) + Speed (11/15) + Growth (10/10) + Operations (8/10) = 84/100",
+    
+    
     "dateAdded": "2024-12-17",
     "description": "Tool for scheduling and previewing content on X and LinkedIn.",
     "productName": "Typefully",
@@ -2085,8 +2085,8 @@
     "passiveness": "Medium",
     "revenuePotential": "Medium",
     "legalRisk": "Low",
-    "score": 61,
-    "rationale": "Deterministically calculated: Revenue (11/25) + Market (10/20) + Execution (16/20) + Speed (11/15) + Growth (5/10) + Operations (8/10) = 61/100",
+    
+    
     "dateAdded": "2025-03-01",
     "description": "Tool for syncing source code with AI enhancements for developers.",
     "productName": "SourceSync",
@@ -2120,8 +2120,8 @@
     "passiveness": "Medium",
     "revenuePotential": "Medium",
     "legalRisk": "Low",
-    "score": 64,
-    "rationale": "Deterministically calculated: Revenue (13/25) + Market (16/20) + Execution (14/20) + Speed (9/15) + Growth (5/10) + Operations (7/10) = 64/100",
+    
+    
     "dateAdded": "2024-09-11",
     "description": "Tool starting from cold email MVP for viral marketing campaigns.",
     "productName": "VirallyBot",
@@ -2155,8 +2155,8 @@
     "passiveness": "Medium",
     "revenuePotential": "High",
     "legalRisk": "Medium",
-    "score": 62,
-    "rationale": "Deterministically calculated: Revenue (25/25) + Market (12/20) + Execution (11/20) + Speed (5/15) + Growth (3/10) + Operations (6/10) = 62/100",
+    
+    
     "dateAdded": "2025-02-05",
     "description": "App for dropshipping operations, built in 5 hours and scaled to $1M ARR.",
     "productName": "DropshipApp",
@@ -2190,8 +2190,8 @@
     "passiveness": "Medium",
     "revenuePotential": "High",
     "legalRisk": "High",
-    "score": 72,
-    "rationale": "Deterministically calculated: Revenue (25/25) + Market (20/20) + Execution (13/20) + Speed (5/15) + Growth (3/10) + Operations (6/10) = 72/100",
+    
+    
     "dateAdded": "2025-07-28",
     "description": "Platform to streamline and optimize tax processes for Americans abroad to reduce tax liabilities.",
     "productName": "SavvyNomad",
@@ -2225,8 +2225,8 @@
     "passiveness": "High",
     "revenuePotential": "High",
     "legalRisk": "Low",
-    "score": 73,
-    "rationale": "Deterministically calculated: Revenue (21/25) + Market (16/20) + Execution (16/20) + Speed (7/15) + Growth (5/10) + Operations (8/10) = 73/100",
+    
+    
     "dateAdded": "2025-07-29",
     "description": "B2B platform that qualifies and follows up with leads to book appointments on autopilot.",
     "productName": "Setter AI",
@@ -2260,8 +2260,8 @@
     "passiveness": "High",
     "revenuePotential": "Medium",
     "legalRisk": "Low",
-    "score": 66,
-    "rationale": "Deterministically calculated: Revenue (11/25) + Market (16/20) + Execution (15/20) + Speed (11/15) + Growth (5/10) + Operations (8/10) = 66/100",
+    
+    
     "dateAdded": "2024-09-12",
     "description": "AI tool to create and optimize Google Search Ads easily.",
     "productName": "Adsby",
@@ -2295,8 +2295,8 @@
     "passiveness": "High",
     "revenuePotential": "High",
     "legalRisk": "Medium",
-    "score": 78,
-    "rationale": "Deterministically calculated: Revenue (21/25) + Market (16/20) + Execution (14/20) + Speed (9/15) + Growth (10/10) + Operations (8/10) = 78/100",
+    
+    
     "dateAdded": "2025-05-15",
     "description": "Real-time social media scraping API for data extraction.",
     "productName": "Scrape Creators",
@@ -2330,8 +2330,8 @@
     "passiveness": "Medium",
     "revenuePotential": "High",
     "legalRisk": "High",
-    "score": 76,
-    "rationale": "Deterministically calculated: Revenue (21/25) + Market (16/20) + Execution (12/20) + Speed (11/15) + Growth (10/10) + Operations (6/10) = 76/100",
+    
+    
     "dateAdded": "2024-10-17",
     "description": "Automates replies to social media mentions using AI.",
     "productName": "ReplyGuy",
@@ -2365,8 +2365,8 @@
     "passiveness": "High",
     "revenuePotential": "Very High",
     "legalRisk": "Low",
-    "score": 64,
-    "rationale": "Deterministically calculated: Revenue (15/25) + Market (12/20) + Execution (16/20) + Speed (9/15) + Growth (5/10) + Operations (7/10) = 64/100",
+    
+    
     "dateAdded": "2024-12-01",
     "description": "AI tool to create SEO-ready articles and done-for-you content services.",
     "productName": "Cuppa",
@@ -2400,8 +2400,8 @@
     "passiveness": "Medium",
     "revenuePotential": "High",
     "legalRisk": "Medium",
-    "score": 69,
-    "rationale": "Deterministically calculated: Revenue (25/25) + Market (16/20) + Execution (13/20) + Speed (6/15) + Growth (3/10) + Operations (6/10) = 69/100",
+    
+    
     "dateAdded": "2025-05-31",
     "description": "OCR and document extraction service using fine-tuned AI models.",
     "productName": "FormX.ai",
@@ -2435,8 +2435,8 @@
     "passiveness": "Very High",
     "revenuePotential": "Medium",
     "legalRisk": "Low",
-    "score": 69,
-    "rationale": "Deterministically calculated: Revenue (11/25) + Market (16/20) + Execution (19/20) + Speed (10/15) + Growth (3/10) + Operations (10/10) = 69/100",
+    
+    
     "dateAdded": "2025-08-01",
     "description": "AI support and knowledge base platform for customer management.",
     "productName": "Answer HQ",
@@ -2470,8 +2470,8 @@
     "passiveness": "High",
     "revenuePotential": "High",
     "legalRisk": "Medium",
-    "score": 80,
-    "rationale": "Deterministically calculated: Revenue (21/25) + Market (16/20) + Execution (16/20) + Speed (9/15) + Growth (10/10) + Operations (8/10) = 80/100",
+    
+    
     "dateAdded": "2024-09-15",
     "description": "Social platform for sharing trades and tracking investment portfolios.",
     "productName": "NVSTly",
@@ -2505,8 +2505,8 @@
     "passiveness": "High",
     "revenuePotential": "Medium",
     "legalRisk": "Low",
-    "score": 75,
-    "rationale": "Deterministically calculated: Revenue (11/25) + Market (20/20) + Execution (19/20) + Speed (11/15) + Growth (5/10) + Operations (9/10) = 75/100",
+    
+    
     "dateAdded": "2024-10-01",
     "description": "Tool for tracking investments across global markets without coding.",
     "productName": "Strabo",
@@ -2540,8 +2540,8 @@
     "passiveness": "High",
     "revenuePotential": "High",
     "legalRisk": "Medium",
-    "score": 71,
-    "rationale": "Deterministically calculated: Revenue (19/25) + Market (16/20) + Execution (16/20) + Speed (7/15) + Growth (5/10) + Operations (8/10) = 71/100",
+    
+    
     "dateAdded": "2024-11-05",
     "description": "Tool for analyzing and managing real estate investments.",
     "productName": "BrightInvestor",
@@ -2575,8 +2575,8 @@
     "passiveness": "Very High",
     "revenuePotential": "Medium",
     "legalRisk": "Low",
-    "score": 76,
-    "rationale": "Deterministically calculated: Revenue (11/25) + Market (20/20) + Execution (19/20) + Speed (11/15) + Growth (5/10) + Operations (10/10) = 76/100",
+    
+    
     "dateAdded": "2024-09-11",
     "description": "Investment portfolio tracker for dividend-focused investors.",
     "productName": "Beanvest",
@@ -2610,8 +2610,8 @@
     "passiveness": "High",
     "revenuePotential": "Medium",
     "legalRisk": "Low",
-    "score": 71,
-    "rationale": "Deterministically calculated: Revenue (15/25) + Market (16/20) + Execution (16/20) + Speed (11/15) + Growth (5/10) + Operations (8/10) = 71/100",
+    
+    
     "dateAdded": "2024-12-01",
     "description": "Tool for unlocking stock insights and analysis.",
     "productName": "StockUnlocks",
@@ -2645,8 +2645,8 @@
     "passiveness": "Medium",
     "revenuePotential": "High",
     "legalRisk": "Low",
-    "score": 77,
-    "rationale": "European-focused portfolio tracker with proven revenue; high SEO dependency creates customer acquisition risk; quick path to first revenue (7 days); simple to market and explain.",
+    
+    
     "dateAdded": "2024-12-19",
     "description": "Portfolio tracker for investments in Europe.",
     "productName": "Finary",
@@ -2680,8 +2680,8 @@
     "passiveness": "High",
     "revenuePotential": "Low",
     "legalRisk": "Low",
-    "score": 61,
-    "rationale": "Deterministically calculated: Revenue (9/25) + Market (12/20) + Execution (15/20) + Speed (11/15) + Growth (5/10) + Operations (9/10) = 61/100",
+    
+    
     "dateAdded": "2025-01-15",
     "description": "App for personal budgeting and expense tracking.",
     "productName": "MoneyWell",
@@ -2715,8 +2715,8 @@
     "passiveness": "Very High",
     "revenuePotential": "Medium",
     "legalRisk": "Low",
-    "score": 80,
-    "rationale": "Deterministically calculated: Revenue (13/25) + Market (20/20) + Execution (19/20) + Speed (13/15) + Growth (5/10) + Operations (10/10) = 80/100",
+    
+    
     "dateAdded": "2024-08-02",
     "description": "Calculator for financial independence and early retirement planning.",
     "productName": "FIRECalc",
@@ -2750,8 +2750,8 @@
     "passiveness": "High",
     "revenuePotential": "High",
     "legalRisk": "Medium",
-    "score": 70,
-    "rationale": "Advanced FIRE tool with strong community validation but higher build complexity; high SEO dependency creates customer acquisition risk.",
+    
+    
     "dateAdded": "2025-06-15",
     "description": "Simulator for financial independence and early retirement planning.",
     "productName": "ProjectionLab",
@@ -2785,8 +2785,8 @@
     "passiveness": "High",
     "revenuePotential": "High",
     "legalRisk": "Medium",
-    "score": 69,
-    "rationale": "Deterministically calculated: Revenue (13/25) + Market (20/20) + Execution (14/20) + Speed (9/15) + Growth (5/10) + Operations (8/10) = 69/100",
+    
+    
     "dateAdded": "2025-01-01",
     "description": "Provides lead data for local blue-collar businesses by scraping non-LinkedIn sources.",
     "productName": "AuditCity",
@@ -2820,8 +2820,8 @@
     "passiveness": "Very High",
     "revenuePotential": "High",
     "legalRisk": "Low",
-    "score": 74,
-    "rationale": "Deterministically calculated: Revenue (13/25) + Market (16/20) + Execution (19/20) + Speed (11/15) + Growth (5/10) + Operations (10/10) = 74/100",
+    
+    
     "dateAdded": "2024-12-24",
     "description": "Converts various file formats to clean markdown optimized for AI/LLM systems.",
     "productName": "AnyDocsAI",
@@ -2855,8 +2855,8 @@
     "passiveness": "High",
     "revenuePotential": "Medium",
     "legalRisk": "Medium",
-    "score": 69,
-    "rationale": "Deterministically calculated: Revenue (9/25) + Market (16/20) + Execution (19/20) + Speed (11/15) + Growth (5/10) + Operations (9/10) = 69/100",
+    
+    
     "dateAdded": "2024-12-31",
     "description": "AI tool for generating and managing backlinks.",
     "productName": "Backlink-Bot",
@@ -2890,8 +2890,8 @@
     "passiveness": "Medium",
     "revenuePotential": "Medium",
     "legalRisk": "Low",
-    "score": 52,
-    "rationale": "Deterministically calculated: Revenue (7/25) + Market (10/20) + Execution (16/20) + Speed (7/15) + Growth (5/10) + Operations (7/10) = 52/100",
+    
+    
     "dateAdded": "2024-10-26",
     "description": "Guides users to generate and validate business ideas with AI assistance.",
     "productName": "Build TBD",
@@ -2925,8 +2925,8 @@
     "passiveness": "High",
     "revenuePotential": "High",
     "legalRisk": "Low",
-    "score": 73,
-    "rationale": "Deterministically calculated: Revenue (21/25) + Market (16/20) + Execution (16/20) + Speed (7/15) + Growth (5/10) + Operations (8/10) = 73/100",
+    
+    
     "dateAdded": "2023-05-06",
     "description": "AI chatbot for websites trained on content to answer visitor questions.",
     "productName": "SiteGPT",
@@ -2960,8 +2960,8 @@
     "passiveness": "Very High",
     "revenuePotential": "Medium",
     "legalRisk": "Low",
-    "score": 66,
-    "rationale": "Deterministically calculated: Revenue (9/25) + Market (10/20) + Execution (17/20) + Speed (15/15) + Growth (5/10) + Operations (10/10) = 66/100",
+    
+    
     "dateAdded": "2023-01-22",
     "description": "Automated Twitter bookmark organizer in Notion, using GPT-3 to tag with keywords.",
     "productName": "Bookmarkerr",
@@ -2995,8 +2995,8 @@
     "passiveness": "High",
     "revenuePotential": "Medium",
     "legalRisk": "Low",
-    "score": 67,
-    "rationale": "Deterministically calculated: Revenue (9/25) + Market (10/20) + Execution (19/20) + Speed (15/15) + Growth (5/10) + Operations (9/10) = 67/100",
+    
+    
     "dateAdded": "2023-09-24",
     "description": "Fully automated bug-hunting service using Notion for management and GPT for finding bugs.",
     "productName": "CrashTrap",
@@ -3030,8 +3030,8 @@
     "passiveness": "High",
     "revenuePotential": "High",
     "legalRisk": "Low",
-    "score": 80,
-    "rationale": "Deterministically calculated: Revenue (25/25) + Market (12/20) + Execution (14/20) + Speed (11/15) + Growth (10/10) + Operations (8/10) = 80/100",
+    
+    
     "dateAdded": "2023-11-22",
     "description": "Social media analytics tool for agencies and managers.",
     "productName": "Pallyy",
@@ -3065,8 +3065,8 @@
     "passiveness": "High",
     "revenuePotential": "Medium",
     "legalRisk": "Low",
-    "score": 68,
-    "rationale": "Deterministically calculated: Revenue (13/25) + Market (16/20) + Execution (19/20) + Speed (7/15) + Growth (5/10) + Operations (8/10) = 68/100",
+    
+    
     "dateAdded": "2023-03-16",
     "description": "AI chatbot for documentation and support.",
     "productName": "DocsBot",
@@ -3100,8 +3100,8 @@
     "passiveness": "High",
     "revenuePotential": "Medium",
     "legalRisk": "Low",
-    "score": 71,
-    "rationale": "Deterministically calculated: Revenue (11/25) + Market (16/20) + Execution (19/20) + Speed (11/15) + Growth (5/10) + Operations (9/10) = 71/100",
+    
+    
     "dateAdded": "2023-06-02",
     "description": "Fully automated chatbot for websites, generated from URL in <1 min.",
     "productName": "Automatic Chat",
@@ -3135,8 +3135,8 @@
     "passiveness": "High",
     "revenuePotential": "High",
     "legalRisk": "Low",
-    "score": 62,
-    "rationale": "Deterministically calculated: Revenue (13/25) + Market (16/20) + Execution (16/20) + Speed (8/15) + Growth (1/10) + Operations (8/10) = 62/100",
+    
+    
     "dateAdded": "2024-09-25",
     "description": "Product analytics platform for AI products with slack digests, topic detection, filtering, and semantic redaction.",
     "productName": "Dawn Analytics",
@@ -3170,8 +3170,8 @@
     "passiveness": "Very High",
     "revenuePotential": "Medium",
     "legalRisk": "Low",
-    "score": 62,
-    "rationale": "Deterministically calculated: Revenue (9/25) + Market (16/20) + Execution (19/20) + Speed (7/15) + Growth (1/10) + Operations (10/10) = 62/100",
+    
+    
     "dateAdded": "2024-09-30",
     "description": "Analytics tool for founders to analyze traffic, marketing channels, and product focus.",
     "productName": "Datafa.st",
@@ -3205,8 +3205,8 @@
     "passiveness": "High",
     "revenuePotential": "Medium",
     "legalRisk": "Low",
-    "score": 66,
-    "rationale": "Deterministically calculated: Revenue (9/25) + Market (20/20) + Execution (16/20) + Speed (8/15) + Growth (5/10) + Operations (8/10) = 66/100",
+    
+    
     "dateAdded": "2025-03-10",
     "description": "Server-side tool to track AI crawler traffic on websites that traditional analytics miss.",
     "productName": "AI Traffic Analytics",
@@ -3240,8 +3240,8 @@
     "passiveness": "Very High",
     "revenuePotential": "High",
     "legalRisk": "Low",
-    "score": 66,
-    "rationale": "Deterministically calculated: Revenue (13/25) + Market (16/20) + Execution (19/20) + Speed (7/15) + Growth (1/10) + Operations (10/10) = 66/100",
+    
+    
     "dateAdded": "2025-07-30",
     "description": "AI tool that converts Excel files into reports with charts, insights, and recommendations.",
     "productName": "Graphed",
@@ -3275,8 +3275,8 @@
     "passiveness": "High",
     "revenuePotential": "High",
     "legalRisk": "Low",
-    "score": 53,
-    "rationale": "Deterministically calculated: Revenue (11/25) + Market (16/20) + Execution (14/20) + Speed (3/15) + Growth (1/10) + Operations (8/10) = 53/100",
+    
+    
     "dateAdded": "2025-02-18",
     "description": "Tool that integrates business data from sources like Salesforce, Zendesk, Slack for AI-generated insights and reports.",
     "productName": "Huxe",
@@ -3310,8 +3310,8 @@
     "passiveness": "Medium",
     "revenuePotential": "High",
     "legalRisk": "Low",
-    "score": 53,
-    "rationale": "Deterministically calculated: Revenue (11/25) + Market (16/20) + Execution (13/20) + Speed (6/15) + Growth (1/10) + Operations (6/10) = 53/100",
+    
+    
     "dateAdded": "2025-07-17",
     "description": "Evaluation, experimentation, and observability platform for AI agents with graph views, insights engine, and guardrails.",
     "productName": "Galileo Agent Reliability",
@@ -3345,8 +3345,8 @@
     "passiveness": "High",
     "revenuePotential": "Medium",
     "legalRisk": "Low",
-    "score": 52,
-    "rationale": "Deterministically calculated: Revenue (7/25) + Market (12/20) + Execution (16/20) + Speed (3/15) + Growth (6/10) + Operations (8/10) = 52/100",
+    
+    
     "dateAdded": "2025-02-21",
     "description": "Network of specialized AI models and agents for analytics and reporting automation.",
     "productName": "Assisterr",
@@ -3380,8 +3380,8 @@
     "passiveness": "High",
     "revenuePotential": "High",
     "legalRisk": "Low",
-    "score": 59,
-    "rationale": "Deterministically calculated: Revenue (13/25) + Market (16/20) + Execution (16/20) + Speed (5/15) + Growth (1/10) + Operations (8/10) = 59/100",
+    
+    
     "dateAdded": "2025-02-24",
     "description": "Analytics tool for SaaS including KPI reporting, product analytics, and attribution.",
     "productName": "Triple Whale for SaaS",
@@ -3415,8 +3415,8 @@
     "passiveness": "High",
     "revenuePotential": "Medium",
     "legalRisk": "Low",
-    "score": 47,
-    "rationale": "Deterministically calculated: Revenue (7/25) + Market (10/20) + Execution (16/20) + Speed (5/15) + Growth (1/10) + Operations (8/10) = 47/100",
+    
+    
     "dateAdded": "2024-11-04",
     "description": "Automated AI system to analyze case studies for enterprise AI implementations and generate reports.",
     "productName": "AI Case Study Analyzer",
@@ -3450,8 +3450,8 @@
     "passiveness": "High",
     "revenuePotential": "Medium",
     "legalRisk": "Very Low",
-    "score": 68,
-    "rationale": "Deterministically calculated: Revenue (19/25) + Market (20/20) + Execution (4/20) + Speed (9/15) + Growth (8/10) + Operations (8/10) = 68/100",
+    
+    
     "dateAdded": "2024-09-25",
     "description": "Simplest way to host and share web projects instantly.",
     "productName": "Tiiny Host",
@@ -3482,8 +3482,8 @@
     "passiveness": "Medium",
     "revenuePotential": "High",
     "legalRisk": "Low",
-    "score": 59,
-    "rationale": "Deterministically calculated: Revenue (21/25) + Market (16/20) + Execution (2/20) + Speed (6/15) + Growth (8/10) + Operations (6/10) = 59/100",
+    
+    
     "dateAdded": "2025-04-09",
     "description": "Tool to help grow presence on LinkedIn.",
     "productName": "PostViral",
@@ -3514,8 +3514,8 @@
     "passiveness": "Medium",
     "revenuePotential": "High",
     "legalRisk": "Low",
-    "score": 47,
-    "rationale": "Deterministically calculated: Revenue (17/25) + Market (12/20) + Execution (4/20) + Speed (5/15) + Growth (3/10) + Operations (6/10) = 47/100",
+    
+    
     "dateAdded": "2025-04-21",
     "description": "All-in-one affordable SEO tool.",
     "productName": "Clicks.so",
@@ -3546,8 +3546,8 @@
     "passiveness": "Medium",
     "revenuePotential": "Medium",
     "legalRisk": "Low",
-    "score": 51,
-    "rationale": "Deterministically calculated: Revenue (19/25) + Market (16/20) + Execution (0/20) + Speed (6/15) + Growth (3/10) + Operations (7/10) = 51/100",
+    
+    
     "dateAdded": "2024-11-07",
     "description": "Plugin to import data from anywhere into Airtable.",
     "productName": "Data Fetcher",
@@ -3578,8 +3578,8 @@
     "passiveness": "High",
     "revenuePotential": "Medium",
     "legalRisk": "Low",
-    "score": 68,
-    "rationale": "Deterministically calculated: Revenue (17/25) + Market (20/20) + Execution (4/20) + Speed (13/15) + Growth (5/10) + Operations (9/10) = 68/100",
+    
+    
     "dateAdded": "2025-07-31",
     "description": "AI tool to auto-generate SEO meta descriptions.",
     "productName": "Unnamed SEO Meta Generator",
@@ -3610,8 +3610,8 @@
     "passiveness": "Low",
     "revenuePotential": "High",
     "legalRisk": "Medium",
-    "score": 49,
-    "rationale": "Deterministically calculated: Revenue (19/25) + Market (16/20) + Execution (2/20) + Speed (6/15) + Growth (1/10) + Operations (5/10) = 49/100",
+    
+    
     "dateAdded": "2025-07-02",
     "description": "AI tool for dropshipping product management and affiliate acquisition.",
     "productName": "Dropmagic AI",
@@ -3642,8 +3642,8 @@
     "passiveness": "Low",
     "revenuePotential": "Very High",
     "legalRisk": "Low",
-    "score": 39,
-    "rationale": "Deterministically calculated: Revenue (15/25) + Market (12/20) + Execution (4/20) + Speed (3/15) + Growth (1/10) + Operations (4/10) = 39/100",
+    
+    
     "dateAdded": "2024-12-04",
     "description": "Online form builder for forms, eCommerce pages, appointments.",
     "productName": "Paperform",

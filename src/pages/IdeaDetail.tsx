@@ -11,6 +11,7 @@ import {
 } from 'lucide-react';
 import RadialChart from '../components/RadialChart';
 import { useMicroSaasStore } from '../stores/microSaasStore';
+import { calculateDeterministicScore } from '../utils/scoring';
 
 // Animated counter component
 const AnimatedCounter: React.FC<{ value: number; suffix?: string; prefix?: string; duration?: number }> = ({ 
@@ -156,7 +157,7 @@ const IdeaDetail: React.FC = () => {
   const truncatedDescription = description.length > 200 ? description.substring(0, 200) + '...' : description;
 
   // Calculate progress percentages
-  const scorePercentage = (idea.score / 100) * 100;
+  const scorePercentage = (calculateDeterministicScore(idea) / 100) * 100;
 
   // Check for AI-powered
   const isAiPowered = idea.niche.toLowerCase().includes('ai') || 
@@ -167,7 +168,7 @@ const IdeaDetail: React.FC = () => {
   const achievements = [];
   if (idea.mrr >= 10000) achievements.push({ icon: Trophy, label: '$10K+ MRR', color: 'text-yellow-400' });
   if (idea.mrr >= 5000) achievements.push({ icon: Award, label: '$5K+ MRR', color: 'text-purple-400' });
-  if (idea.score >= 80) achievements.push({ icon: Star, label: 'High Score', color: 'text-blue-400' });
+  if (calculateDeterministicScore(idea) >= 80) achievements.push({ icon: Star, label: 'High Score', color: 'text-blue-400' });
   if (idea.marketProof === 'Yes') achievements.push({ icon: CheckCircle2, label: 'Market Proven', color: 'text-green-400' });
   if (isAiPowered) achievements.push({ icon: Bot, label: 'AI-Powered', color: 'text-purple-400' });
   if (idea.mvpWk <= 4) achievements.push({ icon: Zap, label: 'Quick MVP', color: 'text-orange-400' });
@@ -304,7 +305,7 @@ const IdeaDetail: React.FC = () => {
                   <div className="glass-card rounded-xl p-4 text-center hover:scale-105 transition-transform group">
                     <Gauge className="w-6 h-6 text-purple-400 mx-auto mb-2 group-hover:animate-spin" />
                     <div className="text-3xl font-bold text-white">
-                      <AnimatedCounter value={idea.score} />
+                      <AnimatedCounter value={calculateDeterministicScore(idea)} />
                     </div>
                     <div className="text-xs text-slate-400 uppercase tracking-wider">Score</div>
                   </div>

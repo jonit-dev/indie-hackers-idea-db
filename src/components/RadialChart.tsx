@@ -1,5 +1,6 @@
 import React from 'react';
 import { MicroSaasIdea } from '../types/idea';
+import { calculateDeterministicScore } from '../utils/scoring';
 import { Radar } from 'react-chartjs-2';
 import {
   Chart as ChartJS,
@@ -85,7 +86,7 @@ const RadialChart: React.FC<RadialChartProps> = ({ idea, size = 200, className =
 
   // Calculate overall potential score for color determination
   const scores = [
-    idea.score,
+    calculateDeterministicScore(idea),
     getCompetitionScore(idea.comp),
     getComplexityScore(idea.complexity),
     getPlatformDepScore(idea.platDep),
@@ -122,7 +123,7 @@ const RadialChart: React.FC<RadialChartProps> = ({ idea, size = 200, className =
     }
   };
   
-  const colors = getColor(idea.score);
+  const colors = getColor(calculateDeterministicScore(idea));
 
   // Get score text color class based on the score
   const getScoreTextColor = (score: number) => {
@@ -224,8 +225,8 @@ const RadialChart: React.FC<RadialChartProps> = ({ idea, size = 200, className =
       
       {/* Score display in center of chart */}
       <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 pointer-events-none">
-        <div className={`text-xl font-bold bg-gradient-to-r ${getScoreTextColor(idea.score)} bg-clip-text text-transparent text-center`}>
-          {idea.score}
+        <div className={`text-xl font-bold bg-gradient-to-r ${getScoreTextColor(calculateDeterministicScore(idea))} bg-clip-text text-transparent text-center`}>
+          {calculateDeterministicScore(idea)}
         </div>
       </div>
     </div>
