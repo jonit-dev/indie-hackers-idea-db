@@ -237,6 +237,41 @@ const IdeasTable: React.FC<IdeasTableProps> = memo(({ ideas, onRowClick }) => {
     return 'text-red-400';
   };
 
+  const getSeoDepColor = (dep: string) => {
+    switch (dep) {
+      case "None": return "text-green-400 bg-green-500/20 border-green-500/30";
+      case "Low": return "text-blue-400 bg-blue-500/20 border-blue-500/30";
+      case "Medium": return "text-orange-400 bg-orange-500/20 border-orange-500/30";
+      case "High": return "text-red-400 bg-red-500/20 border-red-500/30";
+      default: return "text-slate-400 bg-slate-500/20 border-slate-500/30";
+    }
+  };
+
+  const getFirstDollarColor = (days: number) => {
+    if (days <= 7) return "text-green-400";
+    if (days <= 14) return "text-blue-400";
+    if (days <= 21) return "text-orange-400";
+    return "text-red-400";
+  };
+
+  const getMarketingEaseColor = (ease: string) => {
+    switch (ease) {
+      case "Easy": return "text-green-400 bg-green-500/20 border-green-500/30";
+      case "Medium": return "text-orange-400 bg-orange-500/20 border-orange-500/30";
+      case "Hard": return "text-red-400 bg-red-500/20 border-red-500/30";
+      default: return "text-slate-400 bg-slate-500/20 border-slate-500/30";
+    }
+  };
+
+  const getNetworkEffectsColor = (effects: string) => {
+    switch (effects) {
+      case "Strong": return "text-green-400 bg-green-500/20 border-green-500/30";
+      case "Weak": return "text-orange-400 bg-orange-500/20 border-orange-500/30";
+      case "None": return "text-slate-400 bg-slate-500/20 border-slate-500/30";
+      default: return "text-slate-400 bg-slate-500/20 border-slate-500/30";
+    }
+  };
+
 
   if (ideas.length === 0) {
     return (
@@ -365,6 +400,38 @@ const IdeasTable: React.FC<IdeasTableProps> = memo(({ ideas, onRowClick }) => {
               <Tooltip text="Monthly maintenance hours (goal ≤ 10)">
                 <div className="flex items-center gap-1 cursor-help justify-center">
                   Maintenance
+                  <HelpCircle className="w-3 h-3 opacity-60" />
+                </div>
+              </Tooltip>
+            </SortableHeader>
+            <SortableHeader field="seoDep" className="text-center py-2 px-2 text-xs font-semibold text-slate-400 uppercase tracking-wider w-20">
+              <Tooltip text="SEO dependency for customer acquisition (None/Low/Med/High)">
+                <div className="flex items-center gap-1 cursor-help justify-center">
+                  SEO Dep.
+                  <HelpCircle className="w-3 h-3 opacity-60" />
+                </div>
+              </Tooltip>
+            </SortableHeader>
+            <SortableHeader field="firstDollarDays" className="text-center py-2 px-2 text-xs font-semibold text-slate-400 uppercase tracking-wider w-20">
+              <Tooltip text="Days to earn first revenue (lower is better)">
+                <div className="flex items-center gap-1 cursor-help justify-center">
+                  First $
+                  <HelpCircle className="w-3 h-3 opacity-60" />
+                </div>
+              </Tooltip>
+            </SortableHeader>
+            <SortableHeader field="marketingEase" className="text-center py-2 px-2 text-xs font-semibold text-slate-400 uppercase tracking-wider w-20">
+              <Tooltip text="How easy it is to market and explain (Hard/Med/Easy)">
+                <div className="flex items-center gap-1 cursor-help justify-center">
+                  Marketing
+                  <HelpCircle className="w-3 h-3 opacity-60" />
+                </div>
+              </Tooltip>
+            </SortableHeader>
+            <SortableHeader field="networkEffects" className="text-center py-2 px-2 text-xs font-semibold text-slate-400 uppercase tracking-wider w-20">
+              <Tooltip text="Whether product gets more valuable with more users (None/Weak/Strong)">
+                <div className="flex items-center gap-1 cursor-help justify-center">
+                  Network
                   <HelpCircle className="w-3 h-3 opacity-60" />
                 </div>
               </Tooltip>
@@ -543,6 +610,29 @@ const IdeasTable: React.FC<IdeasTableProps> = memo(({ ideas, onRowClick }) => {
                       {idea.maintHours}
                     </span>
                   </div>
+                </td>
+                <td className="text-center py-2 px-2">
+                  <span className={`px-1.5 py-0.5 rounded text-xs font-medium border ${getSeoDepColor(idea.seoDep)}`}>
+                    {idea.seoDep}
+                  </span>
+                </td>
+                <td className="text-center py-2 px-2">
+                  <div className="flex items-center justify-center gap-1">
+                    <Clock className={`w-3 h-3 ${getFirstDollarColor(idea.firstDollarDays)}`} />
+                    <span className={`font-semibold text-xs ${getFirstDollarColor(idea.firstDollarDays)}`}>
+                      {idea.firstDollarDays}d
+                    </span>
+                  </div>
+                </td>
+                <td className="text-center py-2 px-2">
+                  <span className={`px-1.5 py-0.5 rounded text-xs font-medium border ${getMarketingEaseColor(idea.marketingEase)}`}>
+                    {idea.marketingEase}
+                  </span>
+                </td>
+                <td className="text-center py-2 px-2">
+                  <span className={`px-1.5 py-0.5 rounded text-xs font-medium border ${getNetworkEffectsColor(idea.networkEffects)}`}>
+                    {idea.networkEffects}
+                  </span>
                 </td>
                 <td className="text-center py-2 px-2">
                   <span className="text-slate-300 text-xs font-medium">
